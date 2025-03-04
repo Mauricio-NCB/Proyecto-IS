@@ -144,6 +144,7 @@
         <COMPID name="Buscar cliente" mc="Standard.UseCase" uid="ec2d9e2a-4349-41f5-ba6b-2bc6c1287610"/>
         <COMPID name="Mostrar todos los clientes" mc="Standard.UseCase" uid="b23887d2-c0e0-4106-bf42-e26597be5f12"/>
         <COMPID name="Usuario" mc="Standard.Actor" uid="fc914e32-1fe0-4462-aacb-59d901b6828b"/>
+        <COMPID name="Venta" mc="Standard.Class" uid="e091cff1-70b3-4080-a5d9-36da8373a2f1"/>
       </COMP>
       <COMP relation="Product">
         <COMPID name="proyecto Class diagram" mc="Standard.ClassDiagram" uid="c4605c0b-d96f-462b-bb4b-fea19bd9a994"/>
