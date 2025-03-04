@@ -1,0 +1,158 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="proyecto" version="4">
+  <OBJECT>
+    <ID name="proyecto" mc="Standard.Package" uid="0750b6d0-30ad-4c12-a21c-d4d606f4390c"/>
+    <PID name="Proyecto" mc="Standard.Project" uid="59bd24ab-af1b-4665-bf38-c0350ee8bdfb"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[proyecto]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="Producto" mc="Standard.Class" uid="5e694bfa-ceb8-4db4-85bf-ff2a69c2959f"/>
+        <COMPID name="Cliente" mc="Standard.Class" uid="cdf49310-6a92-4c05-ba8f-f4eb20c7674e"/>
+        <COMPID name="Empleado" mc="Standard.Class" uid="01f9bc95-ffd2-4b65-a368-37c0125aaf9c"/>
+        <COMPID name="Factura" mc="Standard.Class" uid="6e7e07dd-b906-4e3c-85b4-9e2b3624241f"/>
+        <COMPID name="Envio" mc="Standard.Class" uid="26d94a5a-426d-43df-b764-256cd33f72f2"/>
+        <COMPID name="Dependiente" mc="Standard.Class" uid="7873372e-f8f9-4144-869f-aac7d3665a40"/>
+        <COMPID name="Director" mc="Standard.Class" uid="664d1f2c-587f-43ea-919e-4e8caf546f79"/>
+        <COMPID name="Poster" mc="Standard.Class" uid="af853eec-3f1b-428b-9392-6cf57f874cbd"/>
+        <COMPID name="Camiseta" mc="Standard.Class" uid="96c1d5af-d097-4bf1-9046-b010eaaa9a84"/>
+        <COMPID name="Entrada" mc="Standard.Class" uid="bc02bda4-f549-4186-a437-c208c06daab6"/>
+        <COMPID name="Juguete" mc="Standard.Class" uid="1d65d027-f262-4917-8336-f04a2323a1b2"/>
+        <OBJECT>
+          <ID name="TipoJuguete" mc="Standard.Enumeration" uid="7dd6c53c-77d4-4142-9ec9-4420a8bb9136"/>
+          <ATTRIBUTES>
+            <ATT name="IsElementary">true</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="IsLeaf">false</ATT>
+            <ATT name="IsRoot">false</ATT>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="Name"><![CDATA[TipoJuguete]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Extension">
+              <FOREIGNID name="JavaEnumeration" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0262-0000-000000000000"/>
+            </LINK>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="4ec9a601-1611-402a-b841-f92f98c6e534"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[<Enter note text here>]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="TipoTamaño" mc="Standard.Enumeration" uid="f1057142-5eeb-46bd-bd7a-8ca36c68a2f8"/>
+          <ATTRIBUTES>
+            <ATT name="IsElementary">true</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="IsLeaf">false</ATT>
+            <ATT name="IsRoot">false</ATT>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="Name"><![CDATA[TipoTamaño]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Extension">
+              <FOREIGNID name="JavaEnumeration" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0262-0000-000000000000"/>
+            </LINK>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="ebe3154e-98a0-42ac-80f1-911d9df07fb7"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[<Enter note text here>]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="TipoCargo" mc="Standard.Enumeration" uid="bad7b304-ae47-4c9f-8d02-8c926ffefeab"/>
+          <ATTRIBUTES>
+            <ATT name="IsElementary">true</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="IsLeaf">false</ATT>
+            <ATT name="IsRoot">false</ATT>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="Name"><![CDATA[TipoCargo]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Extension">
+              <FOREIGNID name="JavaEnumeration" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0262-0000-000000000000"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <COMPID name="Abrir venta" mc="Standard.UseCase" uid="5dcc1d92-f67b-46bd-a8cc-10707761a7ef"/>
+        <COMPID name="Usuario" mc="Standard.Actor" uid="2fcc36f9-c09e-4b19-896e-a985d79b593a"/>
+        <COMPID name="Cerrar venta" mc="Standard.UseCase" uid="aab7431c-c236-4cb9-9d08-f6d80af8c6b2"/>
+        <COMPID name="Mostrar todas las facturas" mc="Standard.UseCase" uid="2284af46-2de1-4aa6-8484-cdb73fbe0e0d"/>
+        <COMPID name="Añadir pedido" mc="Standard.UseCase" uid="c572cb59-4f10-400b-9e10-86d9472c627f"/>
+        <COMPID name="Mostrar Factura" mc="Standard.UseCase" uid="a1e2fafe-dc6e-48e8-93ec-db7c91c8267c"/>
+        <COMPID name="Usuario" mc="Standard.Actor" uid="807970c1-b529-4318-869a-66e59bd1b0f5"/>
+        <COMPID name="Modificar empleado" mc="Standard.UseCase" uid="9169f7e2-13fe-46e6-a0dc-82b9a9d80a52"/>
+        <COMPID name="Mostrar empleado" mc="Standard.UseCase" uid="bb9e491e-5c89-49f2-b839-9852541d78be"/>
+        <COMPID name="Mostrar empleados" mc="Standard.UseCase" uid="52102e63-e85f-433f-93bc-433437799923"/>
+        <COMPID name="Eliminar empleado" mc="Standard.UseCase" uid="bccbbfa9-b891-4784-975c-5dc0f4710098"/>
+        <COMPID name="Añadir empleado" mc="Standard.UseCase" uid="5ee17e0a-e4fe-477b-9e21-d9e5ecd54187"/>
+        <COMPID name="Añadir cliente" mc="Standard.UseCase" uid="fb7e2f7e-26be-401d-ab1b-e3c8274f6ab4"/>
+        <COMPID name="Eliminar cliente" mc="Standard.UseCase" uid="d3d157ea-8005-457d-82f7-f3cd62f36440"/>
+        <COMPID name="Actualizar datos cliente" mc="Standard.UseCase" uid="24a10848-6166-4eca-a455-3844e519f52c"/>
+        <COMPID name="Buscar cliente" mc="Standard.UseCase" uid="524e7c9d-506a-4b62-8528-1e0d480a8b8a"/>
+        <COMPID name="Mostrar todos los clientes" mc="Standard.UseCase" uid="164cf9b7-22f1-4d8e-a110-ffa970c1d251"/>
+        <COMPID name="Admin" mc="Standard.Actor" uid="5462d98e-5982-4dc1-8099-dd746e1e315a"/>
+        <COMPID name="Cliente" mc="Standard.Actor" uid="e0ff76c7-bf95-4d3a-9bae-1238232fd82b"/>
+        <COMPID name="Añadir producto" mc="Standard.UseCase" uid="21336411-2b94-47f2-9f11-b4a2e5fd9ad3"/>
+        <COMPID name="Modificar detalles producto" mc="Standard.UseCase" uid="4ca0ef60-0c75-4252-94d1-6d080f2285f0"/>
+        <COMPID name="Eliminar producto" mc="Standard.UseCase" uid="aa4dc647-6446-47a4-b625-d3bf8f15b06a"/>
+        <COMPID name="Mostrar producto" mc="Standard.UseCase" uid="9160a457-734c-4f24-b79a-912be29cee69"/>
+        <COMPID name="Mostrar todos los productos" mc="Standard.UseCase" uid="e5e2a1a9-3ad3-4904-86e1-3d49706c01d9"/>
+        <COMPID name="Usuario" mc="Standard.Actor" uid="87c49564-32d2-493f-9896-e67c86655d2f"/>
+        <COMPID name="Crear envío" mc="Standard.UseCase" uid="0dd7cf6e-45fa-44a1-8435-5967ce57c587"/>
+        <COMPID name="Mostrar envío" mc="Standard.UseCase" uid="7d22505b-c116-47cd-a4e9-5cddf37fca29"/>
+        <COMPID name="Mostrar envíos filtrados" mc="Standard.UseCase" uid="b1f8e652-1459-4c95-8c9c-7fee0f33db98"/>
+        <COMPID name="Actualizar dirección de envío" mc="Standard.UseCase" uid="1d3a94b0-6fae-40ac-8c1e-3d06955180fb"/>
+        <COMPID name="Mostrar todos los envíos" mc="Standard.UseCase" uid="3bfd5977-4cfc-4beb-aa19-e273bbb41d89"/>
+        <COMPID name="Añadir cliente" mc="Standard.UseCase" uid="c563d382-8f94-4c32-8cc9-0778d7cc357b"/>
+        <COMPID name="Eliminar cliente" mc="Standard.UseCase" uid="ba2bf8ff-15dc-409c-80a9-38e9de14a42c"/>
+        <COMPID name="Actualizar datos cliente" mc="Standard.UseCase" uid="9fa365de-eeda-46cc-a24b-77fb4f47ea5a"/>
+        <COMPID name="Buscar cliente" mc="Standard.UseCase" uid="ec2d9e2a-4349-41f5-ba6b-2bc6c1287610"/>
+        <COMPID name="Mostrar todos los clientes" mc="Standard.UseCase" uid="b23887d2-c0e0-4106-bf42-e26597be5f12"/>
+        <COMPID name="Usuario" mc="Standard.Actor" uid="fc914e32-1fe0-4462-aacb-59d901b6828b"/>
+      </COMP>
+      <COMP relation="Product">
+        <COMPID name="proyecto Class diagram" mc="Standard.ClassDiagram" uid="c4605c0b-d96f-462b-bb4b-fea19bd9a994"/>
+        <COMPID name="Caso de Uso: Facturas" mc="Standard.UseCaseDiagram" uid="7354425e-19f3-4834-8193-3bf9024e1375"/>
+        <COMPID name="Caso de Uso: Empleados" mc="Standard.UseCaseDiagram" uid="0c990f40-a1bf-42a3-9ddc-7ec6fe1a5ebe"/>
+        <COMPID name="Caso de Uso: Productos" mc="Standard.UseCaseDiagram" uid="e8d15433-f660-4f64-b17a-a3f8a9a4d237"/>
+        <COMPID name="Caso de Uso: Envios" mc="Standard.UseCaseDiagram" uid="979b8d17-6722-454e-920e-da160f005c52"/>
+        <COMPID name="Caso de Uso: Clientes" mc="Standard.UseCaseDiagram" uid="e3645dc2-6d7d-4e84-94c7-fc89e7ac7470"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
