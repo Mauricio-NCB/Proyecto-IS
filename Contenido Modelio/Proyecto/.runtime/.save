@@ -1,4 +1,4 @@
-#Tue Mar 04 10:09:40 CET 2025
+#Thu Mar 13 12:47:00 CET 2025
 org.modelio.app.module.propertytab.GModule\ [id\='JavaDesigner',\ version\='5.4.00',\ type\='MODULE',\ definitionScope\='LOCAL',\ state\='MOUNTED']\ runtime\ module_.org.modelio.full.perspective.parentId=app.ui.ext_com.partstack.bottom
 org.modelio.app.diagram.editor.OpenedDiagrams0='Caso de Uso\: Facturas' {7354425e-19f3-4834-8193-3bf9024e1375} Standard.UseCaseDiagram
 org.modelio.app.module.propertytab.GModule\ [id\='JavaDesigner',\ version\='5.4.00',\ type\='MODULE',\ definitionScope\='LOCAL',\ state\='MOUNTED']\ runtime\ module_.org.modelio.development.perspective.parentId=app.ui.ext_com.partstack.bottom

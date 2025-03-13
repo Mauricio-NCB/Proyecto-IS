@@ -1,3 +1,10 @@
+-- Ejecución del script para la creación de la base de datos 
+-- Forzar uso de la tabla que se haya creado para el proyecto
+use is2;
+
+
+-- Reinicia las tablas antes de crearlas 
+SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS Producto;
 DROP TABLE IF EXISTS Juguete;
 DROP TABLE IF EXISTS Camiseta;
@@ -10,6 +17,9 @@ DROP TABLE IF EXISTS Cliente;
 DROP TABLE IF EXISTS Factura;
 DROP TABLE IF EXISTS Venta;
 DROP TABLE IF EXISTS Envio;
+DROP TABLE IF EXISTS VentaDirector;
+DROP TABLE IF EXISTS VentaProducto;
+SET FOREIGN_KEY_CHECKS=1;
 
 CREATE TABLE Producto (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -20,36 +30,36 @@ CREATE TABLE Producto (
 
 -- Relacionado con Producto 
 CREATE TABLE Juguete(
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id INT NOT NULL PRIMARY KEY,
     tipo VARCHAR(50) NOT NULL,
-    tamaño VARCHAR(50) NOT NULL,
+    tamano VARCHAR(50) NOT NULL,
     FOREIGN KEY (id) REFERENCES Producto(id) ON DELETE CASCADE
 );
 
 -- Relacionado con Producto
 CREATE TABLE Camiseta(
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id INT NOT NULL PRIMARY KEY,
+    talla INT NOT NULL,
     dorsal VARCHAR(50) NOT NULL,
     numero INT NOT NULL,
-    talla INT NOT NULL,
     FOREIGN KEY (id) REFERENCES Producto(id) ON DELETE CASCADE
 );
 
 -- Relacionado con Producto
 CREATE TABLE Poster(
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    tamano INT(10) NOT NULL,
+	id INT NOT NULL PRIMARY KEY,
+    tamano VARCHAR(50) NOT NULL,
     FOREIGN KEY (id) REFERENCES Producto(id) ON DELETE CASCADE
 );
 
---Relacionado con Producto
+-- Relacionado con Producto
 CREATE TABLE Entrada (
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    hora VARCHAR(10) NOT NULL,
-	fecha DATE NOT NULL,
-    ubicacion VARCHAR(20) NOT NULL,
-    numero_asiento VARCHAR(5) NOT NULL,
-    partido VARCHAR(20) NOT NULL,
+	id INT NOT NULL PRIMARY KEY,
+    fecha DATE NOT NULL,
+    hora TIME NOT NULL,
+    ubicacion VARCHAR(255) NOT NULL,
+    numero_asiento VARCHAR(15) NOT NULL,
+    partido VARCHAR(255) NOT NULL,
     FOREIGN KEY (id) REFERENCES Producto(id) ON DELETE CASCADE
 );
 
@@ -61,54 +71,50 @@ CREATE TABLE Empleado (
 
 -- Tabla DIRECTOR (relacionada con EMPLEADO)
 CREATE TABLE Director (
-    id VARCHAR(20) NOT NULL,
-    cargo VARCHAR(50) DEFAULT 'DIRECTOR',
+    id VARCHAR(20) NOT NULL PRIMARY KEY,
+    cargo VARCHAR(50) NOT NULL DEFAULT 'DIRECTOR',
     FOREIGN KEY (id) REFERENCES Empleado(identificador)
 );
 
 -- Tabla DEPENDIENTE (relacionada con EMPLEADO)
 CREATE TABLE Dependiente (
-	id VARCHAR(20) PRIMARY KEY,
-    num_ventas INT DEFAULT 0,
-    FOREIGN KEY (id) REFERENCES Empleado(identificador)
+	id VARCHAR(20) NOT NULL PRIMARY KEY,
+    sum_ventas FLOAT NOT NULL DEFAULT 0,
+    director VARCHAR(20) NOT NULL,
+    FOREIGN KEY (id) REFERENCES Empleado(identificador),
+    FOREIGN KEY (director) REFERENCES Director(id)
 );
 
 CREATE TABLE Cliente (
     num_socio INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(255) NOT NULL,
-    direccion VARCHAR(255),
-    correo VARCHAR(255) UNIQUE
+    direccion VARCHAR(255) NOT NULL,
+    correo VARCHAR(255) NOT NULL UNIQUE
 );
 
 CREATE TABLE Factura(
     codigo VARCHAR(50) NOT NULL PRIMARY KEY,
     fecha DATE NOT NULL,
-    hora INT(10) NOT NULL,
+    hora TIME NOT NULL,
     importe FLOAT NOT NULL,
     cliente INT NOT NULL,
     dependiente VARCHAR(20) NOT NULL,
-    venta INT NOT NULL,
-    envio VARCHAR(15),
     FOREIGN KEY (cliente) REFERENCES Cliente(num_socio) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (dependiente) REFERENCES Dependiente(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (venta) REFERENCES Venta(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (envio) REFERENCES Envio(id) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (dependiente) REFERENCES Dependiente(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Venta (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     precio FLOAT NOT NULL,
     cantidad INT NOT NULL,
-    idProducto INT NOT NULL,
     cliente INT NOT NULL,
     factura VARCHAR(50) NOT NULL,
-    FOREIGN KEY (idProducto) REFERENCES Producto(id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (cliente) REFERENCES Cliente(num_socio) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (factura) REFERENCES Factura(codigo) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Envio (
-	id VARCHAR(15) PRIMARY KEY,
+	id VARCHAR(15) NOT NULL PRIMARY KEY,
     coste FLOAT NOT NULL,
     direccion VARCHAR(50) NOT NULL,
     estado VARCHAR(20) NOT NULL,
@@ -118,3 +124,20 @@ CREATE TABLE Envio (
     FOREIGN KEY (factura) REFERENCES Factura(codigo) ON DELETE CASCADE ON UPDATE CASCADE
 );    
 
+-- Relacion N:M Venta y Director
+CREATE TABLE VentaDirector (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    idVenta INT NOT NULL,
+    idDirector VARCHAR(20) NOT NULL,
+    FOREIGN KEY (idVenta) REFERENCES Venta(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (idDirector) REFERENCES Director(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- Relacion N:M Venta y Producto
+CREATE TABLE VentaProducto (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    idProducto INT NOT NULL,
+    idVenta INT NOT NULL,
+    FOREIGN KEY (idProducto) REFERENCES Producto(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (idVenta) REFERENCES Venta(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
