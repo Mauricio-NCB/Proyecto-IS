@@ -10,7 +10,7 @@
       <ATT name="IsAbstract">true</ATT>
       <ATT name="IsLeaf">false</ATT>
       <ATT name="IsRoot">false</ATT>
-      <ATT name="Visibility">Private</ATT>
+      <ATT name="Visibility">Public</ATT>
       <ATT name="Name"><![CDATA[Empleado]]></ATT>
       <ATT name="status">1970354901745664</ATT>
     </ATTRIBUTES>
