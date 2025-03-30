@@ -1,4 +1,4 @@
-package configFiles;
+package integracion;
 import java.sql.*;
 public class BDConexion {
 	
@@ -8,7 +8,7 @@ public class BDConexion {
 	static String password = "equipo9";
 	static String url = "jdbc:mysql://localhost/" + bd;
 	
-	Connection connection = null;
+	static Connection connection = null;
 		
 	public BDConexion() {
 		try {
@@ -16,6 +16,8 @@ public class BDConexion {
 			
 			// Conexion a la BBDD
 			connection = DriverManager.getConnection (url,login,password);
+			
+			/*
 			Statement stmt = connection.createStatement();
 			
 			// Sentencia SQL
@@ -38,7 +40,7 @@ public class BDConexion {
             rs.close();
             stmt.close();
             connection.close(); 
-
+            */
             
 		}
 		catch ( SQLException ex) {
@@ -50,11 +52,11 @@ public class BDConexion {
 		}
 	}
 		
-	public Connection getConnection() {
+	public static Connection getConnection() {
 		return connection;
 	}
 		
-	public void desconectar() {
+	public static void desconectar() {
 		connection = null;
 	}
 	

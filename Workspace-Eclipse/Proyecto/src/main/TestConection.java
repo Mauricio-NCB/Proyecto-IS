@@ -1,6 +1,6 @@
 package main;
 
-import configFiles.BDConexion;
+import integracion.BDConexion;
 
 public class TestConection {
 	public static void main(String[] args) {
