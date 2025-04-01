@@ -1,20 +1,20 @@
-package model;
+package negocio.dto;
 
 public class Poster extends Producto {
 
-    private String tamaño;
-    public Poster(final String tamaño) {
+    private String tamano;
+    public Poster(final String tamano) {
     	super(null, 0, 0);
     }
     
-    public String getTamaño() {
+    public String getTamano() {
         // Automatically generated method. Please delete this comment before entering specific code.
-        return this.tamaño;
+        return this.tamano;
     }
     
-    public void setTamaño(final String value) {
+    public void setTamano(final String value) {
         // Automatically generated method. Please delete this comment before entering specific code.
-        this.tamaño = value;
+        this.tamano = value;
     }
 
 }

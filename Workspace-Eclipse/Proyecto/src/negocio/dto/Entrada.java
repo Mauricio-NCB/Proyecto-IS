@@ -1,25 +1,16 @@
-package model;
-
+package negocio.dto;
 import java.util.Date;
 
+public class Entrada extends Producto {
 
-public class Factura {
-
-    private String codigo;
     private Date fecha;
     private String hora;
-    private float importe;
-    public Cliente tiene;
-    public Venta ventas;
-    public Dependiente dependientes;
-    public Envio manda;
+    private String ubicacion;
+    private String numeroAsiento;
+    private String partido;
 
-    public Factura(final Date fecha, final int hora, final float importe) {
-    }
-
-    public String getCodigo() {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        return this.codigo;
+    public Entrada(final Date fecha, final String hora, final String ubicacion, final String numeroAsiento, final String partido) {
+    	super(partido, 0, 0);
     }
 
     public Date getFecha() {
@@ -42,14 +33,33 @@ public class Factura {
         this.hora = value;
     }
 
-    public float getImporte() {
+	public String getUbicacion() {
+		return ubicacion;
+	}
+
+	public void setUbicacion(String ubicacion) {
+		this.ubicacion = ubicacion;
+	}
+    
+    public String getNumeroAsiento() {
         // Automatically generated method. Please delete this comment before entering specific code.
-        return this.importe;
+        return this.numeroAsiento;
     }
 
-    public void setImporte(final float value) {
+    public void setNumeroAsiento(final String value) {
         // Automatically generated method. Please delete this comment before entering specific code.
-        this.importe = value;
+        this.numeroAsiento = value;
     }
+
+    public String getPartido() {
+        // Automatically generated method. Please delete this comment before entering specific code.
+        return this.partido;
+    }
+
+    public void setPartido(final String value) {
+        // Automatically generated method. Please delete this comment before entering specific code.
+        this.partido = value;
+    }
+
 
 }

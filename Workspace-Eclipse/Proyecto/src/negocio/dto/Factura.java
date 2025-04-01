@@ -1,16 +1,25 @@
-package model;
+package negocio.dto;
+
 import java.util.Date;
 
-public class Entrada extends Producto {
 
+public class Factura {
+
+    private String codigo;
     private Date fecha;
     private String hora;
-    private String ubicacion;
-    private String numeroAsiento;
-    private String partido;
+    private float importe;
+    public Cliente tiene;
+    public Venta ventas;
+    public Dependiente dependientes;
+    public Envio manda;
 
-    public Entrada(final Date fecha, final String hora, final String ubicacion, final String numeroAsiento, final String partido) {
-    	super(partido, 0, 0);
+    public Factura(final Date fecha, final int hora, final float importe) {
+    }
+
+    public String getCodigo() {
+        // Automatically generated method. Please delete this comment before entering specific code.
+        return this.codigo;
     }
 
     public Date getFecha() {
@@ -33,33 +42,14 @@ public class Entrada extends Producto {
         this.hora = value;
     }
 
-	public String getUbicacion() {
-		return ubicacion;
-	}
-
-	public void setUbicacion(String ubicacion) {
-		this.ubicacion = ubicacion;
-	}
-    
-    public String getNumeroAsiento() {
+    public float getImporte() {
         // Automatically generated method. Please delete this comment before entering specific code.
-        return this.numeroAsiento;
+        return this.importe;
     }
 
-    public void setNumeroAsiento(final String value) {
+    public void setImporte(final float value) {
         // Automatically generated method. Please delete this comment before entering specific code.
-        this.numeroAsiento = value;
+        this.importe = value;
     }
-
-    public String getPartido() {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        return this.partido;
-    }
-
-    public void setPartido(final String value) {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        this.partido = value;
-    }
-
 
 }

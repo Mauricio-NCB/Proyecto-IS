@@ -1,23 +1,23 @@
-package model;
-public class Producto {
+package negocio.dto;
 
-    private int ID;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Cliente {
+
+    private int numSocio;
     private String nombre;
-    private float precio;
-    private int stock;
-    
-    protected Producto(final String nombre, final float precio, final int stock) {
+    private String direccion;
+    private String correo;
+    public List<Factura> facturas = new ArrayList<Factura> ();
+    public List<Venta> ventas = new ArrayList<Venta> ();
+
+    public Cliente(final String nombre, final String direccion, final String correo) {
     }
 
-    public void disminuirStock(final int cantidad) {
-    }
-
-    public void aumentarStock(final int cantidad) {
-    }
-
-    public int getID() {
+    public int getNumSocio() {
         // Automatically generated method. Please delete this comment before entering specific code.
-        return this.ID;
+        return this.numSocio;
     }
 
     public String getNombre() {
@@ -30,24 +30,24 @@ public class Producto {
         this.nombre = value;
     }
 
-    public float getPrecio() {
+    public String getDireccion() {
         // Automatically generated method. Please delete this comment before entering specific code.
-        return this.precio;
+        return this.direccion;
     }
 
-    public void setPrecio(final float value) {
+    public void setDireccion(final String value) {
         // Automatically generated method. Please delete this comment before entering specific code.
-        this.precio = value;
+        this.direccion = value;
     }
 
-    public int getStock() {
+    public String getCorreo() {
         // Automatically generated method. Please delete this comment before entering specific code.
-        return this.stock;
+        return this.correo;
     }
 
-    public void setStock(final int value) {
+    public void setCorreo(final String value) {
         // Automatically generated method. Please delete this comment before entering specific code.
-        this.stock = value;
+        this.correo = value;
     }
 
 }

@@ -1,10 +1,10 @@
-package model;
+package negocio.dto;
 
 public class Juguete extends Producto {
     private String tipo;
-    private String tamaño;
+    private String tamano;
 
-    public Juguete(final String tipo, final String tamaño) {
+    public Juguete(final String tipo, final String tamano) {
     	super(tipo, 0, 0);
     }
 
@@ -18,14 +18,14 @@ public class Juguete extends Producto {
         this.tipo = value;
     }
 
-    public String getTamaño() {
+    public String getTamano() {
         // Automatically generated method. Please delete this comment before entering specific code.
-        return this.tamaño;
+        return this.tamano;
     }
 
-    public void setTamaño(final String value) {
+    public void setTamano(final String value) {
         // Automatically generated method. Please delete this comment before entering specific code.
-        this.tamaño = value;
+        this.tamano = value;
     }
 
 }

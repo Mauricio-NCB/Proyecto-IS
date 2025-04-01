@@ -1,4 +1,4 @@
-package model;
+package negocio.dto;
 import java.util.Date;
 
 public class Envio {

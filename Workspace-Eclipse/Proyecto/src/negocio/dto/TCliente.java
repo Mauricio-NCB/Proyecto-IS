@@ -1,5 +1,9 @@
 package negocio.dto;
 
+// SOLO DE PRUEBA PARA EL REGISTRO
+// Aquí irá el modelo Cliente.java que creamos en Modelio pero necesitaba
+// algo sencillo como prueba del registro
+
 public class TCliente {
     private int id;
     private String dni;

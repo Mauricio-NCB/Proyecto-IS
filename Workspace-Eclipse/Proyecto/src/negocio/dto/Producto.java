@@ -1,23 +1,23 @@
-package model;
+package negocio.dto;
+public class Producto {
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Cliente {
-
-    private int numSocio;
+    private int ID;
     private String nombre;
-    private String direccion;
-    private String correo;
-    public List<Factura> facturas = new ArrayList<Factura> ();
-    public List<Venta> ventas = new ArrayList<Venta> ();
-
-    public Cliente(final String nombre, final String direccion, final String correo) {
+    private float precio;
+    private int stock;
+    
+    protected Producto(final String nombre, final float precio, final int stock) {
     }
 
-    public int getNumSocio() {
+    public void disminuirStock(final int cantidad) {
+    }
+
+    public void aumentarStock(final int cantidad) {
+    }
+
+    public int getID() {
         // Automatically generated method. Please delete this comment before entering specific code.
-        return this.numSocio;
+        return this.ID;
     }
 
     public String getNombre() {
@@ -30,24 +30,24 @@ public class Cliente {
         this.nombre = value;
     }
 
-    public String getDireccion() {
+    public float getPrecio() {
         // Automatically generated method. Please delete this comment before entering specific code.
-        return this.direccion;
+        return this.precio;
     }
 
-    public void setDireccion(final String value) {
+    public void setPrecio(final float value) {
         // Automatically generated method. Please delete this comment before entering specific code.
-        this.direccion = value;
+        this.precio = value;
     }
 
-    public String getCorreo() {
+    public int getStock() {
         // Automatically generated method. Please delete this comment before entering specific code.
-        return this.correo;
+        return this.stock;
     }
 
-    public void setCorreo(final String value) {
+    public void setStock(final int value) {
         // Automatically generated method. Please delete this comment before entering specific code.
-        this.correo = value;
+        this.stock = value;
     }
 
 }

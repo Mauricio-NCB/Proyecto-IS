@@ -1,4 +1,4 @@
-package model;
+package negocio.dto;
 
 public abstract class Empleado {
     private String identificador;
