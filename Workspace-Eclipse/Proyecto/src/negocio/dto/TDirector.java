@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Director extends Empleado {
+public class TDirector extends TEmpleado {
     private String cargo;
-    public List<Dependiente> gestionar = new ArrayList<Dependiente> ();
+    public List<TDependiente> gestionar = new ArrayList<TDependiente> ();
     public List<Venta> revisar = new ArrayList<Venta> ();
-    public Director(final String cargo) {
-    	super(null, null, 0);
+    
+    public TDirector(final String identificador, final String nombre, final float sueldo, final String contrasena, final String cargo) {
+    	super(identificador, nombre, sueldo, contrasena);
+    	this.cargo = cargo;
     }
     
     public String getCargo() {
@@ -20,5 +22,6 @@ public class Director extends Empleado {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.cargo = value;
     }
+    
 
 }

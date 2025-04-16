@@ -10,7 +10,7 @@ public class Venta {
     private int cantidad;
     public Factura asociado;
     public List<Producto> productos = new ArrayList<Producto> ();
-    public Cliente recibe;
+    public TCliente recibe;
     public Venta(final float precio, final int cantidad) {
     	
     }

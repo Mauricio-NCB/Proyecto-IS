@@ -1,23 +1,21 @@
 package negocio.dto;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Cliente {
-
-    private int numSocio;
+public abstract class TEmpleado {
+    private String identificador;
     private String nombre;
-    private String direccion;
-    private String correo;
-    public List<Factura> facturas = new ArrayList<Factura> ();
-    public List<Venta> ventas = new ArrayList<Venta> ();
+    private float sueldo;
+    private String contrasena;
 
-    public Cliente(final String nombre, final String direccion, final String correo) {
-    }
+    protected TEmpleado(final String identificador, final String nombre, final float sueldo, final String contrasena) {
+    	this.identificador = identificador;
+    	this.nombre = nombre;
+    	this.sueldo = sueldo;
+    	this.contrasena = contrasena;
+    };
 
-    public int getNumSocio() {
+    public String getIdentificador() {
         // Automatically generated method. Please delete this comment before entering specific code.
-        return this.numSocio;
+        return this.identificador;
     }
 
     public String getNombre() {
@@ -30,24 +28,28 @@ public class Cliente {
         this.nombre = value;
     }
 
-    public String getDireccion() {
+    public float getSueldo() {
         // Automatically generated method. Please delete this comment before entering specific code.
-        return this.direccion;
+        return this.sueldo;
     }
 
-    public void setDireccion(final String value) {
+    public void setSueldo(final float value) {
         // Automatically generated method. Please delete this comment before entering specific code.
-        this.direccion = value;
+        this.sueldo = value;
+    }
+    
+    public String getContrasena() {
+        // Automatically generated method. Please delete this comment before entering specific code.
+        return this.contrasena;
     }
 
-    public String getCorreo() {
+    public void setContrasena(final String value) {
         // Automatically generated method. Please delete this comment before entering specific code.
-        return this.correo;
+        this.contrasena = value;
     }
-
-    public void setCorreo(final String value) {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        this.correo = value;
+    
+    public String toString() {
+    	return "";
     }
 
 }

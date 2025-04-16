@@ -1,28 +1,62 @@
 package negocio.dto;
 
-// SOLO DE PRUEBA PARA EL REGISTRO
-// Aquí irá el modelo Cliente.java que creamos en Modelio pero necesitaba
-// algo sencillo como prueba del registro
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class TCliente {
-    private int id;
-    private String dni;
+	
+    private int numSocio;
     private String nombre;
+    private String direccion;
+    private String correo;
+    public List<Factura> facturas = new ArrayList<Factura> ();
+    public List<Venta> ventas = new ArrayList<Venta> ();
 
-    public TCliente(String dni, String nombre) {
-        this.dni = dni;
-        this.nombre = nombre;
+
+    public TCliente(final String nombre, final String direccion, final String correo) {
+    	this.nombre = nombre;
+    	this.direccion = direccion;
+    	this.correo = correo;
     }
 
-    // Getters y Setters
-    public String getDni() { return dni; }
-    public void setDni(String dni) { this.dni = dni; }
+    public int getNumSocio() {
+        // Automatically generated method. Please delete this comment before entering specific code.
+        return this.numSocio;
+    }
 
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public String getNombre() {
+        // Automatically generated method. Please delete this comment before entering specific code.
+        return this.nombre;
+    }
 
+    public void setNombre(final String value) {
+        // Automatically generated method. Please delete this comment before entering specific code.
+        this.nombre = value;
+    }
+
+    public String getDireccion() {
+        // Automatically generated method. Please delete this comment before entering specific code.
+        return this.direccion;
+    }
+
+    public void setDireccion(final String value) {
+        // Automatically generated method. Please delete this comment before entering specific code.
+        this.direccion = value;
+    }
+
+    public String getCorreo() {
+        // Automatically generated method. Please delete this comment before entering specific code.
+        return this.correo;
+    }
+
+    public void setCorreo(final String value) {
+        // Automatically generated method. Please delete this comment before entering specific code.
+        this.correo = value;
+    }
+    
     @Override
     public String toString() {
-        return "Cliente{DNI='" + dni + "', Nombre='" + nombre + "'}";
+        return "Cliente{Numero socio ='" + getNumSocio() + "', Nombre ='" + getNombre() + "', Direccion = '" + getDireccion() + "', Correo = '" + getCorreo() + " }";
     }
 }

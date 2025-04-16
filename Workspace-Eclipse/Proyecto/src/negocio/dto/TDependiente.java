@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Dependiente extends Empleado {
+public class TDependiente extends TEmpleado {
     private float sumVentas;
     public List<Factura> genera = new ArrayList<Factura> ();
 
-    public Dependiente(final float SumVentas) {
-    	super(null, null, 0);
+    public TDependiente(final String identificador, final String nombre, final float sueldo, final String contrasena, final float sumVentas) {
+    	super(identificador, nombre, sueldo, contrasena);
+    	this.sumVentas = sumVentas;
     }
     
     public float getSumVentas() {

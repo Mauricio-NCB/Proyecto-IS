@@ -1,9 +1,9 @@
 package main;
 
-import presentacion.VentanaInicio;
+import presentacion.VentanaLogin;
 
 public class Main {
 	public static void main(String[] args) {
-        new VentanaInicio();
+        new VentanaLogin();
     }
 }

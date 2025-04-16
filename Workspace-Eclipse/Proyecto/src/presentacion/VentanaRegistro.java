@@ -20,19 +20,23 @@ public class VentanaRegistro extends JFrame {
 	
 	private void initGUI() {
 		//Configuracion de la ventana
-		setSize(300, 200);
+		setSize(400, 200);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new GridLayout(3, 2));
+        setLayout(new GridLayout(4, 2));
 
-        //
-        add(new JLabel("DNI:"));
-        JTextField txtDNI = new JTextField();
-        add(txtDNI);
-
+        
         add(new JLabel("Nombre:"));
         JTextField txtNombre = new JTextField();
         add(txtNombre);
+
+        add(new JLabel("Direccion:"));
+        JTextField txtDireccion = new JTextField();
+        add(txtDireccion);
+        
+        add(new JLabel("Correo:"));
+        JTextField txtCorreo = new JTextField();
+        add(txtCorreo);
 
         JButton btnRegistrar = new JButton("Registrar");
         add(btnRegistrar);
@@ -40,9 +44,10 @@ public class VentanaRegistro extends JFrame {
         // Acción del botón de registro
         btnRegistrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String dni = txtDNI.getText();
                 String nombre = txtNombre.getText();
-                ControladorUsuario.getInstance().registrarCliente(dni, nombre);
+                String direccion = txtDireccion.getText();
+                String correo = txtCorreo.getText();
+                ControladorCliente.getInstance().registrarCliente(nombre, direccion, correo);
             }
         });
 	}

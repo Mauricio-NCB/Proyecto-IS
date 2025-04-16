@@ -64,7 +64,8 @@ CREATE TABLE Entrada (
 CREATE TABLE Empleado (
     identificador VARCHAR(20) PRIMARY KEY,
     nombre VARCHAR(255) NOT NULL,
-    sueldo FLOAT NOT NULL
+    sueldo FLOAT NOT NULL,
+    contrasena VARCHAR(255) NOT NULL
 );
 
 -- Tabla DIRECTOR (relacionada con EMPLEADO)

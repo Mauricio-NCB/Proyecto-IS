@@ -1,5 +1,7 @@
 package integracion;
 
+import negocio.dto.TDirector;
+
 public interface DAODirector {
-	public boolean createDirector(Director director);
+	public boolean createDirector(TDirector director);
 }

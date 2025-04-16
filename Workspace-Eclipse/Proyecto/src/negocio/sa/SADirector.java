@@ -1,7 +1,7 @@
 package negocio.sa;
 
-import negocio.dto.Director;
+import negocio.dto.TDirector;
 
 public interface SADirector {
-    boolean altaDirector(Director director);
+    boolean altaDirector(TDirector director);
 }

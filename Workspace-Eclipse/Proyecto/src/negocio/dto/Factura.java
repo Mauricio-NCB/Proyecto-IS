@@ -9,9 +9,9 @@ public class Factura {
     private Date fecha;
     private String hora;
     private float importe;
-    public Cliente tiene;
+    public TCliente tiene;
     public Venta ventas;
-    public Dependiente dependientes;
+    public TDependiente dependientes;
     public Envio manda;
 
     public Factura(final Date fecha, final int hora, final float importe) {

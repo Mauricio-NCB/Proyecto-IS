@@ -40,9 +40,11 @@ INSERT INTO Entrada (id, fecha, hora, ubicacion, numero_asiento, partido) VALUES
 (4, '2025-04-15', '20:00:00', 'Tribuna', 'A10', 'Final Copa');
 
 -- Empleados
-INSERT INTO Empleado (identificador, nombre, sueldo) VALUES 
-('EMP001', 'Juan Pérez', 3000), 
-('EMP002', 'María López', 2500);
+INSERT INTO Empleado (identificador, nombre, sueldo, contrasena) VALUES 
+-- contrasena: contrasena1
+('EMP001', 'Juan Pérez', 3000, 'd48b165d1e5a63b56c7601e4269642e6a71fa90b2178a0212a1da5f7ee54255f'), 
+-- contrasena: contrasena2
+('EMP002', 'María López', 2500, '6086d0c00085495558ee2dc7ba5a136de0a0c28ed46e4a957f0ec741e8d98966');
 
 -- Directores
 INSERT INTO Director (id, cargo) VALUES ('EMP001', 'DIRECTOR GENERAL');

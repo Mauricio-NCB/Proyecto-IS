@@ -1,18 +1,25 @@
 package integracion;
 
-public class DAODirectorImp {
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import negocio.dto.TDirector;
+
+public class DAODirectorImp implements DAODirector {
     @Override
-    public boolean createDirector(Director director) {
+    public boolean createDirector(TDirector director) {
         String sql = "INSERT INTO Director (identificador, nombre, sueldo) VALUES (?, ?, ?)";
 
-        try (Connection conn = BDConexion.getConnection();
+        try (Connection conn = BDConexion.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, director.getId());
+            pstmt.setString(1, director.getIdentificador());
             pstmt.setString(2, director.getNombre());
-            pstmt.setString(3, director.getSueldo());
+            pstmt.setFloat(3, director.getSueldo());
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
+    }
 }
