@@ -22,6 +22,4 @@ public class TDirector extends TEmpleado {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.cargo = value;
     }
-    
-
 }
