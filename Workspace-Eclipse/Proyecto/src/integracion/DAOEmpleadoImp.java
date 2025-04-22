@@ -28,13 +28,11 @@ public class DAOEmpleadoImp implements DAOEmpleado {
                 if (esDirector(conn, id)) {
                 	String cargo = getCargoDirector(conn, id);
                 	
-                	System.out.println("Director");
                 	return new TDirector(id, nombre, sueldo, contrasena, cargo);
                 }
                 else if (esDependiente(conn, id)) {
                 	Float sumVentas = getSumVentas(conn, id);
                 	
-                	System.out.println("Dependiente");
                 	return new TDependiente(id, nombre, sueldo, contrasena, sumVentas);
                 }
             }

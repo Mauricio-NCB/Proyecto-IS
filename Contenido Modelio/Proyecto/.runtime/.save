@@ -1,11 +1,6 @@
-#Tue Mar 18 11:05:35 CET 2025
+#Tue Apr 22 11:17:57 CEST 2025
 org.modelio.app.module.propertytab.GModule\ [id\='JavaDesigner',\ version\='5.4.00',\ type\='MODULE',\ definitionScope\='LOCAL',\ state\='MOUNTED']\ runtime\ module_.org.modelio.full.perspective.parentId=app.ui.ext_com.partstack.bottom
-org.modelio.app.diagram.editor.OpenedDiagrams0='Caso de Uso\: Facturas' {7354425e-19f3-4834-8193-3bf9024e1375} Standard.UseCaseDiagram
+org.modelio.app.diagram.editor.OpenedDiagrams0='proyecto Class diagram' {c4605c0b-d96f-462b-bb4b-fea19bd9a994} Standard.ClassDiagram
 org.modelio.app.module.propertytab.GModule\ [id\='JavaDesigner',\ version\='5.4.00',\ type\='MODULE',\ definitionScope\='LOCAL',\ state\='MOUNTED']\ runtime\ module_.org.modelio.development.perspective.parentId=app.ui.ext_com.partstack.bottom
-org.modelio.app.diagram.editor.OpenedDiagrams3='Caso de Uso\: Envios' {979b8d17-6722-454e-920e-da160f005c52} Standard.UseCaseDiagram
-org.modelio.app.diagram.editor.OpenedDiagrams4='Caso de Uso\: Clientes' {e3645dc2-6d7d-4e84-94c7-fc89e7ac7470} Standard.UseCaseDiagram
-org.modelio.app.diagram.editor.OpenedDiagrams1='Caso de Uso\: Empleados' {0c990f40-a1bf-42a3-9ddc-7ec6fe1a5ebe} Standard.UseCaseDiagram
-org.modelio.app.diagram.editor.OpenedDiagrams2='Caso de Uso\: Productos' {e8d15433-f660-4f64-b17a-a3f8a9a4d237} Standard.UseCaseDiagram
 org.modelio.app.module.propertytab.GModule\ [id\='JavaDesigner',\ version\='5.4.00',\ type\='MODULE',\ definitionScope\='LOCAL',\ state\='MOUNTED']\ runtime\ module_.org.modelio.app.ui.model.perspective.parentId=org.modelio.app.bottom.parts
 org.modelio.app.module.propertytab.GModule\ [id\='JavaDesigner',\ version\='5.4.00',\ type\='MODULE',\ definitionScope\='LOCAL',\ state\='MOUNTED']\ runtime\ module_.org.modelio.diagram.perspective.parentId=app.ui.ext_com.partstack.right
-org.modelio.app.diagram.editor.OpenedDiagrams5='proyecto Class diagram' {c4605c0b-d96f-462b-bb4b-fea19bd9a994} Standard.ClassDiagram

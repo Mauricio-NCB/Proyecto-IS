@@ -11,11 +11,7 @@ import negocio.dto.TDirector;
 
 public class DAODirectorImp implements DAODirector {
 	
-    private final Connection conn;
-
-    public DAODirectorImp(Connection conn) {
-        this.conn = conn;
-    }
+    private final Connection conn = null;
     
     private TDirector mapDir(ResultSet rs) throws SQLException {
         String id = rs.getString("identificador");
