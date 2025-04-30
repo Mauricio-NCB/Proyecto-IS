@@ -16,7 +16,6 @@ import integracion.BDConexion;
 public class SADirectorImp implements SADirector {
     private DAODirector daoDirector = new DAODirectorImp();
 
-    @Override
     public boolean altaDirector(TDirector director) {
         /*if (director == null || director.getIdentificador() == null || director.getIdentificador().trim().isEmpty()) {
             throw new Exception("Datos del director inválidos o identificador vacío.");
@@ -53,12 +52,7 @@ public class SADirectorImp implements SADirector {
     	return daoDirector.actualizar(director);
     }
     
-    public void mostrarDirectores() {
-    	System.out.println("\n--- Listado de Directores ---");
-    	List<TDirector> directores = daoDirector.obtenerTodos();
-    	
-        for (TDirector director : directores) {
-            System.out.println(director);
-        }    	
+    public List<TDirector> mostrarDirectores() {
+    	return daoDirector.obtenerTodos();
     }
 }
