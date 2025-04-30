@@ -10,58 +10,73 @@ import java.util.List;
 import negocio.dto.TDirector;
 
 public class DAODirectorImp implements DAODirector {
-	
-    private final Connection conn = null;
     
     private TDirector mapDir(ResultSet rs) throws SQLException {
-        String id = rs.getString("identificador");
-        String nombre = rs.getString("nombre");
-        float sueldo = rs.getFloat("sueldo");
-        String cargo = rs.getString("cargo");
-        String contrasena = rs.getString("contrasena");
+        String id = rs.getString("e_identificador");
+        String nombre = rs.getString("e_nombre");
+        float sueldo = rs.getFloat("e_sueldo");
+        String cargo = rs.getString("d_cargo");
+        String contrasena = rs.getString("e_contrasena");
         return new TDirector(id, nombre, sueldo, contrasena, cargo);
     }
     
+    //Crea un empleado Director
     @Override
     public boolean createDirector(TDirector director) {
-        String sql = "INSERT INTO Director (identificador, nombre, sueldo, contrasena, cargo) VALUES (?, ?, ?, ?, ?)";
+    	String sqlEmpleado = "INSERT INTO Empleado (identificador, nombre, sueldo, contrasena) VALUES (?, ?, ?, ?)";
+        String sqlDir = "INSERT INTO Director (identificador, cargo) VALUES (?, ?)";
 
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, director.getIdentificador());
-            pstmt.setString(2, director.getNombre());
-            pstmt.setFloat(3, director.getSueldo());
-            pstmt.setString(3, director.getContrasena());
-            pstmt.setString(5, director.getCargo());
-            return pstmt.executeUpdate() > 0;
+        try (Connection conn = BDConexion.getInstance().getConnection();
+        		PreparedStatement pstmtEm = conn.prepareStatement(sqlEmpleado)) {
+        	pstmtEm.setString(1, director.getIdentificador());
+        	pstmtEm.setString(2, director.getNombre());
+        	pstmtEm.setFloat(3, director.getSueldo());
+        	pstmtEm.setString(4, director.getContrasena());
+            if (pstmtEm.executeUpdate() > 0) {
+            	try (PreparedStatement pstmtDir = conn.prepareStatement(sqlDir)) {
+            		pstmtDir.setString(1, director.getIdentificador());
+                    pstmtDir.setString(2, director.getCargo());
+                    return pstmtDir.executeUpdate() > 0;
+            	}
+            }
+            else {return false;}
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
     
+    //Obtiene Director
     @Override
     public TDirector obtenerPorId(String id) {
-        String sql = "SELECT identificador, nombre, sueldo, contrasena, cargo FROM Directores WHERE id = ?";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+    	TDirector director = null;
+        String sql = "SELECT e.identificador as e_identificador, e.nombre as e_nombre, e.sueldo as e_sueldo, " +
+        				"e.contrasena as e_contrasena, d.cargo as d_cargo "+
+        				"FROM Empleado e JOIN Director d ON e.identificador = d.identificador WHERE e.identificador = ?";
+        try (Connection conn = BDConexion.getInstance().getConnection();
+        		PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return mapDir(rs);
-                } else {
-                    return null;
+                    director = mapDir(rs);
                 }
             }
         } catch (SQLException e) {
         	e.printStackTrace();
         }
-        return null;
+        return director;
     }
     
+    
+    //Obtiene todos los Directores
     @Override
     public List<TDirector> obtenerTodos() {
-        String sql = "SELECT identificador, nombre, sueldo, contrasena cargo FROM Directores";
+        String sql = "SELECT e.identificador as e_identificador, e.nombre as e_nombre, " +
+                		"e.sueldo as e_sueldo, e.contrasena as e_contrasena, d.cargo as d_cargo " +
+                		"FROM Empleado e JOIN Director d ON e.identificador = d.identificador";
         List<TDirector> lista = new ArrayList<>();
-        try (PreparedStatement ps = conn.prepareStatement(sql);
+        try (Connection conn = BDConexion.getInstance().getConnection();
+        		PreparedStatement ps = conn.prepareStatement(sql);
         		ResultSet rs = ps.executeQuery(sql)) {
             while (rs.next()) {
                 lista.add(mapDir(rs));
@@ -70,33 +85,51 @@ public class DAODirectorImp implements DAODirector {
         } catch (SQLException e) {
         	e.printStackTrace();
         }
-        return null;
+        return lista;
     }
     
+    //Actualiza los datos del director
     @Override
-    public void actualizar(TDirector director) {
-        String sql = "UPDATE Directores SET nombre = ?, sueldo = ?, cargo = ? WHERE id = ?";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, director.getIdentificador());
-            ps.setString(2, director.getNombre());
-            ps.setFloat(3, director.getSueldo());
-            ps.setString(4, director.getContrasena());
-            ps.setString(5, director.getCargo());
-            ps.executeUpdate();
+    public boolean actualizar(TDirector director) {
+        String sqlEmpleado = "UPDATE Empleado SET nombre = ?, sueldo = ?, contrasena = ? WHERE identificador = ?";
+        String sqlDirector = "UPDATE Director SET cargo = ? WHERE identificador = ?";
+        try (Connection conn = BDConexion.getInstance().getConnection();
+        		PreparedStatement psEm = conn.prepareStatement(sqlEmpleado)) {
+        	psEm.setString(1, director.getIdentificador());
+        	psEm.setString(2, director.getNombre());
+        	psEm.setFloat(3, director.getSueldo());
+        	psEm.setString(4, director.getContrasena());
+        	if (psEm.executeUpdate() > 0) {
+            	try (PreparedStatement pstmtDir = conn.prepareStatement(sqlDirector)) {
+            		pstmtDir.setString(1, director.getIdentificador());
+                    pstmtDir.setString(2, director.getCargo());
+                    return pstmtDir.executeUpdate() > 0;
+            	}
+        	}
         } catch (SQLException e) {   
         	e.printStackTrace();
         }
+		return false;
     }
     
+    //Elimina el director
     @Override
-    public void eliminar(String id) {
-        String sql = "DELETE FROM Directores WHERE id = ?";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, id);
-            ps.executeUpdate();
+    public boolean eliminar(String id) {
+        String sqlDirector = "DELETE FROM Director WHERE identificador = ?";
+        String sqlEmpleado = "DELETE FROM Empleado WHERE identificador = ?";
+        try (Connection conn = BDConexion.getInstance().getConnection();
+        		PreparedStatement psDir = conn.prepareStatement(sqlDirector)) {
+            psDir.setString(1, id);
+            if (psDir.executeUpdate() > 0) {
+            	try (PreparedStatement psEm = conn.prepareStatement(sqlEmpleado)){
+            		psEm.setString(1, id);
+            		return psEm.executeUpdate() > 0;
+            	}
+            }
         } catch (SQLException e) {
         	e.printStackTrace();
         }
+		return false;
     }
 }
 
