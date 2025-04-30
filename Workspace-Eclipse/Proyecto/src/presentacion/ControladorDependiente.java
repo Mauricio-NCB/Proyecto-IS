@@ -1,0 +1,38 @@
+package presentacion;
+
+import negocio.dto.Factura;
+import negocio.dto.TDependiente;
+import negocio.sa.SADependiente;
+import negocio.sa.SADependienteImp;
+
+public class ControladorDependiente {
+	private static ControladorDependiente instancia;
+    private SADependiente servicioDependiente;
+
+    private ControladorDependiente() {
+        this.servicioDependiente = new SADependienteImp();
+    }
+
+    public static ControladorDependiente getInstance() {
+        if (instancia == null) {
+            instancia = new ControladorDependiente();
+        }
+        return instancia;
+    }
+
+    public void crearFactura(Factura factura) {
+        boolean exito = servicioDependiente.generarFactura(factura);
+
+        if (exito) {
+            System.out.println("La factura se ha generado correctamente");
+        } else {
+            System.out.println("Error al generar la factura");
+        }
+    }
+    }
+	
+	
+	
+	
+	
+}
