@@ -22,4 +22,12 @@ public class TDirector extends TEmpleado {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.cargo = value;
     }
+    
+    @Override
+    public String toString() {
+        return "Director" + getNombre() + "{ ID='" + getIdentificador() + '\'' +
+               ", Nombre='" + getNombre() + '\'' +
+               ", Sueldo=" + getSueldo() +
+               ", Cargo='" + this.cargo + '\'' + '}';
+    }
 }
