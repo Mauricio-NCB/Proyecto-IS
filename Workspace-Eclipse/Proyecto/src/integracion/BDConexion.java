@@ -5,7 +5,7 @@ public class BDConexion {
     private static BDConexion instancia;
     private Connection connection;
 
-    private static final String BD = "e9clubshop";
+    private static final String BD = "tienda";
     private static final String LOGIN = "root";
     private static final String PASSWORD = "equipo9";
     private static final String URL = "jdbc:mysql://localhost/" + BD;
