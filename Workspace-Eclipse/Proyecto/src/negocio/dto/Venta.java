@@ -9,7 +9,7 @@ public class Venta {
     private float precio;
     private int cantidad;
     public Factura asociado;
-    public List<Producto> productos = new ArrayList<Producto> ();
+    public List<TProducto> productos = new ArrayList<TProducto> ();
     public TCliente recibe;
     public Venta(final float precio, final int cantidad) {
     	

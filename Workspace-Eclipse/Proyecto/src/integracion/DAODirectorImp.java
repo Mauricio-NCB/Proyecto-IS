@@ -24,7 +24,7 @@ public class DAODirectorImp implements DAODirector {
     @Override
     public boolean createDirector(TDirector director) {
     	String sqlEmpleado = "INSERT INTO Empleado (identificador, nombre, sueldo, contrasena) VALUES (?, ?, ?, ?)";
-        String sqlDir = "INSERT INTO Director (identificador, cargo) VALUES (?, ?)";
+        String sqlDir = "INSERT INTO Director (id, cargo) VALUES (?, ?)";
 
         try (Connection conn = BDConexion.getInstance().getConnection();
         		PreparedStatement pstmtEm = conn.prepareStatement(sqlEmpleado)) {
@@ -52,7 +52,7 @@ public class DAODirectorImp implements DAODirector {
     	TDirector director = null;
         String sql = "SELECT e.identificador as e_identificador, e.nombre as e_nombre, e.sueldo as e_sueldo, " +
         				"e.contrasena as e_contrasena, d.cargo as d_cargo "+
-        				"FROM Empleado e JOIN Director d ON e.identificador = d.identificador WHERE e.identificador = ?";
+        				"FROM Empleado e JOIN Director d ON e.identificador = d.id WHERE e.identificador = ?";
         try (Connection conn = BDConexion.getInstance().getConnection();
         		PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, id);
@@ -73,7 +73,7 @@ public class DAODirectorImp implements DAODirector {
     public List<TDirector> obtenerTodos() {
         String sql = "SELECT e.identificador as e_identificador, e.nombre as e_nombre, " +
                 		"e.sueldo as e_sueldo, e.contrasena as e_contrasena, d.cargo as d_cargo " +
-                		"FROM Empleado e JOIN Director d ON e.identificador = d.identificador";
+                		"FROM Empleado e JOIN Director d ON e.identificador = d.id";
         List<TDirector> lista = new ArrayList<>();
         try (Connection conn = BDConexion.getInstance().getConnection();
         		PreparedStatement ps = conn.prepareStatement(sql);
@@ -92,17 +92,17 @@ public class DAODirectorImp implements DAODirector {
     @Override
     public boolean actualizar(TDirector director) {
         String sqlEmpleado = "UPDATE Empleado SET nombre = ?, sueldo = ?, contrasena = ? WHERE identificador = ?";
-        String sqlDirector = "UPDATE Director SET cargo = ? WHERE identificador = ?";
+        String sqlDirector = "UPDATE Director SET cargo = ? WHERE id = ?";
         try (Connection conn = BDConexion.getInstance().getConnection();
         		PreparedStatement psEm = conn.prepareStatement(sqlEmpleado)) {
-        	psEm.setString(1, director.getIdentificador());
-        	psEm.setString(2, director.getNombre());
-        	psEm.setFloat(3, director.getSueldo());
-        	psEm.setString(4, director.getContrasena());
+        	psEm.setString(4, director.getIdentificador());
+        	psEm.setString(1, director.getNombre());
+        	psEm.setFloat(2, director.getSueldo());
+        	psEm.setString(3, director.getContrasena());
         	if (psEm.executeUpdate() > 0) {
             	try (PreparedStatement pstmtDir = conn.prepareStatement(sqlDirector)) {
-            		pstmtDir.setString(1, director.getIdentificador());
-                    pstmtDir.setString(2, director.getCargo());
+            		pstmtDir.setString(2, director.getIdentificador());
+                    pstmtDir.setString(1, director.getCargo());
                     return pstmtDir.executeUpdate() > 0;
             	}
         	}
@@ -115,7 +115,7 @@ public class DAODirectorImp implements DAODirector {
     //Elimina el director
     @Override
     public boolean eliminar(String id) {
-        String sqlDirector = "DELETE FROM Director WHERE identificador = ?";
+        String sqlDirector = "DELETE FROM Director WHERE id = ?";
         String sqlEmpleado = "DELETE FROM Empleado WHERE identificador = ?";
         try (Connection conn = BDConexion.getInstance().getConnection();
         		PreparedStatement psDir = conn.prepareStatement(sqlDirector)) {
