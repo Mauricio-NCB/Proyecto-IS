@@ -2,6 +2,8 @@ package negocio.sa;
 
 import negocio.dto.TProducto;
 
+import java.util.List;
+
 import integracion.DAOProducto;
 import integracion.DAOProductoImp;
 
@@ -11,6 +13,11 @@ public class SAProductoImp implements SAProducto{
 	@Override
 	public boolean altaProducto(TProducto producto) {
 		return daoProducto.createProducto(producto);
+	}
+
+	@Override
+	public List<TProducto> listarProductos() {
+		return daoProducto.obtenerTodosLosProductos();
 	}
 
 }

@@ -117,8 +117,8 @@ public class DAOProductoImp implements DAOProducto{
             
             if (rs.next()) {
                 int talla = rs.getInt("talla");
-                String dorsalJugador = rs.getString("dorsalJugador");
-                int numeroJugador = rs.getInt("numeroJugador");
+                String dorsalJugador = rs.getString("dorsal");
+                int numeroJugador = rs.getInt("numero");
                 
                 return new TCamiseta(id, nombre, precio, stock, talla, dorsalJugador, numeroJugador);
             }
@@ -136,7 +136,7 @@ public class DAOProductoImp implements DAOProducto{
                 Date fecha = rs.getDate("fecha");
                 String hora = rs.getString("hora");
                 String ubicacion = rs.getString("ubicacion");
-                String numeroAsiento = rs.getString("numeroAsiento");
+                String numeroAsiento = rs.getString("numero_asiento");
                 String partido = rs.getString("partido");
                 
                 return new TEntrada(id, nombre, precio, stock, fecha, hora, ubicacion, numeroAsiento, partido);
@@ -175,5 +175,6 @@ public class DAOProductoImp implements DAOProducto{
         }
         return null;
     }
+
 
 }

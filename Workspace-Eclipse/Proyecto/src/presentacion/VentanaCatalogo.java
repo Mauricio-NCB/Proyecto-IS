@@ -79,6 +79,7 @@ public class VentanaCatalogo extends JFrame{
 	}
 	
 	private String getDetalles(TProducto producto) {
+		
         if (producto instanceof TCamiseta) {
             TCamiseta camiseta = (TCamiseta) producto;
             return ("Talla: " + camiseta.getTalla() + " Jugador: " + camiseta.getDorsalJugador() + " Dorsal: " + camiseta.getNumeroJugador());

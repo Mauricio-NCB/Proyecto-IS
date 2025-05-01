@@ -3,11 +3,14 @@ package presentacion;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
+import negocio.dto.TProducto;
 
 public class VentanaDependiente extends JFrame {
 
@@ -29,13 +32,14 @@ public class VentanaDependiente extends JFrame {
 		
 		add(new JLabel("Bienvenido dependiente"));
 		
-		JButton btnGenerarFactura = new JButton("Generar factura");
-		add(btnGenerarFactura);
+		JButton btnVenta = new JButton("Nueva venta");
+		add(btnVenta);
 		
-		btnGenerarFactura.addActionListener(new ActionListener() {
+		btnVenta.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				new FormularioFactura().setVisible(true);
+				List<TProducto> listaProductos = ControladorProducto.getInstance().listarProductos();
+				new VentanaCatalogo(listaProductos).setVisible(true);
 			}
 			
 		});

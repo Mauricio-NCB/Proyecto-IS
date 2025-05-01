@@ -1,5 +1,7 @@
 package presentacion;
 
+import java.util.List;
+
 import negocio.dto.TProducto;
 import negocio.sa.SAProducto;
 import negocio.sa.SAProductoImp;
@@ -30,5 +32,9 @@ public class ControladorProducto {
 			System.out.println("Se ha producido un error al crear el producto");
 			return false;
 		}
+	}
+	
+	public List<TProducto> listarProductos() {
+		return prod.listarProductos();		
 	}
 }
