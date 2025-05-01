@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Artifact Modelio" version="4">
+  <OBJECT>
+    <ID name="Artifact Modelio" mc="Standard.Artifact" uid="2d886cea-e91e-4f6f-be76-84d952a9772f"/>
+    <PID name="Estación de trabajo" mc="Standard.Package" uid="4124bc1b-cee3-4c87-9229-5d8be38d07ec"/>
+    <ATTRIBUTES>
+      <ATT name="FileName"><![CDATA[javadesigner.jar]]></ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Artifact Modelio]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES></DEPENDENCIES>
+  </OBJECT>
+</EXT>

@@ -62,6 +62,8 @@
         <COMPID name="Mostrar todos los clientes" mc="Standard.UseCase" uid="b23887d2-c0e0-4106-bf42-e26597be5f12"/>
         <COMPID name="Usuario" mc="Standard.Actor" uid="fc914e32-1fe0-4462-aacb-59d901b6828b"/>
         <COMPID name="Venta" mc="Standard.Class" uid="e091cff1-70b3-4080-a5d9-36da8373a2f1"/>
+        <COMPID name="Estación de trabajo" mc="Standard.Package" uid="4124bc1b-cee3-4c87-9229-5d8be38d07ec"/>
+        <COMPID name="Servidor BD" mc="Standard.Package" uid="ce46149d-44e7-4501-ab2e-00832fa48f67"/>
       </COMP>
       <COMP relation="Product">
         <COMPID name="proyecto Class diagram" mc="Standard.ClassDiagram" uid="c4605c0b-d96f-462b-bb4b-fea19bd9a994"/>
@@ -70,6 +72,7 @@
         <COMPID name="Caso de Uso: Productos" mc="Standard.UseCaseDiagram" uid="e8d15433-f660-4f64-b17a-a3f8a9a4d237"/>
         <COMPID name="Caso de Uso: Envios" mc="Standard.UseCaseDiagram" uid="979b8d17-6722-454e-920e-da160f005c52"/>
         <COMPID name="Caso de Uso: Clientes" mc="Standard.UseCaseDiagram" uid="e3645dc2-6d7d-4e84-94c7-fc89e7ac7470"/>
+        <COMPID name="Diagrama de despliegue" mc="Standard.DeploymentDiagram" uid="0f91327f-2f62-42a4-802b-3e3d71240fb9"/>
       </COMP>
     </DEPENDENCIES>
   </OBJECT>

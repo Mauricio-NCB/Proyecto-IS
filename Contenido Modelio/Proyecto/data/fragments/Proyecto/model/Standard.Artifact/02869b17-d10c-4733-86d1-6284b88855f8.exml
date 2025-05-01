@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Artifact mysql" version="4">
+  <OBJECT>
+    <ID name="Artifact mysql" mc="Standard.Artifact" uid="02869b17-d10c-4733-86d1-6284b88855f8"/>
+    <PID name="Estación de trabajo" mc="Standard.Package" uid="4124bc1b-cee3-4c87-9229-5d8be38d07ec"/>
+    <ATTRIBUTES>
+      <ATT name="FileName"><![CDATA[mysql-connector-java-8.0.28.jar]]></ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Artifact mysql]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES></DEPENDENCIES>
+  </OBJECT>
+</EXT>

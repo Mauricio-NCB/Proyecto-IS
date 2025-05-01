@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Eclipse" version="4">
+  <OBJECT>
+    <ID name="Eclipse" mc="Standard.Node" uid="3c3933bd-dd8a-4f75-b992-7be531116848"/>
+    <PID name="PC Windows" mc="Standard.Node" uid="71d0f396-20b0-4241-b509-29b3cb32f974"/>
+    <ATTRIBUTES>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Eclipse]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES></DEPENDENCIES>
+  </OBJECT>
+</EXT>

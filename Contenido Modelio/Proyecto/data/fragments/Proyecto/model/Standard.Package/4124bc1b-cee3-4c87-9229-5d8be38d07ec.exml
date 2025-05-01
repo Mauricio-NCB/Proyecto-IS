@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Estación de trabajo" version="4">
+  <OBJECT>
+    <ID name="Estación de trabajo" mc="Standard.Package" uid="4124bc1b-cee3-4c87-9229-5d8be38d07ec"/>
+    <PID name="proyecto" mc="Standard.Package" uid="0750b6d0-30ad-4c12-a21c-d4d606f4390c"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Estación de trabajo]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="PC Windows" mc="Standard.Node" uid="71d0f396-20b0-4241-b509-29b3cb32f974"/>
+        <COMPID name="Artifact mysql" mc="Standard.Artifact" uid="02869b17-d10c-4733-86d1-6284b88855f8"/>
+        <COMPID name="Artifact Modelio" mc="Standard.Artifact" uid="2d886cea-e91e-4f6f-be76-84d952a9772f"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
