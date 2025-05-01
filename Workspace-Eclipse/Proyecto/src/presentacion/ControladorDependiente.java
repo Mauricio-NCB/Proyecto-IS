@@ -29,10 +29,4 @@ public class ControladorDependiente {
             System.out.println("Error al generar la factura");
         }
     }
-    }
-	
-	
-	
-	
-	
 }
