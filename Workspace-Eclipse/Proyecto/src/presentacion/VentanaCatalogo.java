@@ -1,7 +1,9 @@
 package presentacion;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -16,6 +18,9 @@ import negocio.dto.TProducto;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 public class VentanaCatalogo extends JFrame{
@@ -34,32 +39,44 @@ public class VentanaCatalogo extends JFrame{
 	}
 
 	private void initGUI() {
-		setSize(1000, 700);
+		setSize(1500, 1000);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
         // Crear modelo de tabla
-        String[] columnas = {"Tipo", "ID", "Nombre", "Precio", "Stock", "Detalles"};
+        String[] columnas = {"Tipo", "ID", "Nombre", "Precio", "Stock", "Detalles", "Cantidad"};
         DefaultTableModel modeloTabla = new DefaultTableModel(columnas, 0) {
             
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = -9049944760654233543L;
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				// Solo la columna de cantidad es editable
+				return column == 6;
+			}
+
+			@Override
+			public Class<?> getColumnClass(int columnIndex) {
+				return columnIndex == 6 ? Integer.class : String.class;
+			}
         };
         
-     // Llenar la tabla
-        for (TProducto producto : productos) {
-            Object[] fila = new Object[6];
-            fila[0] = producto.getClass().getSimpleName();
-            fila[1] = producto.getID();
-            fila[2] = producto.getNombre();
-            fila[3] = producto.getPrecio() + "â‚¬";
-            fila[4] = producto.getStock();
-            fila[5] = getDetalles(producto);
-
-            modeloTabla.addRow(fila);
-        }
+        // Llenar la tabla
+		for (TProducto producto : productos) {
+			Object[] fila = {
+				producto.getClass().getSimpleName(),
+				producto.getID(),
+				producto.getNombre(),
+				producto.getPrecio() + " €",
+				producto.getStock(),
+				getDetalles(producto),
+				0 // Cantidad inicial
+			};
+			modeloTabla.addRow(fila);
+		}
         
         //Configurar tabla
         JTable tabla = new JTable(modeloTabla);
@@ -72,9 +89,49 @@ public class VentanaCatalogo extends JFrame{
 
         // Panel inferior
         JPanel panelInferior = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        
         JLabel lblTotal = new JLabel("Total de productos: " + productos.size());
         lblTotal.setFont(new Font("Arial", Font.BOLD, 16));
         panelInferior.add(lblTotal);
+        
+        JButton btnConfirmar = new JButton("Confirmar selección");
+        btnConfirmar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				List<int[]> seleccionados = new ArrayList<>();
+
+				for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+					int cantidad = 0;
+					try {
+						Object valor = modeloTabla.getValueAt(i, 6);
+						if (valor instanceof Integer)
+							cantidad = (Integer) valor;
+						else if (valor != null)
+							cantidad = Integer.parseInt(valor.toString());
+					} catch (NumberFormatException ex) {
+						cantidad = 0;
+					}
+
+					if (cantidad > 0) {
+						int id = (int) modeloTabla.getValueAt(i, 1);
+						seleccionados.add(new int[]{id, cantidad});
+					}
+				}
+
+				if (seleccionados.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "No has seleccionado ninguna cantidad.");
+				} else {
+					// Aquí se llamaría al controlador de ventas pasando la lista de arrays
+					ControladorVenta.getInstance().nuevaVenta(seleccionados); // método debe aceptar List<int[]>
+					JOptionPane.showMessageDialog(null, "Venta iniciada con " + seleccionados.size() + " productos.");
+					dispose();
+				}
+			}
+        	
+        });
+        panelInferior.add(btnConfirmar);
+        
         add(panelInferior, BorderLayout.SOUTH);
 	}
 	
@@ -91,11 +148,11 @@ public class VentanaCatalogo extends JFrame{
         }
         else if (producto instanceof TJuguete) {
             TJuguete juguete = (TJuguete) producto;
-            return ("Tipo: " + juguete.getTipo() + " TamaÃ±o: " + juguete.getTamano());
+            return ("Tipo: " + juguete.getTipo() + " Tamaño: " + juguete.getTamano());
         }
         else if (producto instanceof TPoster) {
             TPoster poster = (TPoster) producto;
-            return ("TamaÃ±o: " + poster.getTamano());
+            return ("Tamaño: " + poster.getTamano());
         }
         return "";
     }
