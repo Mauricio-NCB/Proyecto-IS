@@ -17,17 +17,17 @@ public class SADirectorImp implements SADirector {
     private DAODirector daoDirector = new DAODirectorImp();
 
     public boolean altaDirector(TDirector director) {
-        /*if (director == null || director.getIdentificador() == null || director.getIdentificador().trim().isEmpty()) {
-            throw new Exception("Datos del director inválidos o identificador vacío.");
+        if (director == null || director.getIdentificador() == null || director.getIdentificador().trim().isEmpty()) {
+            System.err.println("Datos del director inválidos o identificador vacío.");
         }
         if (director.getCargo() == null || director.getCargo().trim().isEmpty()){
-            throw new Exception("El cargo del director no puede ser vacío.");
+            System.err.println("El cargo del director no puede ser vacío.");
         }
         
         TDirector existe = daoDirector.obtenerPorId(director.getIdentificador());
 		if (existe != null) {
-		    throw new Exception("Ya existe un director con el identificador: " + director.getIdentificador());
-		}*/
+		    System.err.println("Ya existe un director con el identificador: " + director.getIdentificador());
+		}
         
         return daoDirector.createDirector(director);
     }
