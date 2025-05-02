@@ -121,7 +121,7 @@ public class ControladorDirector {
     // Productos
 
     // Lo mismo para diferentes productos... A terminar cuando todo este listo
-    public void registrarPoster(String nombre, String precioStr, String stockStr, String tamano) {
+    /*public void registrarPoster(String nombre, String precioStr, String stockStr, String tamano) {
         System.out.println("\nIntentando registrar nuevo Poster...");
         try {
             // Validación y conversión
