@@ -38,6 +38,18 @@ public class ControladorProducto {
 			return false;
 		}
 	}
+
+    public boolean deleteProducto(String idStr) {
+        int id = Integer.parseInt(idStr);
+		if(prod.deleteProducto(id)) {
+			System.out.println("Exito");
+			return true;
+		}
+		else {
+			System.out.println("Se ha producido un error al crear el producto");
+			return false;
+		}
+	}
 	
 	public List<TProducto> listarProductos() {
 		return prod.listarProductos();		

@@ -36,7 +36,8 @@ public class VentanaProducto extends JDialog {
     private JTextField txtPosterId, txtPosterNombre, txtPosterPrecio, txtPosterStock, txtPosterTamano;
     private JButton btnRegPoster, btnUpdPoster;
     
-    private JButton btnMostrarCatalogo;
+    private JTextField txtEliminarField;
+    private JButton btnMostrarCatalogo, btnElimButton;
 
     private JLabel lblId, lblNombre, lblPrecio, lblStock; // Comunes
     private JLabel lblTalla, lblDorsal, lblNumero; // Camiseta
@@ -79,10 +80,14 @@ public class VentanaProducto extends JDialog {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(4, 4, 4, 4);
         gbc.anchor = GridBagConstraints.WEST;
-        btnMostrarCatalogo = new JButton("Catálogo");
-        gbc.gridx=0; gbc.gridy=2; gbc.gridwidth=2; gbc.anchor=GridBagConstraints.CENTER; panel.add(btnMostrarCatalogo, gbc);
+        lblId = new JLabel("ID (a eliminar):");      txtEliminarField = new JTextField(5);
+        btnMostrarCatalogo = new JButton("Catálogo"); btnElimButton = new JButton("Eliminar Producto");
+        gbc.gridx=-2; gbc.gridy=0; panel.add(lblId, gbc);
+        gbc.gridx=-1; gbc.gridy=0; panel.add(txtEliminarField, gbc);
+        gbc.gridx=0; gbc.gridy=4; gbc.gridwidth=2; gbc.anchor=GridBagConstraints.CENTER; panel.add(btnElimButton, gbc);
+        gbc.gridx=2; gbc.gridy=4; gbc.gridwidth=2; gbc.anchor=GridBagConstraints.CENTER; panel.add(btnMostrarCatalogo, gbc);
         btnMostrarCatalogo.addActionListener(e -> mostrarCatalogo());
-
+        btnElimButton.addActionListener(e -> eliminarProducto());
 		return panel;
     }
 
@@ -230,8 +235,34 @@ public class VentanaProducto extends JDialog {
 
     // Listeners
     private void mostrarCatalogo() {
-    List<TProducto> listaProductos = ControladorProducto.getInstance().listarProductos();
-    new VentanaCatalogo(listaProductos).setVisible(true);
+        List<TProducto> listaProductos = ControladorProducto.getInstance().listarProductos();
+        new VentanaCatalogo(listaProductos).setVisible(true);
+    }
+
+    private void eliminarProducto(){
+        String idEliminar = txtEliminarField.getText().trim();
+        if (idEliminar.isEmpty()) {
+            System.err.print("Error: ID a eliminar vacío."); return;
+        }
+        int confirm = JOptionPane.showConfirmDialog(VentanaProducto.this,
+                "¿Está seguro de que desea eliminar al director con ID: " + idEliminar + "?",
+                "Confirmar Eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            System.out.print("Eliminando producto...");
+            System.out.print("\n--- Solicitando eliminación del producto ID: " + idEliminar + " ---\n");
+            try {
+                controlador.deleteProducto(idEliminar); 
+                System.out.print("Proceso de eliminación finalizado (ver salida).");
+                txtEliminarField.setText("");
+            } catch (Exception ex) {
+                System.err.print("Error durante la eliminación (ver salida).");
+                System.err.print("ERROR: " + ex.getMessage() + "\n");
+            }
+        } else {
+            System.err.print("Eliminación cancelada.");
+            System.err.print("--- Eliminación cancelada por el usuario ---\n");
+        }
     }
 
     private void registrarCamisetaAction() {
