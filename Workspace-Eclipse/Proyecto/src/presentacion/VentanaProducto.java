@@ -8,15 +8,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-// Importar DTOs y Controlador
 import negocio.dto.*;
-import presentacion.ControladorProducto; // O ControladorProducto si lo tienes
+import presentacion.ControladorProducto; 
 
-public class VentanaProducto extends JDialog { // Usar JDialog es apropiado
+public class VentanaProducto extends JDialog { 
 
     private static final long serialVersionUID = 1L;
 
-    private JTabbedPane tabbedPane; // Panel con pestañas
+    private JTabbedPane tabbedPane; 
 
     // Paneles y componentes para cada pestaña
     private JPanel panelCamiseta, panelEntrada, panelJuguete, panelPoster, panelCatalogo;
@@ -38,11 +37,16 @@ public class VentanaProducto extends JDialog { // Usar JDialog es apropiado
     private JButton btnRegPoster, btnUpdPoster;
     
     private JButton btnMostrarCatalogo;
-    // Referencia al controlador
-    private ControladorProducto controlador; // O ControladorProducto
+
+    private JLabel lblId, lblNombre, lblPrecio, lblStock; // Comunes
+    private JLabel lblTalla, lblDorsal, lblNumero; // Camiseta
+    private JLabel lblFecha, lblHora, lblUbicacion, lblAsiento, lblPartido; // Entrada
+    private JLabel lblTipo, lblTamano; // Juguete/Poster 
+
+    private ControladorProducto controlador; 
 
     public VentanaProducto() {
-        super((Frame)null, "Gestionar Productos", true); // true = Modal
+        super((Frame)null, "Gestionar Productos", true); 
         this.controlador = ControladorProducto.getInstance();
         initGUI();
     }
@@ -50,32 +54,25 @@ public class VentanaProducto extends JDialog { // Usar JDialog es apropiado
     private void initGUI() {
         tabbedPane = new JTabbedPane();
 
-        // Crear cada panel/pestaña
         panelCamiseta = crearPanelCamiseta();
         panelEntrada = crearPanelEntrada();
         panelJuguete = crearPanelJuguete();
         panelPoster = crearPanelPoster();
         panelCatalogo = crearPanelCatalogo();
         
-
-        // Añadir pestañas al JTabbedPane
         tabbedPane.addTab("Camisetas", panelCamiseta);
         tabbedPane.addTab("Entradas", panelEntrada);
         tabbedPane.addTab("Juguetes", panelJuguete);
         tabbedPane.addTab("Posters", panelPoster);
         tabbedPane.addTab("Catálogo", panelCatalogo);
 
-        // Añadir JTabbedPane al JDialog
         add(tabbedPane);
 
-        // Configuraciones finales
-        pack(); // Ajustar tamaño a las pestañas
-        setMinimumSize(new Dimension(600, 350)); // Establecer mínimo
-        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE); // Cerrar solo este diálogo
-        setLocationRelativeTo(null); // Centrar
+        pack(); 
+        setMinimumSize(new Dimension(600, 350)); 
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE); 
+        setLocationRelativeTo(null); 
     }
-
-    // --- Métodos para crear cada panel de pestaña ---
     
     private JPanel crearPanelCatalogo() {
         JPanel panel = new JPanel(new GridBagLayout());
@@ -105,12 +102,11 @@ public class VentanaProducto extends JDialog { // Usar JDialog es apropiado
         lblNumero = new JLabel("Número (jugador):");          txtCamisetaNumero = new JTextField(5);
         btnRegCamiseta = new JButton("Registrar Camiseta"); btnUpdCamiseta = new JButton("Actualizar Camiseta");
 
-        // Añadir componentes con GBC (ejemplo simplificado, ajustar layout)
         // Fila 0
         gbc.gridx=0; gbc.gridy=0; panel.add(lblId, gbc);
         gbc.gridx=1; gbc.gridy=0; panel.add(txtCamisetaId, gbc);
         gbc.gridx=2; gbc.gridy=0; panel.add(lblNombre, gbc);
-        gbc.gridx=3; gbc.gridy=0; gbc.gridwidth=3; panel.add(txtCamisetaNombre, gbc); gbc.gridwidth=1; // Reset
+        gbc.gridx=3; gbc.gridy=0; gbc.gridwidth=3; panel.add(txtCamisetaNombre, gbc); gbc.gridwidth=1; 
         // Fila 1
         gbc.gridx=0; gbc.gridy=1; panel.add(lblPrecio, gbc);
         gbc.gridx=1; gbc.gridy=1; panel.add(txtCamisetaPrecio, gbc);
@@ -124,11 +120,11 @@ public class VentanaProducto extends JDialog { // Usar JDialog es apropiado
         // Fila 3
         gbc.gridx=0; gbc.gridy=3; panel.add(lblNumero, gbc);
         gbc.gridx=1; gbc.gridy=3; panel.add(txtCamisetaNumero, gbc);
-        // Fila 4 - Botones
+        // Botones
         gbc.gridx=0; gbc.gridy=4; gbc.gridwidth=2; gbc.anchor=GridBagConstraints.CENTER; panel.add(btnRegCamiseta, gbc);
         gbc.gridx=2; gbc.gridy=4; gbc.gridwidth=2; gbc.anchor=GridBagConstraints.CENTER; panel.add(btnUpdCamiseta, gbc);
 
-        // Listeners para Camiseta
+        // Listeners
         btnRegCamiseta.addActionListener(e -> registrarCamisetaAction());
         btnUpdCamiseta.addActionListener(e -> actualizarCamisetaAction());
 
@@ -141,7 +137,7 @@ public class VentanaProducto extends JDialog { // Usar JDialog es apropiado
          gbc.insets = new Insets(4, 4, 4, 4);
          gbc.anchor = GridBagConstraints.WEST;
 
-        // Labels y TextFields para Entrada
+        // Labels y TextFields
         lblId = new JLabel("ID (sólo actualizar):");      txtEntradaId = new JTextField(5);
         lblNombre = new JLabel("Nombre Evento:");        txtEntradaNombre = new JTextField(15);
         lblPrecio = new JLabel("Precio:");                txtEntradaPrecio = new JTextField(7);
@@ -153,10 +149,8 @@ public class VentanaProducto extends JDialog { // Usar JDialog es apropiado
         lblPartido = new JLabel("Partido/Detalle:");      txtEntradaPartido = new JTextField(15);
         btnRegEntrada = new JButton("Registrar Entrada"); btnUpdEntrada = new JButton("Actualizar Entrada");
 
-        // Añadir componentes con GBC (simplificado)
         gbc.gridx=0; gbc.gridy=0; panel.add(lblId, gbc); gbc.gridx=1; panel.add(txtEntradaId, gbc);
         gbc.gridx=2; gbc.gridy=0; panel.add(lblNombre, gbc); gbc.gridx=3; panel.add(txtEntradaNombre, gbc);
-        // ... Añadir resto de filas con GBC ...
          gbc.gridx=0; gbc.gridy=1; panel.add(lblPrecio, gbc); gbc.gridx=1; panel.add(txtEntradaPrecio, gbc);
          gbc.gridx=2; gbc.gridy=1; panel.add(lblStock, gbc); gbc.gridx=3; panel.add(txtEntradaStock, gbc);
          gbc.gridx=0; gbc.gridy=2; panel.add(lblFecha, gbc); gbc.gridx=1; panel.add(txtEntradaFecha, gbc);
@@ -168,8 +162,6 @@ public class VentanaProducto extends JDialog { // Usar JDialog es apropiado
         gbc.gridx=0; gbc.gridy=5; gbc.gridwidth=2; gbc.anchor=GridBagConstraints.CENTER; panel.add(btnRegEntrada, gbc);
         gbc.gridx=2; gbc.gridy=5; gbc.gridwidth=2; gbc.anchor=GridBagConstraints.CENTER; panel.add(btnUpdEntrada, gbc);
 
-
-        // Listeners para Entrada
         btnRegEntrada.addActionListener(e -> registrarEntradaAction());
         btnUpdEntrada.addActionListener(e -> actualizarEntradaAction());
 
@@ -182,7 +174,7 @@ public class VentanaProducto extends JDialog { // Usar JDialog es apropiado
          gbc.insets = new Insets(4, 4, 4, 4);
          gbc.anchor = GridBagConstraints.WEST;
 
-        // Labels y TextFields para Juguete
+        // Labels y TextFields 
         lblId = new JLabel("ID (sólo actualizar):");  txtJugueteId = new JTextField(5);
         lblNombre = new JLabel("Nombre:");            txtJugueteNombre = new JTextField(15);
         lblPrecio = new JLabel("Precio:");            txtJuguetePrecio = new JTextField(7);
@@ -191,10 +183,8 @@ public class VentanaProducto extends JDialog { // Usar JDialog es apropiado
         lblTamano = new JLabel("Tamaño:");            txtJugueteTamano = new JTextField(10);
         btnRegJuguete = new JButton("Registrar Juguete"); btnUpdJuguete = new JButton("Actualizar Juguete");
 
-        // Añadir componentes con GBC (simplificado)
         gbc.gridx=0; gbc.gridy=0; panel.add(lblId, gbc); gbc.gridx=1; panel.add(txtJugueteId, gbc);
         gbc.gridx=2; gbc.gridy=0; panel.add(lblNombre, gbc); gbc.gridx=3; panel.add(txtJugueteNombre, gbc);
-        // ... Añadir resto de filas ...
         gbc.gridx=0; gbc.gridy=1; panel.add(lblPrecio, gbc); gbc.gridx=1; panel.add(txtJuguetePrecio, gbc);
         gbc.gridx=2; gbc.gridy=1; panel.add(lblStock, gbc); gbc.gridx=3; panel.add(txtJugueteStock, gbc);
         gbc.gridx=0; gbc.gridy=2; panel.add(lblTipo, gbc); gbc.gridx=1; panel.add(txtJugueteTipo, gbc);
@@ -203,7 +193,6 @@ public class VentanaProducto extends JDialog { // Usar JDialog es apropiado
         gbc.gridx=0; gbc.gridy=3; gbc.gridwidth=2; gbc.anchor=GridBagConstraints.CENTER; panel.add(btnRegJuguete, gbc);
         gbc.gridx=2; gbc.gridy=3; gbc.gridwidth=2; gbc.anchor=GridBagConstraints.CENTER; panel.add(btnUpdJuguete, gbc);
 
-        // Listeners para Juguete
         btnRegJuguete.addActionListener(e -> registrarJugueteAction());
         btnUpdJuguete.addActionListener(e -> actualizarJugueteAction());
 
@@ -216,7 +205,7 @@ public class VentanaProducto extends JDialog { // Usar JDialog es apropiado
          gbc.insets = new Insets(4, 4, 4, 4);
          gbc.anchor = GridBagConstraints.WEST;
 
-        // Labels y TextFields para Poster
+        // Labels y TextFields 
         lblId = new JLabel("ID (sólo actualizar):");  txtPosterId = new JTextField(5);
         lblNombre = new JLabel("Nombre:");            txtPosterNombre = new JTextField(15);
         lblPrecio = new JLabel("Precio:");            txtPosterPrecio = new JTextField(7);
@@ -224,10 +213,8 @@ public class VentanaProducto extends JDialog { // Usar JDialog es apropiado
         lblTamano = new JLabel("Tamaño:");            txtPosterTamano = new JTextField(10);
         btnRegPoster = new JButton("Registrar Poster"); btnUpdPoster = new JButton("Actualizar Poster");
 
-        // Añadir componentes con GBC (simplificado)
         gbc.gridx=0; gbc.gridy=0; panel.add(lblId, gbc); gbc.gridx=1; panel.add(txtPosterId, gbc);
         gbc.gridx=2; gbc.gridy=0; panel.add(lblNombre, gbc); gbc.gridx=3; panel.add(txtPosterNombre, gbc);
-        // ... Añadir resto de filas ...
         gbc.gridx=0; gbc.gridy=1; panel.add(lblPrecio, gbc); gbc.gridx=1; panel.add(txtPosterPrecio, gbc);
         gbc.gridx=2; gbc.gridy=1; panel.add(lblStock, gbc); gbc.gridx=3; panel.add(txtPosterStock, gbc);
         gbc.gridx=0; gbc.gridy=2; panel.add(lblTamano, gbc); gbc.gridx=1; gbc.gridwidth=3; panel.add(txtPosterTamano, gbc); gbc.gridwidth=1;
@@ -235,23 +222,19 @@ public class VentanaProducto extends JDialog { // Usar JDialog es apropiado
         gbc.gridx=0; gbc.gridy=3; gbc.gridwidth=2; gbc.anchor=GridBagConstraints.CENTER; panel.add(btnRegPoster, gbc);
         gbc.gridx=2; gbc.gridy=3; gbc.gridwidth=2; gbc.anchor=GridBagConstraints.CENTER; panel.add(btnUpdPoster, gbc);
 
-
-        // Listeners para Poster
         btnRegPoster.addActionListener(e -> registrarPosterAction());
         btnUpdPoster.addActionListener(e -> actualizarPosterAction());
 
         return panel;
     }
 
-    // --- Métodos de Acción (Listeners) ---
-     
-     private void mostrarCatalogo() {
- 		List<TProducto> listaProductos = ControladorProducto.getInstance().listarProductos();
- 		new VentanaCatalogo(listaProductos).setVisible(true);
-     }
+    // Listeners
+    private void mostrarCatalogo() {
+    List<TProducto> listaProductos = ControladorProducto.getInstance().listarProductos();
+    new VentanaCatalogo(listaProductos).setVisible(true);
+    }
 
     private void registrarCamisetaAction() {
-        // Leer datos de txtCamisetaNombre, txtCamisetaPrecio, etc.
         String nombre = txtCamisetaNombre.getText().trim();
         String precioStr = txtCamisetaPrecio.getText().trim();
         String stockStr = txtCamisetaStock.getText().trim();
@@ -259,19 +242,15 @@ public class VentanaProducto extends JDialog { // Usar JDialog es apropiado
         String dorsal = txtCamisetaDorsal.getText().trim();
         String numeroStr = txtCamisetaNumero.getText().trim();
 
-        // Llamar al controlador (que valida y llama al SA)
         try {
-             // El controlador se encarga de la conversión numérica y validación
              controlador.registrarCamiseta(nombre, precioStr, stockStr, tallaStr, dorsal, numeroStr);
              JOptionPane.showMessageDialog(this, "Solicitud de registro de camiseta enviada.\nVerifique la salida en la ventana principal.", "Registro Iniciado", JOptionPane.INFORMATION_MESSAGE);
-             // Podrías limpiar campos aquí si quieres
-        } catch (Exception ex) { // Captura muy genérica, el controlador debería loggear/imprimir
+        } catch (Exception ex) { 
             JOptionPane.showMessageDialog(this, "Error al intentar registrar camiseta:\n" + ex.getMessage(), "Error de Registro", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     private void actualizarCamisetaAction() {
-        // Leer datos de TODOS los campos, INCLUYENDO txtCamisetaId
         String idStr = txtCamisetaId.getText().trim();
         String nombre = txtCamisetaNombre.getText().trim();
         String precioStr = txtCamisetaPrecio.getText().trim();
@@ -286,22 +265,12 @@ public class VentanaProducto extends JDialog { // Usar JDialog es apropiado
         }
 
          try {
-             // El controlador se encarga de conversión y llamada al SA/DAO
              controlador.actualizarCamiseta(idStr, nombre, precioStr, stockStr, tallaStr, dorsal, numeroStr);
              JOptionPane.showMessageDialog(this, "Solicitud de actualización de camiseta enviada.\nVerifique la salida en la ventana principal.", "Actualización Iniciada", JOptionPane.INFORMATION_MESSAGE);
-             // Podrías cerrar ventana o limpiar campos
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error al intentar actualizar camiseta:\n" + ex.getMessage(), "Error de Actualización", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    // --- Implementar métodos de acción similares para Entrada, Juguete y Poster ---
-    // registrarEntradaAction(), actualizarEntradaAction()
-    // registrarJugueteAction(), actualizarJugueteAction()
-    // registrarPosterAction(), actualizarPosterAction()
-    // Estos métodos leerán los datos de sus respectivos JTextFields y llamarán
-    // a los métodos correspondientes del controlador (que creamos antes).
-    // Recuerda manejar la conversión de fecha para Entrada.
 
      private void registrarEntradaAction() {
         String nombre = txtEntradaNombre.getText().trim();
@@ -417,10 +386,5 @@ public class VentanaProducto extends JDialog { // Usar JDialog es apropiado
         }
      }
 
-    // --- Variables miembro para labels/textfields (añadir las que faltan) ---
-    private JLabel lblId, lblNombre, lblPrecio, lblStock; // Comunes
-    private JLabel lblTalla, lblDorsal, lblNumero; // Camiseta
-    private JLabel lblFecha, lblHora, lblUbicacion, lblAsiento, lblPartido; // Entrada
-    private JLabel lblTipo, lblTamano; // Juguete/Poster (reusar o separar)
 
-} // Fin clase VentanaProducto
+} 

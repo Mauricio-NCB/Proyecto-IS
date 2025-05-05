@@ -25,4 +25,9 @@ public class SAProductoImp implements SAProducto{
 		return daoProducto.obtenerTodosLosProductos();
 	}
 
+	@Override
+	public boolean updateProducto(TProducto producto) {
+		return daoProducto.updateProducto(producto);
+	}
+
 }
