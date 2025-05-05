@@ -45,7 +45,7 @@ public class FormularioFactura extends JFrame {
 		add(txtIDCliente);
 		
 		JButton btnGuardar = new JButton("Guardar factura");
-		btnGuardar.addActionListener(new ActionListener() {
+		btnGuardar.addActionListener(e -> {
 			String fecha = lblFecha.getText();
 			String hora = lblHora.getText();
 			Float importe = Float.parseFloat(txtImporte.getText().trim());

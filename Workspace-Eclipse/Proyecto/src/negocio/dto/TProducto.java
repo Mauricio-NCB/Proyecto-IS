@@ -13,12 +13,22 @@ public abstract class TProducto {
     	this.stock = stock;
     }
 
+    protected TProducto(final String nombre, final float precio, final int stock) {
+    	this.nombre = nombre;
+    	this.precio = precio;
+    	this.stock = stock;
+    }
+
     public void disminuirStock(final int cantidad) {
     	stock -= cantidad;
     }
 
     public void aumentarStock(final int cantidad) {
     	stock += cantidad;
+    }
+
+    public void setID(final int id){
+        this.ID = id;
     }
 
     public int getID() {

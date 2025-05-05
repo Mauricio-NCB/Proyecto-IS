@@ -1,5 +1,7 @@
 package presentacion;
 
+import java.util.List;
+
 import negocio.dto.Factura;
 import negocio.dto.TDependiente;
 import negocio.sa.SADependiente;
@@ -28,5 +30,8 @@ public class ControladorDependiente {
         } else {
             System.out.println("Error al generar la factura");
         }
+    }
+    public List<TDependiente> listarDependientes() {
+        return servicioDependiente.listarDependientes();
     }
 }

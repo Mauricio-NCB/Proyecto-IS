@@ -10,6 +10,12 @@ public class TJuguete extends TProducto {
     	this.tamano = tamano;
     }
 
+    public TJuguete(final String nombre, final float precio, final int stock, final String tipo, final String tamano) {
+    	super(nombre, precio, stock);
+    	this.tipo = tipo;
+    	this.tamano = tamano;
+    }
+
     public String getTipo() {
         return this.tipo;
     }

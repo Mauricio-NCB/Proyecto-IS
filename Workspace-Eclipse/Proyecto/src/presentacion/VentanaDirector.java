@@ -46,7 +46,8 @@ public class VentanaDirector extends JFrame {
     private JButton btnListarClientes;  
     private JButton btnCerrarSesion; 
     private JButton btnMostrarCatalogo;      
-
+    private JButton btnGestionarProductos; 
+      
     // Área de Texto para Salida
     private JTextArea txtAreaOutput;
     private JScrollPane scrollPaneOutput;
@@ -113,7 +114,8 @@ public class VentanaDirector extends JFrame {
         btnActualizarDatos = new JButton("Actualizar Datos");
         btnListarClientes = new JButton("Listar Clientes"); 
         btnCerrarSesion = new JButton("Cerrar Sesión"); 
-        btnMostrarCatalogo = new JButton("Mostrar Catálogo");   
+        btnMostrarCatalogo = new JButton("Mostrar Catálogo");  
+        btnGestionarProductos = new JButton("Gestionar Productos"); 
 
         // Área de Texto y ScrollPane
         txtAreaOutput = new JTextArea(18, 75); 
@@ -170,6 +172,7 @@ public class VentanaDirector extends JFrame {
         panelAccionesGenerales.add(btnListarDirectores);
         panelAccionesGenerales.add(btnListarClientes); 
         panelAccionesGenerales.add(btnMostrarCatalogo); 
+        panelAccionesGenerales.add(btnGestionarProductos);
         panelAccionesGenerales.add(btnCerrarSesion);    
         panelAccionesGenerales.setAlignmentX(Component.LEFT_ALIGNMENT); 
 
@@ -331,6 +334,16 @@ public class VentanaDirector extends JFrame {
         btnMostrarCatalogo.addActionListener(e -> {
 			List<TProducto> listaProductos = ControladorProducto.getInstance().listarProductos();
 			new VentanaCatalogo(listaProductos).setVisible(true);
+        });
+
+        btnGestionarProductos.addActionListener(e -> {
+            appendOutput("\n--- Abriendo ventana de gestión de productos ---\n");
+            updateStatus("Abriendo gestión de productos...");
+            // Crear y mostrar la nueva ventana, pasando el controlador
+            SwingUtilities.invokeLater(() -> {
+                // Necesitas crear la clase VentanaProducto
+                new VentanaProducto().setVisible(true);
+            });
         });
 
     }

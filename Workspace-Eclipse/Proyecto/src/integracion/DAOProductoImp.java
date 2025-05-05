@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,17 +23,196 @@ public class DAOProductoImp implements DAOProducto{
 		String sql = "INSERT INTO Producto (nombre, precio, stock) VALUES (?, ?, ?)";
 		
 		try (Connection conn = BDConexion.getInstance().getConnection();
-	             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+			
 			pstmt.setString(1, producto.getNombre());
-            pstmt.setFloat(2, producto.getPrecio());
-            pstmt.setLong(3, producto.getStock());
+	        pstmt.setFloat(2, producto.getPrecio());
+	        pstmt.setInt(3, producto.getStock());
+	        
+	        pstmt.executeUpdate();
+	        
+	        ResultSet generatedKeys = pstmt.getGeneratedKeys();
+	        if (!generatedKeys.next()) {
+	            return false;
+	        }
+	        int idGenerado = generatedKeys.getInt(1);
+            producto.setID(idGenerado);
+            generatedKeys.close();
+            pstmt.close();
             
-            return pstmt.executeUpdate() > 0;
+	        if (producto instanceof TCamiseta) {
+	            TCamiseta c = (TCamiseta) producto;
+	            String sql2 = "INSERT INTO Camiseta (ID, talla, dorsal, numero) VALUES (?, ?, ?, ?)";
+	            PreparedStatement pstmt2 = conn.prepareStatement(sql2);
+	            pstmt2.setInt(1, idGenerado);
+	            pstmt2.setInt(2, c.getTalla());
+	            pstmt2.setString(3, c.getDorsalJugador());
+	            pstmt2.setInt(4, c.getNumeroJugador());
+	            pstmt2.executeUpdate();
+	        } 
+	        else if (producto instanceof TEntrada) {
+	            TEntrada e = (TEntrada) producto;
+	            String sql2 = "INSERT INTO Entrada (ID, fecha, hora, ubicacion, numero_asiento, partido) VALUES (?, ?, ?, ?, ?, ?)";
+	            PreparedStatement pstmt2 = conn.prepareStatement(sql2);
+	            pstmt2.setInt(1, idGenerado);
+	            pstmt2.setDate(2, new Date(e.getFecha().getTime()));
+	            pstmt2.setString(3, e.getHora());
+	            pstmt2.setString(4, e.getUbicacion());
+	            pstmt2.setString(5, e.getNumeroAsiento());
+	            pstmt2.setString(6, e.getPartido());
+	            pstmt2.executeUpdate();
+	        }
+	        else if (producto instanceof TJuguete) {
+	            TJuguete j = (TJuguete) producto;
+	            String sql2 = "INSERT INTO Juguete (ID, tipo, tamano) VALUES (?, ?, ?)";
+	            PreparedStatement pstmt2 = conn.prepareStatement(sql2);
+	            pstmt2.setInt(1, idGenerado);
+	            pstmt2.setString(2, j.getTipo());
+	            pstmt2.setString(3, j.getTamano());
+	            pstmt2.executeUpdate();
+	        }
+	        else if (producto instanceof TPoster) {
+	            TPoster p = (TPoster) producto;
+	            String sql2 = "INSERT INTO Poster (ID, tamano) VALUES (?, ?)";
+	            PreparedStatement pstmt2 = conn.prepareStatement(sql2);
+	            pstmt2.setInt(1, idGenerado);
+	            pstmt2.setString(2, p.getTamano());
+	            pstmt2.executeUpdate();
+	        }
+            
+	        return true;
+
 		}catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
 	}
+	
+    public boolean updateProducto(TProducto producto) {
+		
+		String sqlProducto = "UPDATE Producto SET nombre = ?, precio = ?, stock = ? WHERE ID = ?";
+		
+		try (Connection conn = BDConexion.getInstance().getConnection();
+	             PreparedStatement pstmt = conn.prepareStatement(sqlProducto)) {
+			
+			 pstmt.setString(1, producto.getNombre());
+             pstmt.setFloat(2, producto.getPrecio());
+             pstmt.setInt(3, producto.getStock());
+             pstmt.setInt(4, producto.getID());
+			
+             pstmt.executeUpdate();
+             
+             boolean actualizado = actualizarProducto(conn, producto);
+             
+             if (!actualizado) {
+                 return false;
+             }
+             
+             return true;
+		} catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+		
+	}
+	
+	private boolean actualizarProducto(Connection conn, TProducto producto) throws SQLException {
+        if (producto instanceof TCamiseta) {
+            TCamiseta c = (TCamiseta) producto;
+            String sql = "UPDATE Camiseta SET talla = ?, dorsal = ?, numero = ? WHERE ID = ?";
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setInt(1, c.getTalla());
+                pstmt.setString(2, c.getDorsalJugador());
+                pstmt.setInt(3, c.getNumeroJugador());
+                pstmt.setInt(4, c.getID());
+                return pstmt.executeUpdate() > 0;
+            }
+        } else if (producto instanceof TEntrada) {
+            TEntrada e = (TEntrada) producto;
+            String sql = "UPDATE Entrada SET fecha = ?, hora = ?, ubicacion = ?, numero_asiento = ?, partido = ? WHERE ID = ?";
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setDate(1, new Date(e.getFecha().getTime()));
+                pstmt.setString(2, e.getHora());
+                pstmt.setString(3, e.getUbicacion());
+                pstmt.setString(4, e.getNumeroAsiento());
+                pstmt.setString(5, e.getPartido());
+                pstmt.setInt(6, e.getID());
+                return pstmt.executeUpdate() > 0;
+            }
+        }
+        else if (producto instanceof TJuguete) {
+            TJuguete j = (TJuguete) producto;
+            String sql = "UPDATE Juguete SET tipo = ?, tamano = ? WHERE ID = ?";
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, j.getTipo());
+                pstmt.setString(2, j.getTamano());
+                pstmt.setInt(3, j.getID());
+                return pstmt.executeUpdate() > 0;
+            }
+        }
+        else if (producto instanceof TPoster) {
+            TPoster p = (TPoster) producto;
+            String sql = "UPDATE Poster SET tamano = ? WHERE ID = ?";
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, p.getTamano());
+                pstmt.setInt(2, p.getID());
+                return pstmt.executeUpdate() > 0;
+            }
+        }
+        return false;
+    }
+	
+	public boolean deleteProducto(int idProducto) {
+		
+		try (Connection conn = BDConexion.getInstance().getConnection()) {
+			
+			String tipoProducto = null;
+	        
+	        if (esCamiseta(conn, idProducto)) {
+	            tipoProducto = "Camiseta";
+	        } else if (esEntrada(conn, idProducto)) {
+	            tipoProducto = "Entrada";
+	        } else if (esJuguete(conn, idProducto)) {
+	            tipoProducto = "Juguete";
+	        } else if (esPoster(conn, idProducto)) {
+	            tipoProducto = "Poster";
+	        }
+	        
+	        if (tipoProducto == null) {
+	            return false;
+	        }
+	        
+	        if (!eliminarDeTabla(conn, tipoProducto, idProducto)) {
+	            return false;
+	        }
+
+	        if (!eliminarDeProducto(conn, idProducto)) {
+	            return false;
+	        }
+	        
+	        return true;
+		}catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+	
+	private boolean eliminarDeTabla(Connection conn, String tipoProducto, int idProducto) throws SQLException {
+	    String sql = "DELETE FROM " + tipoProducto + " WHERE ID = ?";
+	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setInt(1, idProducto);
+	        return pstmt.executeUpdate() > 0;
+	    }
+	}
+	
+	private boolean eliminarDeProducto(Connection conn, int idProducto) throws SQLException {
+	    String sql = "DELETE FROM Producto WHERE ID = ?";
+	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setInt(1, idProducto);
+	        return pstmt.executeUpdate() > 0;
+	    }
+	}
+		
 	
     public List<TProducto> obtenerTodosLosProductos() {
         List<TProducto> productos = new ArrayList<>();

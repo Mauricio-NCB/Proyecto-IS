@@ -19,6 +19,16 @@ public class TEntrada extends TProducto {
     	this.partido = partido;
     }
 
+    public TEntrada(final String nombre, final float precio, final int stock,
+            final Date fecha, final String hora, final String ubicacion, final String numeroAsiento, final String partido) {
+        super(nombre, precio, stock);
+        this.fecha = fecha;
+        this.hora = hora;
+        this.ubicacion = ubicacion;
+        this.numeroAsiento = numeroAsiento;
+        this.partido = partido;
+    }
+
     public Date getFecha() {
         return this.fecha;
     }

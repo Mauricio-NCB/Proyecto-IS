@@ -16,6 +16,11 @@ public class SAProductoImp implements SAProducto{
 	}
 
 	@Override
+	public boolean deleteProducto(int id) {
+		return daoProducto.deleteProducto(id);
+	}
+
+	@Override
 	public List<TProducto> listarProductos() {
 		return daoProducto.obtenerTodosLosProductos();
 	}

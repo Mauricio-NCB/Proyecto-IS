@@ -13,6 +13,14 @@ public class TCamiseta extends TProducto {
     	this.numeroJugador = numJug;
     }
 
+    public TCamiseta(final String nombre, final float precio, final int stock,
+            final int talla, final String dorsalJug, final int numJug) {
+        super(nombre, precio, stock);
+        this.talla = talla;
+        this.dorsalJugador = dorsalJug;
+        this.numeroJugador = numJug;
+    }
+
     public int getTalla() {
         return this.talla;
     }

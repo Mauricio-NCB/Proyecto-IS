@@ -7,6 +7,11 @@ public class TPoster extends TProducto {
     	super(ID ,nombre, precio, stock);
     	this.tamano = tamano;
     }
+
+    public TPoster(final String nombre, final float precio, final int stock, final String tamano) {
+    	super(nombre, precio, stock);
+    	this.tamano = tamano;
+    }
     
     public String getTamano() {
         return this.tamano;
