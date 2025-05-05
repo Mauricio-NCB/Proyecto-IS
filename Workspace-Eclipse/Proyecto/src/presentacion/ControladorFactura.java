@@ -2,6 +2,7 @@ package presentacion;
 
 import java.util.List;
 
+import negocio.dto.TFactura;
 import negocio.sa.SAFactura;
 import negocio.sa.SAFacturaImp;
 
@@ -22,5 +23,9 @@ public class ControladorFactura {
 
 	public void nuevaFactura(int idCliente, String idDependiente, List<Object[]> productosConCantidad) throws Exception {
 		servicioFactura.crearFactura(idCliente, idDependiente, productosConCantidad);
+	}
+	
+	public List<TFactura> listarFacturas() {
+		return servicioFactura.listarFacturas();
 	}
 }

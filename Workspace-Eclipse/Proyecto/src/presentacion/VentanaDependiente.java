@@ -5,11 +5,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
+import negocio.dto.TFactura;
 import negocio.dto.TProducto;
 
 public class VentanaDependiente extends JFrame {
@@ -25,15 +30,25 @@ public class VentanaDependiente extends JFrame {
 	}
 	
 	private void initGUI() {
-		setSize(500, 400);
+		setSize(400, 200);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout());
 		
-		add(new JLabel("Bienvenido dependiente"));
-		
+		// Panel de botones
+		JPanel panelBotones = new JPanel();
+		panelBotones.setLayout(new BoxLayout(panelBotones, BoxLayout.X_AXIS));
+		panelBotones.setBorder(BorderFactory.createEmptyBorder(20, 100, 20, 100)); // Espaciado interno
+
 		JButton btnVenta = new JButton("Nueva venta");
-		add(btnVenta);
+		JButton btnListarFacturas = new JButton("Listar facturas");
+
+
+		panelBotones.add(btnVenta);
+		panelBotones.add(Box.createHorizontalStrut(20)); 
+		panelBotones.add(btnListarFacturas);
+		
+		add(panelBotones, BorderLayout.CENTER);
 		
 		btnVenta.addActionListener(new ActionListener() {
 
@@ -44,5 +59,11 @@ public class VentanaDependiente extends JFrame {
 			
 		});
 		
+		btnListarFacturas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				List<TFactura> listaFacturas = ControladorFactura.getInstance().listarFacturas();
+				new VentanaListaFacturas(listaFacturas).setVisible(true);
+			}
+		}
 	}
 }
