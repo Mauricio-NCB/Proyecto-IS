@@ -17,7 +17,7 @@ public class VentanaListaFacturas extends JFrame {
 		setSize(600, 400);
 		setLocationRelativeTo(null);
 
-		String[] columnas = { "Código", "Fecha", "Hora", "Importe", "Cliente", "Dependiente" };
+		String[] columnas = { "Código", "Fecha", "Hora", "Importe", "Cliente"};
 
 		String[][] datos = new String[facturas.size()][columnas.length];
 		for (int i = 0; i < facturas.size(); i++) {
@@ -27,7 +27,6 @@ public class VentanaListaFacturas extends JFrame {
 			datos[i][2] = f.getHora().toString();
 			datos[i][3] = String.valueOf(f.getImporte());
 			datos[i][4] = f.getTiene().getNombre();
-			datos[i][5] = f.getDependientes().getNombre();
 		}
 
 		JTable tabla = new JTable(datos, columnas);

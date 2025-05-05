@@ -13,7 +13,6 @@ public class TFactura {
     private float importe;
     public TCliente tiene;
     public TDependiente dependientes;
-    public Envio manda;
 
     public TFactura(final Date fecha, final int hora, final float importe) {
     }

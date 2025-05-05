@@ -4,6 +4,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import negocio.dto.TCliente;
+import negocio.dto.TDependiente;
 import negocio.dto.TFactura;
 
 public class DAOFacturaImp implements DAOFactura {
@@ -37,7 +39,7 @@ public class DAOFacturaImp implements DAOFactura {
 
 	@Override
 	public void insert(TFactura factura) {
-	    String sql = "INSERT INTO Factura (codigo, fecha, hora, importe, cliente, dependiente) VALUES (?, ?, ?, ?, ?, ?)";
+	    String sql = "INSERT INTO Factura (codigo, fecha, hora, importe, cliente) VALUES (?, ?, ?, ?, ?)";
 
 	    try (Connection conn = BDConexion.getInstance().getConnection();
 	         PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -47,14 +49,52 @@ public class DAOFacturaImp implements DAOFactura {
 	        ps.setTime(3, Time.valueOf(factura.getHora()));
 	        ps.setFloat(4, factura.getImporte());
 
-	        // Aquí extraemos los IDs de los objetos
 	        ps.setInt(5, factura.getTiene().getNumSocio());
-	        ps.setString(6, factura.getDependientes().getIdentificador());
 
 	        ps.executeUpdate();
 
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
+	}
+
+	@Override
+	public List<TFactura> listarFacturas() {
+		List<TFactura> lista = new ArrayList<>();
+
+		String sql = "SELECT * FROM Factura";
+		
+		DAOCliente daocliente = new DAOClienteImp();
+		List<TCliente> clientes = daocliente.getAllClientes();
+
+		try (Connection conn = BDConexion.getInstance().getConnection();
+		     PreparedStatement stmt = conn.prepareStatement(sql);
+		     ResultSet rs = stmt.executeQuery()) {
+
+			while (rs.next()) {
+				TFactura f = new TFactura();
+				f.setCodigo(rs.getString("codigo"));
+				f.setFecha(rs.getDate("fecha").toLocalDate());
+				f.setHora(rs.getTime("hora").toLocalTime());
+				f.setImporte(rs.getFloat("importe"));
+
+				int idCliente = rs.getInt("cliente");
+
+				TCliente cliente = null;
+				for (TCliente c : clientes) {
+				    if (c.getNumSocio() == idCliente) {
+				        cliente = c;
+				        break;
+				    }
+				}
+
+				f.setTiene(cliente);
+
+				lista.add(f);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lista;
 	}
 }

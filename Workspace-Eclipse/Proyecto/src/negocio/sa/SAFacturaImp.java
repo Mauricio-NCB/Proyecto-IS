@@ -15,13 +15,14 @@ import negocio.dto.TProducto;
 
 public class SAFacturaImp implements SAFactura {
 
+	SACliente saCliente = new SAClienteImp();
+	SADependiente saDependiente = new SADependienteImp();
+	DAOProducto daoProducto = new DAOProductoImp();
+	DAOFactura daoFactura = new DAOFacturaImp();
+	
 	@Override
 	public void crearFactura(int idCliente, String idDependiente, List<Object[]> productosConCantidad) throws Exception {
 		// TODO Auto-generated method stub
-		SACliente saCliente = new SAClienteImp();
-		SADependiente saDependiente = new SADependienteImp();
-		DAOProducto daoProducto = new DAOProductoImp();
-		DAOFactura daoFactura = new DAOFacturaImp();
 
 		List<TCliente> clientes = saCliente.getAllClientes(); 
 		boolean existeCliente = clientes.stream().anyMatch(c -> c.getNumSocio() == idCliente);
@@ -76,6 +77,12 @@ public class SAFacturaImp implements SAFactura {
 			daoProducto.updateProducto(producto);
 
 		}
+	}
+
+	@Override
+	public List<TFactura> listarFacturas() {
+		// TODO Auto-generated method stub
+		return daoFactura.listarFacturas();
 	}
 
 }
