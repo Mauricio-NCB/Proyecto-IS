@@ -18,4 +18,9 @@ public class SADependienteImp implements SADependiente{
     public List<TDependiente> listarDependientes() {
         return daoFactura.listarDependientes();
     }
+
+    @Override
+    public boolean eliminarDependiente(String id) {
+    	return daoFactura.eliminar(id);
+    }
 }

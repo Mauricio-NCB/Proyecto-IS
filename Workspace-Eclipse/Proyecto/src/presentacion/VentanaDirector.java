@@ -47,6 +47,7 @@ public class VentanaDirector extends JFrame {
     private JButton btnRegistrarDirector;
     private JButton btnListarDirectores;
     private JButton btnEliminarDirector;
+    private JButton btnEliminarDependiente;
     private JButton btnActualizarDatos;
     private JButton btnListarClientes;  
     private JButton btnCerrarSesion; 
@@ -127,6 +128,7 @@ public class VentanaDirector extends JFrame {
         btnRegistrarDirector = new JButton("Registrar Empleado");
         btnListarDirectores = new JButton("Listar Empleado");
         btnEliminarDirector = new JButton("Eliminar Director");
+        btnEliminarDependiente = new JButton("Eliminar Dependiente");
         btnActualizarDatos = new JButton("Actualizar Datos");
         btnListarClientes = new JButton("Listar Clientes"); 
         btnCerrarSesion = new JButton("Cerrar Sesión"); 
@@ -191,6 +193,7 @@ public class VentanaDirector extends JFrame {
         panelEliminarDirector.add(lblIdEliminar);
         panelEliminarDirector.add(txtIdEliminar);
         panelEliminarDirector.add(btnEliminarDirector);
+        panelEliminarDirector.add(btnEliminarDependiente);
         panelEliminarDirector.setAlignmentX(Component.LEFT_ALIGNMENT); 
 
         // Configurar panel de acciones generales
@@ -301,6 +304,34 @@ public class VentanaDirector extends JFrame {
                 appendOutput("\n--- Solicitando eliminación del director ID: " + idEliminar + " ---\n");
                 try {
                     controlador.eliminarDirector(idEliminar); 
+                    updateStatus("Proceso de eliminación finalizado (ver salida).");
+                    txtIdEliminar.setText("");
+                } catch (Exception ex) {
+                    updateStatus("Error durante la eliminación (ver salida).");
+                    appendOutput("ERROR: " + ex.getMessage() + "\n");
+                }
+            } else {
+                updateStatus("Eliminación cancelada.");
+                appendOutput("--- Eliminación cancelada por el usuario ---\n");
+            }
+        });
+
+        // --- Eliminar Dependiente ---
+        btnEliminarDependiente.addActionListener(e -> {
+            String idEliminar = txtIdEliminar.getText().trim();
+            if (idEliminar.isEmpty()) {
+                appendOutput("ERROR UI: Debe ingresar el ID del dependiente a eliminar.\n");
+                updateStatus("Error: ID a eliminar vacío."); return;
+            }
+            int confirm = JOptionPane.showConfirmDialog(VentanaDirector.this,
+                    "¿Está seguro de que desea eliminar al dependiente con ID: " + idEliminar + "?",
+                    "Confirmar Eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                updateStatus("Eliminando dependiente...");
+                appendOutput("\n--- Solicitando eliminación del dependiente ID: " + idEliminar + " ---\n");
+                try {
+                    controladorDep.eliminarDependiente(idEliminar); 
                     updateStatus("Proceso de eliminación finalizado (ver salida).");
                     txtIdEliminar.setText("");
                 } catch (Exception ex) {

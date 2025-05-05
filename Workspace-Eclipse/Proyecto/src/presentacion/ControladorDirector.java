@@ -101,7 +101,5 @@ public class ControladorDirector {
                 System.out.println(cliente);
             }
         }
-    }
-
-    // Dependiente 
+    } 
 }
