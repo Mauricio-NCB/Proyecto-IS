@@ -24,7 +24,7 @@ public class TDirector extends TEmpleado {
     
     @Override
     public String toString() {
-        return "Director" + getNombre() + "{ ID='" + getIdentificador() + '\'' +
+        return "Director " + getNombre() + "{ ID='" + getIdentificador() + '\'' +
                ", Nombre='" + getNombre() + '\'' +
                ", Sueldo=" + getSueldo() +
                ", Cargo='" + this.cargo + '\'' + '}';

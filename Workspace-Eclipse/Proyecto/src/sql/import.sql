@@ -13,10 +13,6 @@ TRUNCATE TABLE Director;
 TRUNCATE TABLE Dependiente;
 TRUNCATE TABLE Cliente;
 TRUNCATE TABLE Factura;
-TRUNCATE TABLE Venta;
-TRUNCATE TABLE Envio;
-TRUNCATE TABLE VentaDirector;
-TRUNCATE TABLE VentaProducto;
 SET FOREIGN_KEY_CHECKS=1;
 
 -- Productos
@@ -50,7 +46,7 @@ INSERT INTO Empleado (identificador, nombre, sueldo, contrasena) VALUES
 INSERT INTO Director (id, cargo) VALUES ('EMP001', 'DIRECTOR GENERAL');
 
 -- Dependientes
-INSERT INTO Dependiente (id, sum_ventas, director) VALUES ('EMP002', 5000, 'EMP001');
+INSERT INTO Dependiente (id, sum_ventas) VALUES ('EMP002', 5000);
 
 -- Clientes
 INSERT INTO Cliente (nombre, direccion, correo) VALUES 
@@ -60,19 +56,3 @@ INSERT INTO Cliente (nombre, direccion, correo) VALUES
 -- Facturas
 INSERT INTO Factura (codigo, fecha, hora, importe, cliente, dependiente) VALUES 
 ('FAC001', '2025-03-25', '15:30:00', 159.99, 1, 'EMP002');
-
--- Ventas
-INSERT INTO Venta (precio, cantidad, cliente, factura) VALUES (79.99, 2, 1, 'FAC001');
-
--- Envíos
-INSERT INTO Envio (id, coste, direccion, estado, fecha_envio, fecha_entrega, factura) VALUES 
-('ENV001', 5.99, 'Calle Fútbol 10', 'En camino', '2025-03-26', '2025-03-27', 'FAC001');
-
--- Venta-Director
-INSERT INTO VentaDirector (idVenta, idDirector) VALUES (1, 'EMP001');
-
--- Venta-Producto
-INSERT INTO VentaProducto (idProducto, idVenta) VALUES (1, 1);
-
-
-

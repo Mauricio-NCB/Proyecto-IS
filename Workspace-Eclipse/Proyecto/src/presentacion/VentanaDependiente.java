@@ -64,6 +64,6 @@ public class VentanaDependiente extends JFrame {
 				List<TFactura> listaFacturas = ControladorFactura.getInstance().listarFacturas();
 				new VentanaListaFacturas(listaFacturas).setVisible(true);
 			}
-		}
+		});
 	}
 }

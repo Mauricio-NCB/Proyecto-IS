@@ -34,4 +34,17 @@ public class ControladorDependiente {
     public List<TDependiente> listarDependientes() {
         return servicioDependiente.listarDependientes();
     }
+
+    public void mostrarTodosLosDependientes() {
+        System.out.println("\n--- Listado de Dependientes ---");
+        List<TDependiente> dependientes = servicioDependiente.listarDependientes();
+
+       if (dependientes == null || dependientes.isEmpty()) {
+            System.out.println("No se encontraron directores registrados.");
+        } else {
+            for (TDependiente dependiente : dependientes) {
+                System.out.println(dependiente);
+            }
+        }
+    } 
 }

@@ -79,9 +79,7 @@ CREATE TABLE Director (
 CREATE TABLE Dependiente (
 	id VARCHAR(20) NOT NULL PRIMARY KEY,
     sum_ventas FLOAT NOT NULL DEFAULT 0,
-    director VARCHAR(20) NOT NULL,
-    FOREIGN KEY (id) REFERENCES Empleado(identificador),
-    FOREIGN KEY (director) REFERENCES Director(id)
+    FOREIGN KEY (id) REFERENCES Empleado(identificador)
 );
 
 CREATE TABLE Cliente (
@@ -100,33 +98,4 @@ CREATE TABLE Factura(
     dependiente VARCHAR(20) NOT NULL,
     FOREIGN KEY (cliente) REFERENCES Cliente(num_socio) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (dependiente) REFERENCES Dependiente(id) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-CREATE TABLE Envio (
-	id VARCHAR(15) NOT NULL PRIMARY KEY,
-    coste FLOAT NOT NULL,
-    direccion VARCHAR(50) NOT NULL,
-    estado VARCHAR(20) NOT NULL,
-    fecha_envio DATE NOT NULL,
-    fecha_entrega DATE,
-    factura VARCHAR(50) NOT NULL,
-    FOREIGN KEY (factura) REFERENCES Factura(codigo) ON DELETE CASCADE ON UPDATE CASCADE
-);    
-
--- Relacion N:M Venta y Director
-CREATE TABLE VentaDirector (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    idVenta INT NOT NULL,
-    idDirector VARCHAR(20) NOT NULL,
-    FOREIGN KEY (idVenta) REFERENCES Venta(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (idDirector) REFERENCES Director(id) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
--- Relacion N:M Venta y Producto
-CREATE TABLE VentaProducto (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    idProducto INT NOT NULL,
-    idVenta INT NOT NULL,
-    FOREIGN KEY (idProducto) REFERENCES Producto(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (idVenta) REFERENCES Venta(id) ON DELETE CASCADE ON UPDATE CASCADE
 );

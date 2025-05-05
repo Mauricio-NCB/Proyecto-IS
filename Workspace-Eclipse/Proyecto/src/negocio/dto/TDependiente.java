@@ -23,4 +23,12 @@ public class TDependiente extends TEmpleado {
         this.sumVentas = value;
     }
 
+    @Override
+    public String toString() {
+        return "Dependiente " + getNombre() + "{ ID='" + getIdentificador() + '\'' +
+               ", Nombre='" + getNombre() + '\'' +
+               ", Sueldo=" + getSueldo() +
+               ", Suma de ventas='" + this.sumVentas + '\'' + '}';
+    }
+
 }

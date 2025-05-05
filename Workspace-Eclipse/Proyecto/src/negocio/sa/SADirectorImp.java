@@ -31,15 +31,6 @@ public class SADirectorImp implements SADirector {
         
         return daoDirector.createDirector(director);
     }
-    
-    
-    public void agregarEmpleadoADirector(String idDirector, TEmpleado empleado) {
-        TDirector director = daoDirector.obtenerPorId(idDirector);
-        if (director != null) throw new IllegalArgumentException("Director existe");
-
-        daoDirector.createDirector(new TDirector(empleado.getIdentificador(), empleado.getNombre(), empleado.getSueldo(),
-        		empleado.getContrasena(), "Director"));
-    }
 
     public boolean eliminarDirector(String id) {
     	return daoDirector.eliminar(id);

@@ -38,6 +38,11 @@ public class VentanaDirector extends JFrame {
     private JTextField txtIdActualizar, txtNuevoSueldo;
     private JPasswordField txtNuevaContrasena;
 
+    // Elección registro
+    private JRadioButton rbDirector;
+    private JRadioButton rbDependiente;
+    private ButtonGroup bgTipoEmpleado;
+
     // Botones
     private JButton btnRegistrarDirector;
     private JButton btnListarDirectores;
@@ -53,12 +58,16 @@ public class VentanaDirector extends JFrame {
     private JScrollPane scrollPaneOutput;
 
     private ControladorDirector controlador;
+    private ControladorDependiente controladorDep;
+    private ControladorEmpleado controladorEm;
 
     // Constructor
     public VentanaDirector() {
         super("Panel de Control del Director");
 
         controlador = ControladorDirector.getInstance();
+        controladorEm = ControladorEmpleado.getInstance();
+        controladorDep = ControladorDependiente.getInstance();
         initComponents();
         initLayout();
         initListeners();
@@ -78,7 +87,7 @@ public class VentanaDirector extends JFrame {
         panelSur = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         panelRegistroDirector = new JPanel(new GridBagLayout());
-        panelRegistroDirector.setBorder(BorderFactory.createTitledBorder("Registrar Nuevo Director"));
+        panelRegistroDirector.setBorder(BorderFactory.createTitledBorder("Registrar Nuevo Director/Dependiente"));
         panelActualizarDatos = new JPanel(new GridBagLayout());
         panelActualizarDatos.setBorder(BorderFactory.createTitledBorder("Actualizar Datos Empleado/Director"));
         panelEliminarDirector = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -106,10 +115,17 @@ public class VentanaDirector extends JFrame {
         txtIdActualizar = new JTextField(10);
         txtNuevoSueldo = new JTextField(8);
         txtNuevaContrasena = new JPasswordField(10);
+        
+        // Selección registro usuario
+        rbDirector = new JRadioButton("Director", true); // Seleccionado por defecto
+        rbDependiente = new JRadioButton("Dependiente");
+        bgTipoEmpleado = new ButtonGroup();
+        bgTipoEmpleado.add(rbDirector);
+        bgTipoEmpleado.add(rbDependiente);
 
         // Botones
-        btnRegistrarDirector = new JButton("Registrar Director");
-        btnListarDirectores = new JButton("Listar Directores");
+        btnRegistrarDirector = new JButton("Registrar Empleado");
+        btnListarDirectores = new JButton("Listar Empleado");
         btnEliminarDirector = new JButton("Eliminar Director");
         btnActualizarDatos = new JButton("Actualizar Datos");
         btnListarClientes = new JButton("Listar Clientes"); 
@@ -135,16 +151,25 @@ public class VentanaDirector extends JFrame {
         // --- Panel Norte (vertical) ---
         // Configurar panel de registro
         GridBagConstraints gbcReg = new GridBagConstraints();
-        gbcReg.insets = new Insets(3, 5, 3, 5); gbcReg.anchor = GridBagConstraints.WEST;
-        gbcReg.gridx = 0; gbcReg.gridy = 0; panelRegistroDirector.add(lblId, gbcReg);
-        gbcReg.gridx = 1; gbcReg.gridy = 0; panelRegistroDirector.add(txtId, gbcReg);
-        gbcReg.gridx = 2; gbcReg.gridy = 0; panelRegistroDirector.add(lblNombre, gbcReg);
-        gbcReg.gridx = 3; gbcReg.gridy = 0; panelRegistroDirector.add(txtNombre, gbcReg);
-        gbcReg.gridx = 0; gbcReg.gridy = 1; panelRegistroDirector.add(lblSueldo, gbcReg);
-        gbcReg.gridx = 1; gbcReg.gridy = 1; panelRegistroDirector.add(txtSueldo, gbcReg);
-        gbcReg.gridx = 2; gbcReg.gridy = 1; panelRegistroDirector.add(lblContrasena, gbcReg);
-        gbcReg.gridx = 3; gbcReg.gridy = 1; panelRegistroDirector.add(txtContrasena, gbcReg);
-        gbcReg.gridx = 0; gbcReg.gridy = 2; gbcReg.gridwidth = 4; gbcReg.anchor = GridBagConstraints.CENTER;
+        gbcReg.insets = new Insets(3, 5, 4, 5); gbcReg.anchor = GridBagConstraints.WEST;
+        // Panel para botones
+        JPanel panelTipo = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
+        panelTipo.add(new JLabel("Tipo Empleado:"));
+        panelTipo.add(rbDirector);
+        panelTipo.add(rbDependiente);
+        gbcReg.gridx = 0; gbcReg.gridy = 0; gbcReg.gridwidth = 4; gbcReg.fill = GridBagConstraints.HORIZONTAL; 
+        gbcReg.anchor = GridBagConstraints.LINE_START;
+        panelRegistroDirector.add(panelTipo, gbcReg); 
+        gbcReg.gridwidth = 1; gbcReg.fill = GridBagConstraints.NONE; gbcReg.anchor = GridBagConstraints.WEST; 
+        gbcReg.gridx = 0; gbcReg.gridy = 1; panelRegistroDirector.add(lblId, gbcReg);
+        gbcReg.gridx = 1; gbcReg.gridy = 1; panelRegistroDirector.add(txtId, gbcReg);
+        gbcReg.gridx = 2; gbcReg.gridy = 1; panelRegistroDirector.add(lblNombre, gbcReg);
+        gbcReg.gridx = 3; gbcReg.gridy = 1; panelRegistroDirector.add(txtNombre, gbcReg);
+        gbcReg.gridx = 0; gbcReg.gridy = 2; panelRegistroDirector.add(lblSueldo, gbcReg);
+        gbcReg.gridx = 1; gbcReg.gridy = 2; panelRegistroDirector.add(txtSueldo, gbcReg);
+        gbcReg.gridx = 2; gbcReg.gridy = 2; panelRegistroDirector.add(lblContrasena, gbcReg);
+        gbcReg.gridx = 3; gbcReg.gridy = 2; panelRegistroDirector.add(txtContrasena, gbcReg);
+        gbcReg.gridx = 0; gbcReg.gridy = 3; gbcReg.gridwidth = 4; gbcReg.anchor = GridBagConstraints.CENTER;
         panelRegistroDirector.add(btnRegistrarDirector, gbcReg);
         panelRegistroDirector.setAlignmentX(Component.LEFT_ALIGNMENT); // Alinear panel
 
@@ -195,7 +220,7 @@ public class VentanaDirector extends JFrame {
 
     // --- Inicialización de Listeners --- (Se ha usado Lambda)
     private void initListeners() {
-        // --- Registrar Director ---
+        // --- Registrar Director/Dependiente ---
         btnRegistrarDirector.addActionListener(e -> {
             String id = txtId.getText().trim();
             String nombre = txtNombre.getText().trim();
@@ -205,15 +230,27 @@ public class VentanaDirector extends JFrame {
             java.util.Arrays.fill(contrasenaChars, ' ');
             txtContrasena.setText("");
 
+            String tipoEmpleado;
+            if (rbDirector.isSelected()) {
+                tipoEmpleado = "DIRECTOR";
+            } else if (rbDependiente.isSelected()) {
+                tipoEmpleado = "DEPENDIENTE";
+            } else {
+                // Caso improbable si ambos están en un ButtonGroup, pero por seguridad
+                appendOutput("ERROR UI: Debe seleccionar un tipo de empleado (Director o Dependiente).\n");
+                updateStatus("Error: seleccione tipo.");
+                return;
+            }
+
             if (id.isEmpty() || nombre.isEmpty() || sueldo == null || contrasena.isEmpty()) {
                 txtAreaOutput.append("ERROR UI: Todos los campos son requeridos para registrar.\n");
                 lblStatus.setText("Error: campos incompletos.");
                 return;
             }
 
-            lblStatus.setText("Registrando director...");
+            lblStatus.setText("Registrando empleado...");
             try {
-                controlador.registrarDirector(id, nombre, sueldo, contrasena);
+                controladorEm.registrarEmpleado(id, nombre, sueldo, contrasena, tipoEmpleado);
                 lblStatus.setText("Proceso de registro finalizado (ver salida).");
                 limpiarCamposRegistro(); 
             } catch (Exception ex) { 
@@ -223,13 +260,14 @@ public class VentanaDirector extends JFrame {
 
         // --- Listar Directores ---
         btnListarDirectores.addActionListener(e -> {
-            updateStatus("Listando directores...");
-            appendOutput("\n--- Solicitando listado de directores ---\n");
+            updateStatus("Listando empleados...");
+            appendOutput("\n--- Solicitando listado de empleados ---\n");
             try {
-                controlador.mostrarTodosLosDirectores(); 
-                updateStatus("Listado de directores mostrado (ver salida).");
+                controlador.mostrarTodosLosDirectores();
+                controladorDep.mostrarTodosLosDependientes();
+                updateStatus("Listado de empleados mostrado (ver salida).");
             } catch (Exception ex) {
-                updateStatus("Error al listar directores (ver salida).");
+                updateStatus("Error al listar empleados (ver salida).");
                 appendOutput("ERROR: " + ex.getMessage() + "\n"); 
             }
         });
@@ -325,7 +363,7 @@ public class VentanaDirector extends JFrame {
                 // Crea la ventana Login
                 System.out.println("Mostrando nueva ventana de login...");
                 SwingUtilities.invokeLater(() -> {
-                    VentanaLogin login = new VentanaLogin();
+                    new VentanaLogin();
                 });
             }
         });

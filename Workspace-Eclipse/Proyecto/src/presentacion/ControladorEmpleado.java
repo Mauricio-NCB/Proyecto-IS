@@ -7,6 +7,7 @@ import negocio.dto.TDirector;
 import negocio.dto.TEmpleado;
 import negocio.sa.SAEmpleado;
 import negocio.sa.SAEmpleadoImp;
+import util.HashUtil;
 
 public class ControladorEmpleado {
 	private static ControladorEmpleado instancia;
@@ -41,4 +42,22 @@ public class ControladorEmpleado {
 			return false;
 		}
 	}
+
+	public void registrarEmpleado(String id, String nombre, Float sueldo, String contrasena, String cargo) {
+		boolean exito = false;
+		if (cargo == "DIRECTOR"){
+			TDirector nuevoDirector = new TDirector(id, nombre, sueldo, HashUtil.hashPassword(contrasena), cargo);
+			exito = servicioEmpleado.altaEmpleado(nuevoDirector);
+		}
+		else{
+			TDependiente nuevoDependiente = new TDependiente(id, nombre, sueldo, contrasena, 0);
+			exito = servicioEmpleado.altaEmpleado(nuevoDependiente);
+		}
+
+		if (exito) {
+			System.out.println(nombre +" registrado correctamente");
+		} else {
+			System.out.println("Error al registrar empleado");
+		}
+    } 
 }
