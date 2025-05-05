@@ -1,45 +1,55 @@
 package negocio.dto;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 
-public class Factura {
+public class TFactura {
 
     private String codigo;
-    private Date fecha;
-    private String hora;
+    private LocalDate fecha;
+    private LocalTime hora;
     private float importe;
     public TCliente tiene;
-    public Venta ventas;
     public TDependiente dependientes;
     public Envio manda;
 
-    public Factura(final Date fecha, final int hora, final float importe) {
+    public TFactura(final Date fecha, final int hora, final float importe) {
     }
 
-    public String getCodigo() {
+    public TFactura() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getCodigo() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.codigo;
     }
+	
+	public void setCodigo(String codigo) {
+		// TODO Auto-generated method stub
+		this.codigo = codigo;
+	}
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.fecha;
     }
 
-    public void setFecha(final Date value) {
+    public void setFecha(final LocalDate localDate) {
         // Automatically generated method. Please delete this comment before entering specific code.
-        this.fecha = value;
+        this.fecha = localDate;
     }
 
-    public String getHora() {
+    public LocalTime getHora() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.hora;
     }
 
-    public void setHora(final String value) {
+    public void setHora(final LocalTime localTime) {
         // Automatically generated method. Please delete this comment before entering specific code.
-        this.hora = value;
+        this.hora = localTime;
     }
 
     public float getImporte() {
@@ -51,5 +61,28 @@ public class Factura {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.importe = value;
     }
+
+	public void setTiene(TCliente cliente) {
+		// TODO Auto-generated method stub
+		this.tiene = cliente;
+	}
+	
+	public TCliente getTiene() {
+		// TODO Auto-generated method stub
+		return tiene;
+	}
+
+	public void setDependientes(TDependiente dep) {
+		// TODO Auto-generated method stub
+		this.dependientes = dep;
+	}
+
+	public TDependiente getDependientes() {
+		// TODO Auto-generated method stub
+		return dependientes;
+	}
+
+	
+
 
 }

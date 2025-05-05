@@ -99,7 +99,7 @@ public class VentanaCatalogo extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				List<int[]> seleccionados = new ArrayList<>();
+				List<Object[]> seleccionados = new ArrayList<>();
 
 				for (int i = 0; i < modeloTabla.getRowCount(); i++) {
 					int cantidad = 0;
@@ -114,17 +114,15 @@ public class VentanaCatalogo extends JFrame{
 					}
 
 					if (cantidad > 0) {
-						int id = (int) modeloTabla.getValueAt(i, 1);
-						seleccionados.add(new int[]{id, cantidad});
+						TProducto producto = productos.get(i);
+						seleccionados.add(new Object[]{producto, cantidad});
 					}
 				}
 
 				if (seleccionados.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "No has seleccionado ninguna cantidad.");
 				} else {
-					// Aquí se llamaría al controlador de ventas pasando la lista de arrays
-					ControladorVenta.getInstance().nuevaVenta(seleccionados); // método debe aceptar List<int[]>
-					JOptionPane.showMessageDialog(null, "Venta iniciada con " + seleccionados.size() + " productos.");
+					new VentanaFactura(seleccionados);
 					dispose();
 				}
 			}

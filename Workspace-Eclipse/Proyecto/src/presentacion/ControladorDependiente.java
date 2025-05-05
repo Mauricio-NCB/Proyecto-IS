@@ -2,8 +2,8 @@ package presentacion;
 
 import java.util.List;
 
-import negocio.dto.Factura;
 import negocio.dto.TDependiente;
+import negocio.dto.TFactura;
 import negocio.sa.SADependiente;
 import negocio.sa.SADependienteImp;
 
@@ -22,7 +22,7 @@ public class ControladorDependiente {
         return instancia;
     }
 
-    public void crearFactura(Factura factura) {
+    public void crearFactura(TFactura factura) {
         boolean exito = servicioDependiente.generarFactura(factura);
 
         if (exito) {

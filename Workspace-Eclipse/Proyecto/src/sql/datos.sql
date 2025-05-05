@@ -102,16 +102,6 @@ CREATE TABLE Factura(
     FOREIGN KEY (dependiente) REFERENCES Dependiente(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE Venta (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    precio FLOAT NOT NULL,
-    cantidad INT NOT NULL,
-    cliente INT NOT NULL,
-    factura VARCHAR(50) NOT NULL,
-    FOREIGN KEY (cliente) REFERENCES Cliente(num_socio) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (factura) REFERENCES Factura(codigo) ON DELETE CASCADE ON UPDATE CASCADE -- Espera a ser corregido.
-);
-
 CREATE TABLE Envio (
 	id VARCHAR(15) NOT NULL PRIMARY KEY,
     coste FLOAT NOT NULL,

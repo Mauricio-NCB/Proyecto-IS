@@ -6,7 +6,7 @@ import java.util.List;
 
 public class TDependiente extends TEmpleado {
     private float sumVentas;
-    public List<Factura> genera = new ArrayList<Factura> ();
+    public List<TFactura> genera = new ArrayList<TFactura> ();
 
     public TDependiente(final String identificador, final String nombre, final float sueldo, final String contrasena, final float sumVentas) {
     	super(identificador, nombre, sueldo, contrasena);

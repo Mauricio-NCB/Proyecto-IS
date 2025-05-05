@@ -2,11 +2,11 @@ package negocio.sa;
 
 import java.util.List;
 
-import negocio.dto.Factura;
 import negocio.dto.TDependiente;
+import negocio.dto.TFactura;
 
 
 public interface SADependiente {
-	  boolean generarFactura(Factura factura);
+	  boolean generarFactura(TFactura factura);
 	  List<TDependiente> listarDependientes();
 }

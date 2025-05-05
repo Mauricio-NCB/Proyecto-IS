@@ -4,6 +4,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import negocio.dto.TFactura;
+
 public class DAOFacturaImp implements DAOFactura {
 
     @Override
@@ -32,4 +34,27 @@ public class DAOFacturaImp implements DAOFactura {
 
         return resultados;
     }
+
+	@Override
+	public void insert(TFactura factura) {
+	    String sql = "INSERT INTO Factura (codigo, fecha, hora, importe, cliente, dependiente) VALUES (?, ?, ?, ?, ?, ?)";
+
+	    try (Connection conn = BDConexion.getInstance().getConnection();
+	         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+	        ps.setString(1, factura.getCodigo());
+	        ps.setDate(2, Date.valueOf(factura.getFecha()));
+	        ps.setTime(3, Time.valueOf(factura.getHora()));
+	        ps.setFloat(4, factura.getImporte());
+
+	        // Aquí extraemos los IDs de los objetos
+	        ps.setInt(5, factura.getTiene().getNumSocio());
+	        ps.setString(6, factura.getDependientes().getIdentificador());
+
+	        ps.executeUpdate();
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
 }

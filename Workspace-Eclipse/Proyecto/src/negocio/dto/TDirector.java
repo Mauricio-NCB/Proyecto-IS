@@ -7,7 +7,6 @@ import java.util.List;
 public class TDirector extends TEmpleado {
     private String cargo;
     public List<TDependiente> gestionar = new ArrayList<TDependiente> ();
-    public List<Venta> revisar = new ArrayList<Venta> ();
     
     public TDirector(final String identificador, final String nombre, final float sueldo, final String contrasena, final String cargo) {
     	super(identificador, nombre, sueldo, contrasena);

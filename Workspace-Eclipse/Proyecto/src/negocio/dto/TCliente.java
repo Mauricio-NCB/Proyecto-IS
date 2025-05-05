@@ -10,8 +10,7 @@ public class TCliente {
     private String nombre;
     private String direccion;
     private String correo;
-    public List<Factura> facturas = new ArrayList<Factura> ();
-    public List<Venta> ventas = new ArrayList<Venta> ();
+    public List<TFactura> facturas = new ArrayList<TFactura> ();
 
 
     public TCliente(final String nombre, final String direccion, final String correo) {

@@ -1,15 +1,8 @@
 package presentacion;
 
-import java.util.Date;
 import java.util.List;
 
 import negocio.dto.TDirector;
-import negocio.dto.TEntrada;
-import negocio.dto.TJuguete;
-import negocio.dto.TPoster;
-import negocio.dto.TProducto;
-import negocio.dto.Venta;
-import negocio.dto.TCamiseta;
 import negocio.dto.TCliente;
 import negocio.dto.TDependiente;
 import negocio.sa.SACliente;
@@ -127,19 +120,6 @@ public class ControladorDirector {
         }
     }
 
-    // Ventas
-    /*public void mostrarTodasLasVentas() {
-        System.out.println("\n--- Listado de Ventas ---");
-        List<Venta> ventas = servicioVenta.getAllVentas();
-
-        if (ventas == null || ventas.isEmpty()) {
-            System.out.println("No se encontraron ventas registrados.");
-        } else {
-            for (TCliente venta : ventas) {
-                System.out.println(venta);
-            }
-        }
-    }*/
 
 
 }
