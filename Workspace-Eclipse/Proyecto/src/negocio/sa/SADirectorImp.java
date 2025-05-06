@@ -38,6 +38,9 @@ public class SADirectorImp implements SADirector {
     
     public boolean actualizaDatosDirector(String id, Float sueldo, String contrasena) {
     	TDirector director = daoDirector.obtenerPorId(id);
+    	if (director == null) {
+    		return false;
+    	}
     	if (sueldo != null) {director.setSueldo(sueldo);}
     	if (!contrasena.trim().isEmpty()) {director.setContrasena(HashUtil.hashPassword(contrasena));}
     	return daoDirector.actualizar(director);
