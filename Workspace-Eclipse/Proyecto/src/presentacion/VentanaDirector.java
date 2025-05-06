@@ -90,14 +90,14 @@ public class VentanaDirector extends JFrame {
         panelRegistroDirector = new JPanel(new GridBagLayout());
         panelRegistroDirector.setBorder(BorderFactory.createTitledBorder("Registrar Nuevo Director/Dependiente"));
         panelActualizarDatos = new JPanel(new GridBagLayout());
-        panelActualizarDatos.setBorder(BorderFactory.createTitledBorder("Actualizar Datos Empleado/Director"));
+        panelActualizarDatos.setBorder(BorderFactory.createTitledBorder("Actualizar Datos Director"));
         panelEliminarDirector = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        panelEliminarDirector.setBorder(BorderFactory.createTitledBorder("Eliminar Director"));
+        panelEliminarDirector.setBorder(BorderFactory.createTitledBorder("Eliminar empleado"));
         panelAccionesGenerales = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelAccionesGenerales.setBorder(BorderFactory.createTitledBorder("Acciones Generales"));
 
         // Labels
-        lblId = new JLabel("ID Director:");
+        lblId = new JLabel("ID Empleado:");
         lblNombre = new JLabel("Nombre:");
         lblSueldo = new JLabel("Sueldo:");
         lblContrasena = new JLabel("Contraseña:");
@@ -227,11 +227,17 @@ public class VentanaDirector extends JFrame {
         btnRegistrarDirector.addActionListener(e -> {
             String id = txtId.getText().trim();
             String nombre = txtNombre.getText().trim();
-            Float sueldo = Float.parseFloat(txtSueldo.getText().trim()); 
             char[] contrasenaChars = txtContrasena.getPassword();
             String contrasena = new String(contrasenaChars);
             java.util.Arrays.fill(contrasenaChars, ' ');
             txtContrasena.setText("");
+
+            if (id.isEmpty() || nombre.isEmpty() || txtSueldo.getText().trim().isEmpty() || contrasena.isEmpty()) {
+                txtAreaOutput.append("ERROR UI: Todos los campos son requeridos para registrar.\n");
+                lblStatus.setText("Error: campos incompletos.");
+                return;
+            }
+            Float sueldo = Float.parseFloat(txtSueldo.getText().trim()); 
 
             String tipoEmpleado;
             if (rbDirector.isSelected()) {
@@ -239,7 +245,6 @@ public class VentanaDirector extends JFrame {
             } else if (rbDependiente.isSelected()) {
                 tipoEmpleado = "DEPENDIENTE";
             } else {
-                // Caso improbable si ambos están en un ButtonGroup, pero por seguridad
                 appendOutput("ERROR UI: Debe seleccionar un tipo de empleado (Director o Dependiente).\n");
                 updateStatus("Error: seleccione tipo.");
                 return;
