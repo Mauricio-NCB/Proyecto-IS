@@ -44,7 +44,20 @@ class SADirectorTest {
 		
         // Datos de usuario 1 en la BD
         String id = "EMP001";
-        String nombre = "Juan Jose";
+        Float sueldo = 7500.50F;
+        String contrasena = "nuevapass";
+
+        String contrasenaHash = HashUtil.hashPassword(contrasena);
+        boolean exito = saDirector.actualizaDatosDirector(id, sueldo, contrasenaHash);
+        
+        assertTrue(exito, "El director debería haber sido actualizado");
+    }
+	
+	@Test
+    public void TestErrorActualizaDirector() {
+		
+        // No existe usuario
+        String id = "1";
         Float sueldo = 7500.50F;
         String contrasena = "nuevapass";
 
