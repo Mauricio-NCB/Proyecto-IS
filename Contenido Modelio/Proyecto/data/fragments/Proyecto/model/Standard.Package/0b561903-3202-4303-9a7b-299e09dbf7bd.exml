@@ -13,6 +13,9 @@
       <ATT name="status">1970354901745664</ATT>
     </ATTRIBUTES>
     <DEPENDENCIES>
+      <COMP relation="OwnedBehavior">
+        <COMPID name="Interaction2" mc="Standard.Interaction" uid="d9c3e877-c11a-46af-b5ed-39aec373aeab"/>
+      </COMP>
       <COMP relation="OwnedElement">
         <COMPID name="DaoDependiente" mc="Standard.Class" uid="0c1cd4a7-20af-4717-975b-b8c76de77f36"/>
         <COMPID name="SaDependiente" mc="Standard.Class" uid="99629a1c-c20c-41e5-8b73-3f1c1b400945"/>

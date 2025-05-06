@@ -1,4 +1,4 @@
-#Tue May 06 04:36:56 CEST 2025
+#Tue May 06 09:27:04 CEST 2025
 org.modelio.app.module.propertytab.GModule\ [id\='JavaDesigner',\ version\='5.4.00',\ type\='MODULE',\ definitionScope\='LOCAL',\ state\='MOUNTED']\ runtime\ module_.org.modelio.full.perspective.parentId=app.ui.ext_com.partstack.bottom
 org.modelio.app.module.propertytab.GModule\ [id\='JavaDesigner',\ version\='5.4.00',\ type\='MODULE',\ definitionScope\='LOCAL',\ state\='MOUNTED']\ runtime\ module_.org.modelio.development.perspective.parentId=app.ui.ext_com.partstack.bottom
 org.modelio.app.module.propertytab.GModule\ [id\='JavaDesigner',\ version\='5.4.00',\ type\='MODULE',\ definitionScope\='LOCAL',\ state\='MOUNTED']\ runtime\ module_.org.modelio.app.ui.model.perspective.parentId=org.modelio.app.bottom.parts
