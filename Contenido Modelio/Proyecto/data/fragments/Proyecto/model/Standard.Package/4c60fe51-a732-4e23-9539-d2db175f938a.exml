@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Subsistema Factura" version="4">
+  <OBJECT>
+    <ID name="Subsistema Factura" mc="Standard.Package" uid="4c60fe51-a732-4e23-9539-d2db175f938a"/>
+    <PID name="proyecto" mc="Standard.Package" uid="0750b6d0-30ad-4c12-a21c-d4d606f4390c"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Subsistema Factura]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="DaoFacturaImp" mc="Standard.Class" uid="efb21136-ed03-4e32-ad48-58671bebc917"/>
+        <COMPID name="SAFacturaImp" mc="Standard.Class" uid="40611490-15cc-443d-8bd9-1d191695e9eb"/>
+        <COMPID name="DAOFactura" mc="Standard.Interface" uid="b4a872af-3fc6-4b2f-85c7-b887ca239c0d"/>
+        <COMPID name="SAFactura" mc="Standard.Interface" uid="ba6f13a9-00df-4023-866c-fd75397c02b4"/>
+        <COMPID name="TFactura" mc="Standard.DataType" uid="c1981dde-215d-48ab-b3fd-65df8112af16"/>
+      </COMP>
+      <COMP relation="Product">
+        <COMPID name="Diagrama de clases" mc="Standard.ClassDiagram" uid="b15850aa-1924-447a-82d9-72752616d3df"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

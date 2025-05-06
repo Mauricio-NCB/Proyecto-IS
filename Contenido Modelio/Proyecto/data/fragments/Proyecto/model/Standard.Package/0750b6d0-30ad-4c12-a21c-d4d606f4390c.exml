@@ -18,7 +18,6 @@
         <COMPID name="Cliente" mc="Standard.Class" uid="cdf49310-6a92-4c05-ba8f-f4eb20c7674e"/>
         <COMPID name="Empleado" mc="Standard.Class" uid="01f9bc95-ffd2-4b65-a368-37c0125aaf9c"/>
         <COMPID name="Factura" mc="Standard.Class" uid="6e7e07dd-b906-4e3c-85b4-9e2b3624241f"/>
-        <COMPID name="Envio" mc="Standard.Class" uid="26d94a5a-426d-43df-b764-256cd33f72f2"/>
         <COMPID name="Dependiente" mc="Standard.Class" uid="7873372e-f8f9-4144-869f-aac7d3665a40"/>
         <COMPID name="Director" mc="Standard.Class" uid="664d1f2c-587f-43ea-919e-4e8caf546f79"/>
         <COMPID name="Poster" mc="Standard.Class" uid="af853eec-3f1b-428b-9392-6cf57f874cbd"/>
@@ -33,46 +32,50 @@
         <COMPID name="Mostrar Factura" mc="Standard.UseCase" uid="a1e2fafe-dc6e-48e8-93ec-db7c91c8267c"/>
         <COMPID name="Usuario" mc="Standard.Actor" uid="807970c1-b529-4318-869a-66e59bd1b0f5"/>
         <COMPID name="Modificar empleado" mc="Standard.UseCase" uid="9169f7e2-13fe-46e6-a0dc-82b9a9d80a52"/>
-        <COMPID name="Mostrar empleado" mc="Standard.UseCase" uid="bb9e491e-5c89-49f2-b839-9852541d78be"/>
-        <COMPID name="Mostrar empleados" mc="Standard.UseCase" uid="52102e63-e85f-433f-93bc-433437799923"/>
+        <COMPID name="Consultar empleados" mc="Standard.UseCase" uid="52102e63-e85f-433f-93bc-433437799923"/>
         <COMPID name="Eliminar empleado" mc="Standard.UseCase" uid="bccbbfa9-b891-4784-975c-5dc0f4710098"/>
-        <COMPID name="Añadir empleado" mc="Standard.UseCase" uid="5ee17e0a-e4fe-477b-9e21-d9e5ecd54187"/>
+        <COMPID name="Dar alta empleado" mc="Standard.UseCase" uid="5ee17e0a-e4fe-477b-9e21-d9e5ecd54187"/>
         <COMPID name="Añadir cliente" mc="Standard.UseCase" uid="fb7e2f7e-26be-401d-ab1b-e3c8274f6ab4"/>
         <COMPID name="Eliminar cliente" mc="Standard.UseCase" uid="d3d157ea-8005-457d-82f7-f3cd62f36440"/>
         <COMPID name="Actualizar datos cliente" mc="Standard.UseCase" uid="24a10848-6166-4eca-a455-3844e519f52c"/>
         <COMPID name="Buscar cliente" mc="Standard.UseCase" uid="524e7c9d-506a-4b62-8528-1e0d480a8b8a"/>
         <COMPID name="Mostrar todos los clientes" mc="Standard.UseCase" uid="164cf9b7-22f1-4d8e-a110-ffa970c1d251"/>
-        <COMPID name="Admin" mc="Standard.Actor" uid="5462d98e-5982-4dc1-8099-dd746e1e315a"/>
-        <COMPID name="Cliente" mc="Standard.Actor" uid="e0ff76c7-bf95-4d3a-9bae-1238232fd82b"/>
+        <COMPID name="Empleado" mc="Standard.Actor" uid="5462d98e-5982-4dc1-8099-dd746e1e315a"/>
         <COMPID name="Añadir producto" mc="Standard.UseCase" uid="21336411-2b94-47f2-9f11-b4a2e5fd9ad3"/>
-        <COMPID name="Modificar detalles producto" mc="Standard.UseCase" uid="4ca0ef60-0c75-4252-94d1-6d080f2285f0"/>
+        <COMPID name="Actualizar producto" mc="Standard.UseCase" uid="4ca0ef60-0c75-4252-94d1-6d080f2285f0"/>
         <COMPID name="Eliminar producto" mc="Standard.UseCase" uid="aa4dc647-6446-47a4-b625-d3bf8f15b06a"/>
-        <COMPID name="Mostrar producto" mc="Standard.UseCase" uid="9160a457-734c-4f24-b79a-912be29cee69"/>
-        <COMPID name="Mostrar todos los productos" mc="Standard.UseCase" uid="e5e2a1a9-3ad3-4904-86e1-3d49706c01d9"/>
+        <COMPID name="Consulta de productos" mc="Standard.UseCase" uid="e5e2a1a9-3ad3-4904-86e1-3d49706c01d9"/>
         <COMPID name="Usuario" mc="Standard.Actor" uid="87c49564-32d2-493f-9896-e67c86655d2f"/>
         <COMPID name="Crear envío" mc="Standard.UseCase" uid="0dd7cf6e-45fa-44a1-8435-5967ce57c587"/>
         <COMPID name="Mostrar envío" mc="Standard.UseCase" uid="7d22505b-c116-47cd-a4e9-5cddf37fca29"/>
         <COMPID name="Mostrar envíos filtrados" mc="Standard.UseCase" uid="b1f8e652-1459-4c95-8c9c-7fee0f33db98"/>
         <COMPID name="Actualizar dirección de envío" mc="Standard.UseCase" uid="1d3a94b0-6fae-40ac-8c1e-3d06955180fb"/>
         <COMPID name="Mostrar todos los envíos" mc="Standard.UseCase" uid="3bfd5977-4cfc-4beb-aa19-e273bbb41d89"/>
-        <COMPID name="Añadir cliente" mc="Standard.UseCase" uid="c563d382-8f94-4c32-8cc9-0778d7cc357b"/>
-        <COMPID name="Eliminar cliente" mc="Standard.UseCase" uid="ba2bf8ff-15dc-409c-80a9-38e9de14a42c"/>
-        <COMPID name="Actualizar datos cliente" mc="Standard.UseCase" uid="9fa365de-eeda-46cc-a24b-77fb4f47ea5a"/>
-        <COMPID name="Buscar cliente" mc="Standard.UseCase" uid="ec2d9e2a-4349-41f5-ba6b-2bc6c1287610"/>
+        <COMPID name="Registrar cliente" mc="Standard.UseCase" uid="c563d382-8f94-4c32-8cc9-0778d7cc357b"/>
         <COMPID name="Mostrar todos los clientes" mc="Standard.UseCase" uid="b23887d2-c0e0-4106-bf42-e26597be5f12"/>
-        <COMPID name="Usuario" mc="Standard.Actor" uid="fc914e32-1fe0-4462-aacb-59d901b6828b"/>
-        <COMPID name="Venta" mc="Standard.Class" uid="e091cff1-70b3-4080-a5d9-36da8373a2f1"/>
+        <COMPID name="Empleado" mc="Standard.Actor" uid="fc914e32-1fe0-4462-aacb-59d901b6828b"/>
         <COMPID name="Estación de trabajo" mc="Standard.Package" uid="4124bc1b-cee3-4c87-9229-5d8be38d07ec"/>
         <COMPID name="Servidor BD" mc="Standard.Package" uid="ce46149d-44e7-4501-ab2e-00832fa48f67"/>
+        <COMPID name="Subsistema Dependiente" mc="Standard.Package" uid="0b561903-3202-4303-9a7b-299e09dbf7bd"/>
+        <COMPID name="Subsistema Producto" mc="Standard.Package" uid="611a621e-b0c0-49dc-8d13-ab306c239164"/>
+        <COMPID name="Cliente" mc="Standard.Actor" uid="c5f72814-2447-48d3-8afd-94310cb7d63c"/>
+        <COMPID name="Subsistema Director" mc="Standard.Package" uid="de5384c7-41f9-48c6-a816-d02fa03f0b39"/>
+        <COMPID name="Director" mc="Standard.Actor" uid="550854bf-1137-4fdb-a40f-c0e428b1a1d2"/>
+        <COMPID name="Dar alta director" mc="Standard.UseCase" uid="e55958b5-2d2a-42cd-bf3c-cdb6da8511dd"/>
+        <COMPID name="Actualizar director" mc="Standard.UseCase" uid="f56bf2ab-30b9-411d-bd02-394cf38ca546"/>
+        <COMPID name="Eliminar Director" mc="Standard.UseCase" uid="48ecf44c-c7fb-4588-a6fa-766b27a9370a"/>
+        <COMPID name="Consultar directores" mc="Standard.UseCase" uid="89dc9211-d32d-46d9-8468-a2eab48e635d"/>
+        <COMPID name="Subsistema Factura" mc="Standard.Package" uid="4c60fe51-a732-4e23-9539-d2db175f938a"/>
+        <COMPID name="Subsistema Cliente" mc="Standard.Package" uid="7fd1393b-45fd-4e0c-935c-dd2dcf168629"/>
       </COMP>
       <COMP relation="Product">
-        <COMPID name="proyecto Class diagram" mc="Standard.ClassDiagram" uid="c4605c0b-d96f-462b-bb4b-fea19bd9a994"/>
+        <COMPID name="Modelo de dominio Boceto" mc="Standard.ClassDiagram" uid="c4605c0b-d96f-462b-bb4b-fea19bd9a994"/>
         <COMPID name="Caso de Uso: Facturas" mc="Standard.UseCaseDiagram" uid="7354425e-19f3-4834-8193-3bf9024e1375"/>
         <COMPID name="Caso de Uso: Empleados" mc="Standard.UseCaseDiagram" uid="0c990f40-a1bf-42a3-9ddc-7ec6fe1a5ebe"/>
         <COMPID name="Caso de Uso: Productos" mc="Standard.UseCaseDiagram" uid="e8d15433-f660-4f64-b17a-a3f8a9a4d237"/>
-        <COMPID name="Caso de Uso: Envios" mc="Standard.UseCaseDiagram" uid="979b8d17-6722-454e-920e-da160f005c52"/>
         <COMPID name="Caso de Uso: Clientes" mc="Standard.UseCaseDiagram" uid="e3645dc2-6d7d-4e84-94c7-fc89e7ac7470"/>
         <COMPID name="Diagrama de despliegue" mc="Standard.DeploymentDiagram" uid="0f91327f-2f62-42a4-802b-3e3d71240fb9"/>
+        <COMPID name="Caso de uso: Directores" mc="Standard.UseCaseDiagram" uid="0b7c36e4-6bc1-46fc-90a2-c480362ffed3"/>
       </COMP>
     </DEPENDENCIES>
   </OBJECT>

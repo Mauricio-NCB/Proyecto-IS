@@ -11,7 +11,6 @@
     <DEPENDENCIES>
       <COMP relation="Model">
         <COMPID name="proyecto" mc="Standard.Package" uid="0750b6d0-30ad-4c12-a21c-d4d606f4390c"/>
-        <COMPID name="Model" mc="Standard.Package" uid="c9d29098-0a2a-4722-8249-4f9d5204595d"/>
       </COMP>
       <COMP relation="DiagramRoot">
         <COMPID name="Proyecto" mc="Infrastructure.DiagramSet" uid="689315d3-60fb-4026-bc7d-66e4827e8d76"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
-<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Añadir empleado" version="4">
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Dar alta empleado" version="4">
   <OBJECT>
-    <ID name="Añadir empleado" mc="Standard.UseCase" uid="5ee17e0a-e4fe-477b-9e21-d9e5ecd54187"/>
+    <ID name="Dar alta empleado" mc="Standard.UseCase" uid="5ee17e0a-e4fe-477b-9e21-d9e5ecd54187"/>
     <PID name="proyecto" mc="Standard.Package" uid="0750b6d0-30ad-4c12-a21c-d4d606f4390c"/>
     <ATTRIBUTES>
       <ATT name="IsElementary">false</ATT>
@@ -9,7 +9,7 @@
       <ATT name="IsLeaf">false</ATT>
       <ATT name="IsRoot">false</ATT>
       <ATT name="Visibility">Public</ATT>
-      <ATT name="Name"><![CDATA[Añadir empleado]]></ATT>
+      <ATT name="Name"><![CDATA[Dar alta empleado]]></ATT>
       <ATT name="status">1970354901745664</ATT>
     </ATTRIBUTES>
     <DEPENDENCIES>
