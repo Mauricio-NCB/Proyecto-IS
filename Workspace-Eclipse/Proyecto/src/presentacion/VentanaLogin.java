@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -16,9 +17,12 @@ public class VentanaLogin extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1991943685986250192L;
+	private ControladorEmpleado controladorEmpleado;
 
 	public VentanaLogin() {
-		super("Inicio de sesi贸n");
+		super("Inicio de sesi髇");
+		controladorEmpleado = ControladorEmpleado.getInstance();
+		
 		initGUI();
 	}
 	
@@ -40,15 +44,23 @@ public class VentanaLogin extends JFrame {
 		JButton btnLogin = new JButton("Iniciar sesi贸n");
         add(btnLogin);
         
-        //Acci贸n del bot贸n de login
+        
         btnLogin.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		String id = txtId.getText();
         		String contrasena = new String(txtContrasena.getPassword());
         		
-        		if (ControladorEmpleado.getInstance().loguearEmpleado(id, contrasena)) {
-        			dispose();
+        		if (id.isEmpty() || contrasena.isEmpty()) {
+        			JOptionPane.showMessageDialog(null, "Por favor, rellena los campos");
+        			return;
         		}
+        		
+        		try {
+        			if (controladorEmpleado.loguearEmpleado(id, contrasena)) dispose();
+        		}
+        		catch (Exception ex) {
+        			JOptionPane.showMessageDialog(null, ex.getMessage());
+        		}        		
         	}
         });
         

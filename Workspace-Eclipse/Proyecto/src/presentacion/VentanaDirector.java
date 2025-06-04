@@ -38,7 +38,7 @@ public class VentanaDirector extends JFrame {
     private JTextField txtIdActualizar, txtNuevoSueldo;
     private JPasswordField txtNuevaContrasena;
 
-    // Elección registro
+    // ElecciÃ³n registro
     private JRadioButton rbDirector;
     private JRadioButton rbDependiente;
     private ButtonGroup bgTipoEmpleado;
@@ -54,7 +54,7 @@ public class VentanaDirector extends JFrame {
     private JButton btnMostrarCatalogo;      
     private JButton btnGestionarProductos; 
       
-    // Área de Texto para Salida
+    // Ã�rea de Texto para Salida
     private JTextArea txtAreaOutput;
     private JScrollPane scrollPaneOutput;
 
@@ -79,7 +79,7 @@ public class VentanaDirector extends JFrame {
         setLocationRelativeTo(null);
     }
 
-    // --- Inicialización de Componentes ---
+    // --- InicializaciÃ³n de Componentes ---
     private void initComponents() {
         // Paneles
         panelNorte = new JPanel();
@@ -100,11 +100,11 @@ public class VentanaDirector extends JFrame {
         lblId = new JLabel("ID Empleado:");
         lblNombre = new JLabel("Nombre:");
         lblSueldo = new JLabel("Sueldo:");
-        lblContrasena = new JLabel("Contraseña:");
+        lblContrasena = new JLabel("ContraseÃ±a:");
         lblIdEliminar = new JLabel("ID a Eliminar:");
         lblIdActualizar = new JLabel("ID a Actualizar:");
         lblNuevoSueldo = new JLabel("Nuevo Sueldo (opcional):");
-        lblNuevaContrasena = new JLabel("Nueva Contraseña (opcional):");
+        lblNuevaContrasena = new JLabel("Nueva ContraseÃ±a (opcional):");
         lblStatus = new JLabel("Listo.");
 
         // Campos de Texto
@@ -117,7 +117,7 @@ public class VentanaDirector extends JFrame {
         txtNuevoSueldo = new JTextField(8);
         txtNuevaContrasena = new JPasswordField(10);
         
-        // Selección registro usuario
+        // SelecciÃ³n registro usuario
         rbDirector = new JRadioButton("Director", true); // Seleccionado por defecto
         rbDependiente = new JRadioButton("Dependiente");
         bgTipoEmpleado = new ButtonGroup();
@@ -131,11 +131,11 @@ public class VentanaDirector extends JFrame {
         btnEliminarDependiente = new JButton("Eliminar Dependiente");
         btnActualizarDatos = new JButton("Actualizar Datos");
         btnListarClientes = new JButton("Listar Clientes"); 
-        btnCerrarSesion = new JButton("Cerrar Sesión"); 
-        btnMostrarCatalogo = new JButton("Mostrar Catálogo");  
+        btnCerrarSesion = new JButton("Cerrar SesiÃ³n"); 
+        btnMostrarCatalogo = new JButton("Mostrar CatÃ¡logo");  
         btnGestionarProductos = new JButton("Gestionar Productos"); 
 
-        // Área de Texto y ScrollPane
+        // Ã�rea de Texto y ScrollPane
         txtAreaOutput = new JTextArea(18, 75); 
         txtAreaOutput.setEditable(false);
         txtAreaOutput.setLineWrap(true);
@@ -146,7 +146,7 @@ public class VentanaDirector extends JFrame {
         scrollPaneOutput.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
     }
 
-    // --- Configuración del Layout ---
+    // --- ConfiguraciÃ³n del Layout ---
     private void initLayout() {
         setLayout(new BorderLayout(5, 5)); // Layout principal
 
@@ -204,7 +204,7 @@ public class VentanaDirector extends JFrame {
         panelAccionesGenerales.add(btnCerrarSesion);    
         panelAccionesGenerales.setAlignmentX(Component.LEFT_ALIGNMENT); 
 
-        // Añadir sub-paneles al panel norte (verticalmente)
+        // AÃ±adir sub-paneles al panel norte (verticalmente)
         panelNorte.add(panelRegistroDirector);
         panelNorte.add(panelActualizarDatos);
         panelNorte.add(panelEliminarDirector);
@@ -221,7 +221,7 @@ public class VentanaDirector extends JFrame {
         add(panelSur, BorderLayout.SOUTH);
     }
 
-    // --- Inicialización de Listeners --- (Se ha usado Lambda)
+    // --- InicializaciÃ³n de Listeners --- (Se ha usado Lambda)
     private void initListeners() {
         // --- Registrar Director/Dependiente ---
         btnRegistrarDirector.addActionListener(e -> {
@@ -237,9 +237,19 @@ public class VentanaDirector extends JFrame {
                 lblStatus.setText("Error: campos incompletos.");
                 return;
             }
-            Float sueldo = Float.parseFloat(txtSueldo.getText().trim()); 
+            
+            Float sueldo;
 
+            try {
+            	sueldo = Float.parseFloat(txtSueldo.getText().trim()); 
+            } catch (NumberFormatException ex) {
+                txtAreaOutput.append("ERROR UI: El sueldo debe ser un número válido.\n");
+                lblStatus.setText("Error: sueldo no válido.");
+                return;
+            }
+            
             String tipoEmpleado;
+            
             if (rbDirector.isSelected()) {
                 tipoEmpleado = "DIRECTOR";
             } else if (rbDependiente.isSelected()) {
@@ -250,19 +260,13 @@ public class VentanaDirector extends JFrame {
                 return;
             }
 
-            if (id.isEmpty() || nombre.isEmpty() || sueldo == null || contrasena.isEmpty()) {
-                txtAreaOutput.append("ERROR UI: Todos los campos son requeridos para registrar.\n");
-                lblStatus.setText("Error: campos incompletos.");
-                return;
-            }
-
             lblStatus.setText("Registrando empleado...");
             try {
                 controladorEm.registrarEmpleado(id, nombre, sueldo, contrasena, tipoEmpleado);
-                lblStatus.setText("Proceso de registro finalizado (ver salida).");
+                lblStatus.setText("Proceso de registro finalizado");
                 limpiarCamposRegistro(); 
             } catch (Exception ex) { 
-                lblStatus.setText("Error durante el registro (ver salida).");
+                lblStatus.setText("Error durante el registro: " + ex.getMessage());
             }
     	});
 
@@ -298,26 +302,26 @@ public class VentanaDirector extends JFrame {
             String idEliminar = txtIdEliminar.getText().trim();
             if (idEliminar.isEmpty()) {
                 appendOutput("ERROR UI: Debe ingresar el ID del director a eliminar.\n");
-                updateStatus("Error: ID a eliminar vacío."); return;
+                updateStatus("Error: ID a eliminar vacÃ­o."); return;
             }
             int confirm = JOptionPane.showConfirmDialog(VentanaDirector.this,
-                    "¿Está seguro de que desea eliminar al director con ID: " + idEliminar + "?",
-                    "Confirmar Eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                    "Â¿EstÃ¡ seguro de que desea eliminar al director con ID: " + idEliminar + "?",
+                    "Confirmar EliminaciÃ³n", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
             if (confirm == JOptionPane.YES_OPTION) {
                 updateStatus("Eliminando director...");
-                appendOutput("\n--- Solicitando eliminación del director ID: " + idEliminar + " ---\n");
+                appendOutput("\n--- Solicitando eliminaciÃ³n del director ID: " + idEliminar + " ---\n");
                 try {
                     controlador.eliminarDirector(idEliminar); 
-                    updateStatus("Proceso de eliminación finalizado (ver salida).");
+                    updateStatus("Proceso de eliminaciÃ³n finalizado (ver salida).");
                     txtIdEliminar.setText("");
                 } catch (Exception ex) {
-                    updateStatus("Error durante la eliminación (ver salida).");
+                    updateStatus("Error durante la eliminaciÃ³n (ver salida).");
                     appendOutput("ERROR: " + ex.getMessage() + "\n");
                 }
             } else {
-                updateStatus("Eliminación cancelada.");
-                appendOutput("--- Eliminación cancelada por el usuario ---\n");
+                updateStatus("EliminaciÃ³n cancelada.");
+                appendOutput("--- EliminaciÃ³n cancelada por el usuario ---\n");
             }
         });
 
@@ -326,26 +330,26 @@ public class VentanaDirector extends JFrame {
             String idEliminar = txtIdEliminar.getText().trim();
             if (idEliminar.isEmpty()) {
                 appendOutput("ERROR UI: Debe ingresar el ID del dependiente a eliminar.\n");
-                updateStatus("Error: ID a eliminar vacío."); return;
+                updateStatus("Error: ID a eliminar vacÃ­o."); return;
             }
             int confirm = JOptionPane.showConfirmDialog(VentanaDirector.this,
-                    "¿Está seguro de que desea eliminar al dependiente con ID: " + idEliminar + "?",
-                    "Confirmar Eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                    "Â¿EstÃ¡ seguro de que desea eliminar al dependiente con ID: " + idEliminar + "?",
+                    "Confirmar EliminaciÃ³n", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
             if (confirm == JOptionPane.YES_OPTION) {
                 updateStatus("Eliminando dependiente...");
-                appendOutput("\n--- Solicitando eliminación del dependiente ID: " + idEliminar + " ---\n");
+                appendOutput("\n--- Solicitando eliminaciÃ³n del dependiente ID: " + idEliminar + " ---\n");
                 try {
                     controladorDep.eliminarDependiente(idEliminar); 
-                    updateStatus("Proceso de eliminación finalizado (ver salida).");
+                    updateStatus("Proceso de eliminaciÃ³n finalizado (ver salida).");
                     txtIdEliminar.setText("");
                 } catch (Exception ex) {
-                    updateStatus("Error durante la eliminación (ver salida).");
+                    updateStatus("Error durante la eliminaciÃ³n (ver salida).");
                     appendOutput("ERROR: " + ex.getMessage() + "\n");
                 }
             } else {
-                updateStatus("Eliminación cancelada.");
-                appendOutput("--- Eliminación cancelada por el usuario ---\n");
+                updateStatus("EliminaciÃ³n cancelada.");
+                appendOutput("--- EliminaciÃ³n cancelada por el usuario ---\n");
             }
         });
 
@@ -361,39 +365,39 @@ public class VentanaDirector extends JFrame {
             java.util.Arrays.fill(nuevaContrasenaChars, ' '); 
             txtNuevaContrasena.setText(""); 
 
-            // Validación básica ID
+            // ValidaciÃ³n bÃ¡sica ID
             if (idActualizar.isEmpty()) {
                 txtAreaOutput.append("ERROR UI: Debe ingresar el ID del empleado/director a actualizar.\n");
-                lblStatus.setText("Error: ID a actualizar vacío.");
+                lblStatus.setText("Error: ID a actualizar vacÃ­o.");
                 return;
             }
 
-            // Verificar si se proporcionó al menos un dato para actualizar
+            // Verificar si se proporcionÃ³ al menos un dato para actualizar
             if (nuevoSueldo == null && nuevaContrasena.isEmpty()) {
-                 txtAreaOutput.append("INFO UI: No se ingresó nuevo sueldo ni nueva contraseña para actualizar.\n");
+                 txtAreaOutput.append("INFO UI: No se ingresÃ³ nuevo sueldo ni nueva contraseÃ±a para actualizar.\n");
                  lblStatus.setText("Nada para actualizar.");
                  return;
             }
 
             lblStatus.setText("Actualizando datos...");
-            txtAreaOutput.append("\n--- Solicitando actualización de datos para ID: " + idActualizar + " ---\n");
+            txtAreaOutput.append("\n--- Solicitando actualizaciÃ³n de datos para ID: " + idActualizar + " ---\n");
             try {
                 controlador.actualizarDatos(idActualizar, nuevoSueldo, nuevaContrasena);
-                lblStatus.setText("Proceso de actualización finalizado (ver salida).");
+                lblStatus.setText("Proceso de actualizaciÃ³n finalizado (ver salida).");
                 limpiarCamposActualizacion();
             } catch (Exception ex) {
-                 lblStatus.setText("Error durante la actualización (ver salida).");
+                 lblStatus.setText("Error durante la actualizaciÃ³n (ver salida).");
             }
         });
 
-        // --- Cerrar Sesión ---
+        // --- Cerrar SesiÃ³n ---
         btnCerrarSesion.addActionListener(e -> {
             int confirm = JOptionPane.showConfirmDialog(VentanaDirector.this,
-                    "¿Está seguro de que desea cerrar la sesión?",
-                    "Confirmar Cierre de Sesión", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                    "Â¿EstÃ¡ seguro de que desea cerrar la sesiÃ³n?",
+                    "Confirmar Cierre de SesiÃ³n", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
             if (confirm == JOptionPane.YES_OPTION) {
-                appendOutput("\n--- Cerrando sesión ---\n");
+                appendOutput("\n--- Cerrando sesiÃ³n ---\n");
                 this.dispose(); // Cierra la ventana Director
 
                 // Crea la ventana Login
@@ -411,8 +415,8 @@ public class VentanaDirector extends JFrame {
         });
 
         btnGestionarProductos.addActionListener(e -> {
-            appendOutput("\n--- Abriendo ventana de gestión de productos ---\n");
-            updateStatus("Abriendo gestión de productos...");
+            appendOutput("\n--- Abriendo ventana de gestiÃ³n de productos ---\n");
+            updateStatus("Abriendo gestiÃ³n de productos...");
             // Crear y mostrar la nueva ventana, pasando el controlador
             SwingUtilities.invokeLater(() -> {
                 // Necesitas crear la clase VentanaProducto
@@ -422,13 +426,14 @@ public class VentanaDirector extends JFrame {
 
     }
 
-    // --- Métodos para limpiar campos ---
+    // --- MÃ©todos para limpiar campos ---
     private void limpiarCamposRegistro() {
         txtId.setText("");
         txtNombre.setText("");
         txtSueldo.setText("");
         txtContrasena.setText("");
     }
+    
     private void limpiarCamposActualizacion() {
         txtIdActualizar.setText("");
         txtNuevoSueldo.setText("");
@@ -449,10 +454,10 @@ public class VentanaDirector extends JFrame {
     }
 
 
-    // --- Redirección de System.out y System.err ---
+    // --- RedirecciÃ³n de System.out y System.err ---
     private void redirectSystemStreams() {
         OutputStream out = new OutputStream() {
-            // Usa appendOutput para asegurar que la actualización se haga en el EDT
+            // Usa appendOutput para asegurar que la actualizaciÃ³n se haga en el EDT
             @Override public void write(int b) throws IOException { appendOutput(String.valueOf((char) b)); }
             @Override public void write(byte[] b, int off, int len) throws IOException { appendOutput(new String(b, off, len)); }
             @Override public void write(byte[] b) throws IOException { write(b, 0, b.length); }

@@ -16,10 +16,11 @@ import integracion.BDConexion;
 public class SADirectorImp implements SADirector {
     private DAODirector daoDirector = new DAODirectorImp();
 
-    public boolean altaDirector(TDirector director) {
+    public void altaDirector(TDirector director) {
         if (director == null || director.getIdentificador() == null || director.getIdentificador().trim().isEmpty()) {
             System.err.println("Datos del director inválidos o identificador vacío.");
         }
+        
         if (director.getCargo() == null || director.getCargo().trim().isEmpty()){
             System.err.println("El cargo del director no puede ser vacío.");
         }

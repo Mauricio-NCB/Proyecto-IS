@@ -12,14 +12,18 @@ import negocio.dto.TEmpleado;
 public class DAOEmpleadoImp implements DAOEmpleado {
 
 	@Override
-    public TEmpleado readEmpleado(String id) {
+    public TEmpleado readEmpleado(String id) throws Exception {
         String sql = "SELECT * FROM Empleado WHERE identificador = ?";
+        TEmpleado empleado = null;
+        
         try (Connection conn = BDConexion.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, id);
             ResultSet rs = pstmt.executeQuery();
 
+            if (!rs.next()) throw new SQLException("No se pudo obtener el empleado en la tabla Empleado");
+            
             if (rs.next()) {
                 String nombre = rs.getString("nombre");
                 float sueldo = rs.getFloat("sueldo");
@@ -28,56 +32,61 @@ public class DAOEmpleadoImp implements DAOEmpleado {
                 if (esDirector(conn, id)) {
                 	String cargo = getCargoDirector(conn, id);
                 	
-                	return new TDirector(id, nombre, sueldo, contrasena, cargo);
+                	empleado = new TDirector(id, nombre, sueldo, contrasena, cargo);
                 }
                 else if (esDependiente(conn, id)) {
                 	Float sumVentas = getSumVentas(conn, id);
                 	
-                	return new TDependiente(id, nombre, sueldo, contrasena, sumVentas);
+                	empleado = new TDependiente(id, nombre, sueldo, contrasena, sumVentas);
                 }
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception("Error al leer empleado en la base de datos: " + e.getMessage(), e);
         }
-        return null;
+        
+        return empleado;
     }
 
 	@Override
-    public boolean createEmpleado(TEmpleado empleado) {
+    public void createEmpleado(TEmpleado empleado) throws Exception {
     	String sqlEmpleado = "INSERT INTO Empleado (identificador, nombre, sueldo, contrasena) VALUES (?, ?, ?, ?)";
         String sqlDir = "INSERT INTO Director (id, cargo) VALUES (?, ?)";
 		String sqlDep = "INSERT INTO Dependiente (id, sum_ventas) VALUES (?, ?)";
 
         try (Connection conn = BDConexion.getInstance().getConnection();
         		PreparedStatement pstmtEm = conn.prepareStatement(sqlEmpleado)) {
+        	
         	pstmtEm.setString(1, empleado.getIdentificador());
         	pstmtEm.setString(2, empleado.getNombre());
         	pstmtEm.setFloat(3, empleado.getSueldo());
         	pstmtEm.setString(4, empleado.getContrasena());
-            if (pstmtEm.executeUpdate() > 0) {
-				if (empleado instanceof TDirector){
-					TDirector director = (TDirector)empleado;
-					try (PreparedStatement pstmtDir = conn.prepareStatement(sqlDir)) {
-						pstmtDir.setString(1, director.getIdentificador());
-						pstmtDir.setString(2, director.getCargo());
-						return pstmtDir.executeUpdate() > 0;
-					}
+        	
+        	if (pstmtEm.executeUpdate() == 0) throw new SQLException("No se pudo insertar el empleado en la tabla Empleado");
+        	
+			if (empleado instanceof TDirector) {
+				TDirector director = (TDirector)empleado;
+				
+				try (PreparedStatement pstmtDir = conn.prepareStatement(sqlDir)) {
+					pstmtDir.setString(1, director.getIdentificador());
+					pstmtDir.setString(2, director.getCargo());
+
+		        	if (pstmtDir.executeUpdate() == 0) throw new SQLException("No se pudo insertar el empleado en la tabla Empleado");
 				}
-				else {
-					TDependiente dependiente = (TDependiente)empleado;
-					try (PreparedStatement pstmtDep = conn.prepareStatement(sqlDep)) {
-						pstmtDep.setString(1, dependiente.getIdentificador());
-						pstmtDep.setFloat(2, dependiente.getSumVentas());
-						return pstmtDep.executeUpdate() > 0;
-					}
+			}
+			else {
+				TDependiente dependiente = (TDependiente)empleado;
+				
+				try (PreparedStatement pstmtDep = conn.prepareStatement(sqlDep)) {
+					pstmtDep.setString(1, dependiente.getIdentificador());
+					pstmtDep.setFloat(2, dependiente.getSumVentas());
+
+		        	if (pstmtDep.executeUpdate() == 0) throw new SQLException("No se pudo insertar el empleado en la tabla Empleado");
 				}
-            	
-            }
-            else {return false;}
+			}
+
         } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+        	throw new Exception("Error al crear empleado en la base de datos: " + e.getMessage(), e);
         }
     }
 

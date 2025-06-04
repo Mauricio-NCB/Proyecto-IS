@@ -12,44 +12,34 @@ public class SAEmpleadoImp implements SAEmpleado {
 	private DAOEmpleado daoEmpleado = new DAOEmpleadoImp();
 
 	@Override
-	public boolean altaEmpleado(TEmpleado empleado) {
-		if (empleado == null || empleado.getIdentificador() == null || empleado.getIdentificador().trim().isEmpty()) {
-			System.err.println("Datos del empleado inválidos o identificador vacío.");
-		}
+	public void altaEmpleado(TEmpleado empleado) throws Exception {
 		
 		if (daoEmpleado.existeEmpleado(empleado.getIdentificador())) {
-			System.err.println("Ya existe un empleado con el identificador: " + empleado.getIdentificador());
+			throw new IllegalArgumentException("Ya existe un empleado con el identificador: " + empleado.getIdentificador());
 		}
-
-		boolean exito = false;
 
 		if (empleado instanceof TDirector){
-			TDirector cargoEmpleado = (TDirector)empleado;
-			if (cargoEmpleado.getCargo() == null || cargoEmpleado.getCargo().trim().isEmpty()){
-				System.err.println("El cargo del empleado no puede ser vacío.");
-			}
-			exito = daoEmpleado.createEmpleado(cargoEmpleado);
+			TDirector dir = (TDirector) empleado;
+			
+			daoEmpleado.createEmpleado(dir);
 		}
 		else {
-			TDependiente cargoEmpleado = (TDependiente)empleado;
-			exito = daoEmpleado.createEmpleado(cargoEmpleado);
+			TDependiente emp = (TDependiente) empleado;
+			
+			daoEmpleado.createEmpleado(emp);
 		}
-
-		return exito;
     }
 
 	@Override
-	public TEmpleado loguearEmpleado(String id, String contrasena) {
+	public TEmpleado loguearEmpleado(String id, String contrasena) throws Exception {
 		TEmpleado empleado = daoEmpleado.readEmpleado(id);
-		if (empleado != null) {
-			
-			String hashContrasena = HashUtil.hashPassword(contrasena);
-			
-			if (hashContrasena.equals(empleado.getContrasena())) {
-				return empleado;
-			}
+		String hashContrasena = HashUtil.hashPassword(contrasena);
+		
+		if (!hashContrasena.equals(empleado.getContrasena())) {
+			throw new IllegalArgumentException("No coincide la contrase�a");
 		}
-		return null;
+		
+		return empleado;
 	}
 
 }

@@ -36,13 +36,8 @@ public class ControladorDirector {
     // Directores
     public void registrarDirector(String id, String nombre, Float sueldo, String contrasena) {
         TDirector nuevoDirector = new TDirector(id, nombre, sueldo, HashUtil.hashPassword(contrasena), "DIRECTOR");
-        boolean exito = servicioDirector.altaDirector(nuevoDirector);
         
-        if (exito) {
-            System.out.println("Director registrado correctamente");
-        } else {
-            System.out.println("Error al registrar el cliente");
-        }
+        servicioDirector.altaDirector(nuevoDirector);
     }
 
     public void mostrarTodosLosDirectores() {

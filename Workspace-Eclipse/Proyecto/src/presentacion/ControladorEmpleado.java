@@ -24,40 +24,31 @@ public class ControladorEmpleado {
 		return instancia;
 	}
 	
-	public boolean loguearEmpleado(String id, String contrasena) {
+	public boolean loguearEmpleado(String id, String contrasena) throws Exception {
 		TEmpleado empleado = servicioEmpleado.loguearEmpleado(id, contrasena);
-		if (empleado != null) {
-			System.out.println("Login exitoso");
-			if(empleado instanceof TDirector) {
-				new VentanaDirector().setVisible(true);
-			}
-			else if (empleado instanceof TDependiente) {
-				new VentanaDependiente().setVisible(true);
-			}
-			return true;
+			
+		if(empleado instanceof TDirector) {
+			new VentanaDirector().setVisible(true);
 		}
-		else {
-			System.out.println("ERROR al loguear");
-			JOptionPane.showMessageDialog(null, "ID o contraseña incorrectos");
-			return false;
+		else if (empleado instanceof TDependiente) {
+			new VentanaDependiente().setVisible(true);
 		}
+		
+		return true;
+
 	}
 
-	public void registrarEmpleado(String id, String nombre, Float sueldo, String contrasena, String cargo) {
-		boolean exito = false;
-		if (cargo == "DIRECTOR"){
-			TDirector nuevoDirector = new TDirector(id, nombre, sueldo, HashUtil.hashPassword(contrasena), cargo);
-			exito = servicioEmpleado.altaEmpleado(nuevoDirector);
+	public void registrarEmpleado(String id, String nombre, Float sueldo, String contrasena, String cargo) throws Exception {
+			
+		TEmpleado nuevoEmpleado;
+		
+		if ("DIRECTOR".equals(cargo)){
+			nuevoEmpleado = new TDirector(id, nombre, sueldo, HashUtil.hashPassword(contrasena), cargo);
 		}
 		else{
-			TDependiente nuevoDependiente = new TDependiente(id, nombre, sueldo, contrasena, 0);
-			exito = servicioEmpleado.altaEmpleado(nuevoDependiente);
+			nuevoEmpleado = new TDependiente(id, nombre, sueldo, HashUtil.hashPassword(contrasena), 0);
 		}
 
-		if (exito) {
-			System.out.println(nombre +" registrado correctamente");
-		} else {
-			System.out.println("Error al registrar empleado");
-		}
+		servicioEmpleado.altaEmpleado(nuevoEmpleado);
     } 
 }
