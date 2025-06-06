@@ -18,16 +18,7 @@ public class SAEmpleadoImp implements SAEmpleado {
 			throw new IllegalArgumentException("Ya existe un empleado con el identificador: " + empleado.getIdentificador());
 		}
 
-		if (empleado instanceof TDirector){
-			TDirector dir = (TDirector) empleado;
-			
-			daoEmpleado.createEmpleado(dir);
-		}
-		else {
-			TDependiente emp = (TDependiente) empleado;
-			
-			daoEmpleado.createEmpleado(emp);
-		}
+		daoEmpleado.createEmpleado(empleado);
     }
 
 	@Override

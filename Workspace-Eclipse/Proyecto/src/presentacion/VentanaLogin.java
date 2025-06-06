@@ -52,15 +52,15 @@ public class VentanaLogin extends JFrame {
         		
         		if (id.isEmpty() || contrasena.isEmpty()) {
         			JOptionPane.showMessageDialog(null, "Por favor, rellena los campos");
-        			return;
         		}
-        		
-        		try {
-        			if (controladorEmpleado.loguearEmpleado(id, contrasena)) dispose();
+        		else {	
+	        		try {
+	        			if (controladorEmpleado.loguearEmpleado(id, contrasena)) dispose();
+	        		}
+	        		catch (Exception ex) {
+	        			JOptionPane.showMessageDialog(null, ex.getMessage());
+	        		}     
         		}
-        		catch (Exception ex) {
-        			JOptionPane.showMessageDialog(null, ex.getMessage());
-        		}        		
         	}
         });
         

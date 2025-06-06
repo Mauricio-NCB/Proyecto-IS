@@ -42,7 +42,7 @@ public class ControladorEmpleado {
 			
 		TEmpleado nuevoEmpleado;
 		
-		if ("DIRECTOR".equals(cargo)){
+		if ("DIRECTOR".equals(cargo)) {
 			nuevoEmpleado = new TDirector(id, nombre, sueldo, HashUtil.hashPassword(contrasena), cargo);
 		}
 		else{

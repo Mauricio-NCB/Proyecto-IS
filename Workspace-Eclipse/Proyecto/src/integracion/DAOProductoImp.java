@@ -18,7 +18,7 @@ import negocio.dto.TProducto;
 public class DAOProductoImp implements DAOProducto{
 
 	@Override
-	public boolean createProducto(TProducto producto) {
+	public void createProducto(TProducto producto) throws Exception {
 		
 		String sql = "INSERT INTO Producto (nombre, precio, stock) VALUES (?, ?, ?)";
 		
@@ -29,12 +29,12 @@ public class DAOProductoImp implements DAOProducto{
 	        pstmt.setFloat(2, producto.getPrecio());
 	        pstmt.setInt(3, producto.getStock());
 	        
-	        pstmt.executeUpdate();
+	        if (pstmt.executeUpdate() == 0) throw new SQLException("No se pudo insertar el producto en la tabla Producto");
 	        
 	        ResultSet generatedKeys = pstmt.getGeneratedKeys();
-	        if (!generatedKeys.next()) {
-	            return false;
-	        }
+	        
+	        if (!generatedKeys.next()) throw new SQLException("No se pudo generar la id del nuevo Producto en la tabla Producto");
+	        
 	        int idGenerado = generatedKeys.getInt(1);
             producto.setID(idGenerado);
             generatedKeys.close();
@@ -79,16 +79,13 @@ public class DAOProductoImp implements DAOProducto{
 	            pstmt2.setString(2, p.getTamano());
 	            pstmt2.executeUpdate();
 	        }
-            
-	        return true;
 
-		}catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+		} catch (SQLException e) {
+			throw new Exception("Error al crear empleado en la base de datos: " + e.getMessage(), e);
         }
 	}
 	
-    public boolean updateProducto(TProducto producto) {
+    public void updateProducto(TProducto producto) throws Exception {
 		
 		String sqlProducto = "UPDATE Producto SET nombre = ?, precio = ?, stock = ? WHERE ID = ?";
 		
@@ -100,23 +97,17 @@ public class DAOProductoImp implements DAOProducto{
              pstmt.setInt(3, producto.getStock());
              pstmt.setInt(4, producto.getID());
 			
-             pstmt.executeUpdate();
+             if (pstmt.executeUpdate() == 0) throw new SQLException("No se pudo actualizar el producto en la tabla Producto");
              
-             boolean actualizado = actualizarProducto(conn, producto);
-             
-             if (!actualizado) {
-                 return false;
-             }
-             
-             return true;
+             actualizarProducto(conn, producto);
+
 		} catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+			throw new Exception("Error al leer empleado en la base de datos: " + e.getMessage(), e);
         }
 		
 	}
 	
-	private boolean actualizarProducto(Connection conn, TProducto producto) throws SQLException {
+	private void actualizarProducto(Connection conn, TProducto producto) throws SQLException {
         if (producto instanceof TCamiseta) {
             TCamiseta c = (TCamiseta) producto;
             String sql = "UPDATE Camiseta SET talla = ?, dorsal = ?, numero = ? WHERE ID = ?";
@@ -125,7 +116,8 @@ public class DAOProductoImp implements DAOProducto{
                 pstmt.setString(2, c.getDorsalJugador());
                 pstmt.setInt(3, c.getNumeroJugador());
                 pstmt.setInt(4, c.getID());
-                return pstmt.executeUpdate() > 0;
+                
+                if (pstmt.executeUpdate() == 0) throw new SQLException("No se pudo actualizar el producto en la tabla Empleado");
             }
         } else if (producto instanceof TEntrada) {
             TEntrada e = (TEntrada) producto;
@@ -137,7 +129,8 @@ public class DAOProductoImp implements DAOProducto{
                 pstmt.setString(4, e.getNumeroAsiento());
                 pstmt.setString(5, e.getPartido());
                 pstmt.setInt(6, e.getID());
-                return pstmt.executeUpdate() > 0;
+                
+                if (pstmt.executeUpdate() == 0) throw new SQLException("No se pudo actualizar el producto en la tabla Empleado");
             }
         }
         else if (producto instanceof TJuguete) {
@@ -147,7 +140,8 @@ public class DAOProductoImp implements DAOProducto{
                 pstmt.setString(1, j.getTipo());
                 pstmt.setString(2, j.getTamano());
                 pstmt.setInt(3, j.getID());
-                return pstmt.executeUpdate() > 0;
+                
+                if (pstmt.executeUpdate() == 0) throw new SQLException("No se pudo actualizar el producto en la tabla Empleado");
             }
         }
         else if (producto instanceof TPoster) {
@@ -156,65 +150,52 @@ public class DAOProductoImp implements DAOProducto{
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, p.getTamano());
                 pstmt.setInt(2, p.getID());
-                return pstmt.executeUpdate() > 0;
+                
+                if (pstmt.executeUpdate() == 0) throw new SQLException("No se pudo actualizar el producto en la tabla Empleado");
             }
         }
-        return false;
     }
 	
-	public boolean deleteProducto(int idProducto) {
+	public void deleteProducto(int idProducto) throws Exception {
 		
 		try (Connection conn = BDConexion.getInstance().getConnection()) {
 			
-			String tipoProducto = null;
+			String tipoProducto;
 	        
-	        if (esCamiseta(conn, idProducto)) {
-	            tipoProducto = "Camiseta";
-	        } else if (esEntrada(conn, idProducto)) {
-	            tipoProducto = "Entrada";
-	        } else if (esJuguete(conn, idProducto)) {
-	            tipoProducto = "Juguete";
-	        } else if (esPoster(conn, idProducto)) {
-	            tipoProducto = "Poster";
-	        }
+	        if (esCamiseta(conn, idProducto)) tipoProducto = "Camiseta";
+	        else if (esEntrada(conn, idProducto)) tipoProducto = "Entrada";
+	        else if (esJuguete(conn, idProducto)) tipoProducto = "Juguete";
+	        else if (esPoster(conn, idProducto)) tipoProducto = "Poster";
+	        else throw new SQLException("Tipo de producto no reconocido");
 	        
-	        if (tipoProducto == null) {
-	            return false;
-	        }
-	        
-	        if (!eliminarDeTabla(conn, tipoProducto, idProducto)) {
-	            return false;
-	        }
+	        eliminarDeTabla(conn, tipoProducto, idProducto);
+	        eliminarDeProducto(conn, idProducto);
 
-	        if (!eliminarDeProducto(conn, idProducto)) {
-	            return false;
-	        }
-	        
-	        return true;
-		}catch (SQLException e) {
-	        e.printStackTrace();
-	        return false;
+		} catch (SQLException e) {
+			throw new Exception("Error al eliminar producto en la base de datos: " + e.getMessage(), e);
 	    }
 	}
 	
-	private boolean eliminarDeTabla(Connection conn, String tipoProducto, int idProducto) throws SQLException {
+	private void eliminarDeTabla(Connection conn, String tipoProducto, int idProducto) throws SQLException {
 	    String sql = "DELETE FROM " + tipoProducto + " WHERE ID = ?";
 	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 	        pstmt.setInt(1, idProducto);
-	        return pstmt.executeUpdate() > 0;
+	        
+	        if (pstmt.executeUpdate() == 0) throw new SQLException("No se puedo eliminar el producto de su tabla");
 	    }
 	}
 	
-	private boolean eliminarDeProducto(Connection conn, int idProducto) throws SQLException {
+	private void eliminarDeProducto(Connection conn, int idProducto) throws SQLException {
 	    String sql = "DELETE FROM Producto WHERE ID = ?";
 	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 	        pstmt.setInt(1, idProducto);
-	        return pstmt.executeUpdate() > 0;
+	        
+	        if (pstmt.executeUpdate() == 0) throw new SQLException("No se puedo eliminar el producto de la tabla Producto");
 	    }
 	}
 		
 	
-    public List<TProducto> obtenerTodosLosProductos() {
+    public List<TProducto> obtenerTodosLosProductos() throws Exception {
         List<TProducto> productos = new ArrayList<>();
         String sql = "SELECT * FROM Producto";
         
@@ -247,7 +228,7 @@ public class DAOProductoImp implements DAOProducto{
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+        	throw new Exception("Error al obtener productos en la base de datos: " + e.getMessage(), e);
         }
         
         return productos;

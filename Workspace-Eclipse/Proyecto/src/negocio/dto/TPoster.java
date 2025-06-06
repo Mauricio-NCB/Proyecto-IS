@@ -21,4 +21,12 @@ public class TPoster extends TProducto {
         this.tamano = value;
     }
 
+	@Override
+	protected void validarDatosEspecificos() throws Exception {
+		// TODO Auto-generated method stub
+		if (tamano == null)
+            throw new IllegalArgumentException("El tamaño del poster no puede estar vaío");
+			
+	}
+
 }

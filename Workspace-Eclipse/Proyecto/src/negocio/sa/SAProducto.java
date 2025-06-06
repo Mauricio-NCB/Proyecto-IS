@@ -6,8 +6,8 @@ import negocio.dto.TProducto;
 
 public interface SAProducto {
 
-	boolean altaProducto(TProducto producto);
-	boolean deleteProducto(int id);
-	boolean updateProducto(TProducto producto);
-	List<TProducto> listarProductos();
+	void altaProducto(TProducto producto) throws Exception;
+	void deleteProducto(int id) throws Exception;
+	void updateProducto(TProducto producto) throws Exception;
+	List<TProducto> listarProductos() throws Exception;
 }

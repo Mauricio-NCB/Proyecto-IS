@@ -6,8 +6,8 @@ import negocio.dto.TProducto;
 
 public interface DAOProducto {
 	
-	boolean createProducto(TProducto producto);
-	boolean deleteProducto(int idProducto);
-	boolean updateProducto(TProducto producto);
-	List<TProducto> obtenerTodosLosProductos();
+	void createProducto(TProducto producto) throws Exception;
+	void deleteProducto(int idProducto) throws Exception;
+	void updateProducto(TProducto producto) throws Exception;
+	List<TProducto> obtenerTodosLosProductos() throws Exception;
 }

@@ -1,4 +1,9 @@
 package negocio.dto;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 
 public class TEntrada extends TProducto {
@@ -68,6 +73,38 @@ public class TEntrada extends TProducto {
     public void setPartido(final String value) {
         this.partido = value;
     }
+
+	@Override
+	protected void validarDatosEspecificos() throws Exception {
+		// TODO Auto-generated method stub
+		if (fecha == null)
+            throw new IllegalArgumentException("La fecha no puede estar vacío");
+        if (hora == null)
+            throw new IllegalArgumentException("La hora no puede estar vacío");
+        if (!fechaValida(fecha, hora)) 
+        	throw new IllegalArgumentException("Formato de fecha inválido");
+        if (ubicacion == null)
+            throw new IllegalArgumentException("La ubicación no puede estar vacío");
+        if (numeroAsiento == null)
+            throw new IllegalArgumentException("El número de asiento no puede estar vacío");
+        if (partido == null)
+            throw new IllegalArgumentException("El partido no puede estar vaío");
+	}
+	
+	private boolean fechaValida(Date fecha, String hora) {
+		
+		try {
+			LocalDate miFecha = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			LocalTime miHora = LocalTime.parse(hora);
+			
+			LocalDateTime fechaHora = LocalDateTime.of(miFecha, miHora);
+			LocalDateTime ahora = LocalDateTime.now();
+			
+			return fechaHora.isAfter(ahora);
+		} catch (DateTimeParseException e) {
+	        return false;
+	    }
+	}
 
 
 }

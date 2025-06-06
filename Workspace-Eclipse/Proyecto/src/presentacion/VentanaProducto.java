@@ -241,27 +241,31 @@ public class VentanaProducto extends JDialog {
 
     private void eliminarProducto(){
         String idEliminar = txtEliminarField.getText().trim();
+        
         if (idEliminar.isEmpty()) {
-            System.err.print("Error: ID a eliminar vac√≠o."); return;
+            System.err.print("Error: ID a eliminar vacÌo."); 
         }
-        int confirm = JOptionPane.showConfirmDialog(VentanaProducto.this,
-                "¬øEst√° seguro de que desea eliminar al director con ID: " + idEliminar + "?",
-                "Confirmar Eliminaci√≥n", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        else {
+        	
+            int confirm = JOptionPane.showConfirmDialog(VentanaProducto.this,
+                    "øEst· seguro de que desea eliminar al director con ID: " + idEliminar + "?",
+                    "Confirmar EliminaciÛn", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
-        if (confirm == JOptionPane.YES_OPTION) {
-            System.out.print("Eliminando producto...");
-            System.out.print("\n--- Solicitando eliminaci√≥n del producto ID: " + idEliminar + " ---\n");
-            try {
-                controlador.deleteProducto(idEliminar); 
-                System.out.print("Proceso de eliminaci√≥n finalizado (ver salida).");
-                txtEliminarField.setText("");
-            } catch (Exception ex) {
-                System.err.print("Error durante la eliminaci√≥n (ver salida).");
-                System.err.print("ERROR: " + ex.getMessage() + "\n");
+            if (confirm == JOptionPane.YES_OPTION) {
+                System.out.print("Eliminando producto...");
+                System.out.print("\n--- Solicitando eliminaciÛn del producto ID: " + idEliminar + " ---\n");
+                try {
+                    controlador.deleteProducto(idEliminar); 
+                    System.out.print("Proceso de eliminaciÛn finalizado (ver salida).");
+                    txtEliminarField.setText("");
+                } catch (Exception ex) {
+                    System.err.print("Error durante la eliminaciÛn (ver salida).");
+                    System.err.print("ERROR: " + ex.getMessage() + "\n");
+                }
+            } else {
+                System.err.print("EliminaciÛn cancelada.");
+                System.err.print("--- EliminaciÛn cancelada por el usuario ---\n");
             }
-        } else {
-            System.err.print("Eliminaci√≥n cancelada.");
-            System.err.print("--- Eliminaci√≥n cancelada por el usuario ---\n");
         }
     }
 
@@ -272,12 +276,26 @@ public class VentanaProducto extends JDialog {
         String tallaStr = txtCamisetaTalla.getText().trim();
         String dorsal = txtCamisetaDorsal.getText().trim();
         String numeroStr = txtCamisetaNumero.getText().trim();
-
-        try {
-             controlador.registrarCamiseta(nombre, precioStr, stockStr, tallaStr, dorsal, numeroStr);
-             JOptionPane.showMessageDialog(this, "Solicitud de registro de camiseta enviada.\nVerifique la salida en la ventana principal.", "Registro Iniciado", JOptionPane.INFORMATION_MESSAGE);
-        } catch (Exception ex) { 
-            JOptionPane.showMessageDialog(this, "Error al intentar registrar camiseta:\n" + ex.getMessage(), "Error de Registro", JOptionPane.ERROR_MESSAGE);
+        
+        if (nombre.trim().isEmpty() || precioStr.trim().isEmpty() || stockStr.trim().isEmpty() || tallaStr.trim().isEmpty() || dorsal.trim().isEmpty() || numeroStr.trim().isEmpty()) {
+        	System.err.println("Datos inv·lidos para la camiseta");
+        }
+        else {
+            try {
+                System.out.println("\nIntentando registrar nueva Camiseta...");
+                
+                float precio = Float.parseFloat(precioStr);
+                int stock = Integer.parseInt(stockStr);
+                int talla = Integer.parseInt(tallaStr);
+                int numJugador = Integer.parseInt(numeroStr);
+                
+                controlador.registrarCamiseta(nombre, precio, stock, talla, dorsal, numJugador);
+                
+                System.out.println("°Camiseta registrada con Èxito! ");
+                JOptionPane.showMessageDialog(this, "Solicitud de registro de camiseta enviada.\nVerifique la salida en la ventana principal.", "Registro Iniciado", JOptionPane.INFORMATION_MESSAGE);
+           } catch (Exception ex) { 
+               JOptionPane.showMessageDialog(this, "Error al intentar registrar camiseta:\n" + ex.getMessage(), "Error de Registro", JOptionPane.ERROR_MESSAGE);
+           }
         }
     }
 
@@ -292,14 +310,14 @@ public class VentanaProducto extends JDialog {
 
         if (idStr.isEmpty()) {
              JOptionPane.showMessageDialog(this, "El campo ID es requerido para actualizar.", "ID Faltante", JOptionPane.WARNING_MESSAGE);
-             return;
         }
-
-         try {
-             controlador.actualizarCamiseta(idStr, nombre, precioStr, stockStr, tallaStr, dorsal, numeroStr);
-             JOptionPane.showMessageDialog(this, "Solicitud de actualizaci√≥n de camiseta enviada.\nVerifique la salida en la ventana principal.", "Actualizaci√≥n Iniciada", JOptionPane.INFORMATION_MESSAGE);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error al intentar actualizar camiseta:\n" + ex.getMessage(), "Error de Actualizaci√≥n", JOptionPane.ERROR_MESSAGE);
+        else {
+           try {
+                controlador.actualizarCamiseta(idStr, nombre, precioStr, stockStr, tallaStr, dorsal, numeroStr);
+                JOptionPane.showMessageDialog(this, "Solicitud de actualizaci√≥n de camiseta enviada.\nVerifique la salida en la ventana principal.", "Actualizaci√≥n Iniciada", JOptionPane.INFORMATION_MESSAGE);
+           } catch (Exception ex) {
+               JOptionPane.showMessageDialog(this, "Error al intentar actualizar camiseta:\n" + ex.getMessage(), "Error de Actualizaci√≥n", JOptionPane.ERROR_MESSAGE);
+           }
         }
     }
 
@@ -320,7 +338,7 @@ public class VentanaProducto extends JDialog {
             Date fecha = sdf.parse(fechaStr);
 
             controlador.registrarEntrada(nombre, precioStr, stockStr, fecha, hora, ubicacion, asiento, partido);
-             JOptionPane.showMessageDialog(this, "Solicitud de registro de entrada enviada.", "Registro Iniciado", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Solicitud de registro de entrada enviada.", "Registro Iniciado", JOptionPane.INFORMATION_MESSAGE);
         } catch (ParseException pe) {
              JOptionPane.showMessageDialog(this, "Formato de fecha inv√°lido. Use YYYY-MM-DD.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex) {

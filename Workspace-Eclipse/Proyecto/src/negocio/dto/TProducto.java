@@ -18,6 +18,22 @@ public abstract class TProducto {
     	this.precio = precio;
     	this.stock = stock;
     }
+    
+    public void validarDatos() throws Exception {
+    	validarDatosComunes();
+    	validarDatosEspecificos();
+    }
+    
+    private void validarDatosComunes() throws Exception {
+    	if (nombre == null)
+            throw new IllegalArgumentException("El nombre no puede estar vacío");
+        if (precio < 0)
+            throw new IllegalArgumentException("El precio no puede ser negativo");
+        if (stock < 0)
+            throw new IllegalArgumentException("El stock no puede ser negativo");
+    }
+    
+    protected abstract void validarDatosEspecificos() throws Exception;
 
     public void disminuirStock(final int cantidad) {
     	stock -= cantidad;

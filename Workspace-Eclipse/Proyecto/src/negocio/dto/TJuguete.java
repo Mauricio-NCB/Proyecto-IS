@@ -32,4 +32,14 @@ public class TJuguete extends TProducto {
         this.tamano = value;
     }
 
+	@Override
+	protected void validarDatosEspecificos() throws Exception {
+		// TODO Auto-generated method stub
+		if (tipo == null)
+            throw new IllegalArgumentException("El tipo de juguete no puede estar vaío");
+		if (tamano == null)
+            throw new IllegalArgumentException("El tamaño del juguete no puede estar vaío");
+			
+	}
+
 }

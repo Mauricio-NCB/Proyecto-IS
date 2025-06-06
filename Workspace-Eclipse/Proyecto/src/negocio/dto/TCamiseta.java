@@ -45,4 +45,15 @@ public class TCamiseta extends TProducto {
         this.numeroJugador = value;
     }
 
+	@Override
+	protected void validarDatosEspecificos() throws Exception {
+		// TODO Auto-generated method stub
+        if (talla <= 0)
+            throw new IllegalArgumentException("La talla debe ser mayor que 0");
+        if (dorsalJugador == null)
+            throw new IllegalArgumentException("El dorsal no puede estar vacío");
+        if (numeroJugador <= 0)
+            throw new IllegalArgumentException("El número de jugador debe ser mayor que 0");
+	}
+
 }

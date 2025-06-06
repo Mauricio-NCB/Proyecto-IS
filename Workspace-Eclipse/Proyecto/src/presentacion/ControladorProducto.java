@@ -112,34 +112,10 @@ public class ControladorProducto {
         }
     }
 
-    public void registrarCamiseta(String nombre, String precioStr, String stockStr, String tallaStr, String dorsal, String numJugadorStr) {
-        System.out.println("\nIntentando registrar nueva Camiseta...");
-        try {
-            if (nombre == null || nombre.trim().isEmpty() || precioStr.trim().isEmpty() || stockStr.trim().isEmpty() || tallaStr.trim().isEmpty() || dorsal.trim().isEmpty() || numJugadorStr.trim().isEmpty()){
-                System.err.println("Datos inválidos para la camiseta.");
-            }
-            else{
-                float precio = Float.parseFloat(precioStr);
-                int stock = Integer.parseInt(stockStr);
-                int talla = Integer.parseInt(tallaStr);
-                int numJugador = Integer.parseInt(numJugadorStr);
-
-    
-                TCamiseta nuevaCamiseta = new TCamiseta(nombre.trim(), precio, stock, talla, dorsal, numJugador);
-                boolean exito = prod.altaProducto(nuevaCamiseta); 
-    
-                if (exito) {
-                    System.out.println("¡Camiseta registrada con éxito! ID asignado: " + nuevaCamiseta.getID());
-                } else {
-                    System.out.println("El registro de la camiseta no tuvo éxito (sin error específico).");
-                }
-            }
-        } catch (NumberFormatException e) {
-            System.err.println("Error: Formato de precio, talla, número o stock inválido.");
-        } catch (Exception e) {
-            System.err.println("Error inesperado al registrar camiseta: " + e.getMessage());
-            e.printStackTrace();
-        }
+    public void registrarCamiseta(String nombre, Float precio, Integer stock, Integer talla, String dorsal, Integer numJugador) throws Exception {
+    	
+        TCamiseta nuevaCamiseta = new TCamiseta(nombre, precio, stock, talla, dorsal, numJugador);
+        prod.altaProducto(nuevaCamiseta); 
     }
 
     public void actualizarCamiseta(String idStr, String nombre, String precioStr, String stockStr, String tallaStr, String dorsal, String numJugadorStr) {

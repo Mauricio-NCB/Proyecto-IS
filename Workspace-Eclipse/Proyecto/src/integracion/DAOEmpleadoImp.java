@@ -23,22 +23,20 @@ public class DAOEmpleadoImp implements DAOEmpleado {
             ResultSet rs = pstmt.executeQuery();
 
             if (!rs.next()) throw new SQLException("No se pudo obtener el empleado en la tabla Empleado");
-            
-            if (rs.next()) {
-                String nombre = rs.getString("nombre");
-                float sueldo = rs.getFloat("sueldo");
-                String contrasena = rs.getString("contrasena");
+                      
+            String nombre = rs.getString("nombre");
+            float sueldo = rs.getFloat("sueldo");
+            String contrasena = rs.getString("contrasena");
 
-                if (esDirector(conn, id)) {
-                	String cargo = getCargoDirector(conn, id);
-                	
-                	empleado = new TDirector(id, nombre, sueldo, contrasena, cargo);
-                }
-                else if (esDependiente(conn, id)) {
-                	Float sumVentas = getSumVentas(conn, id);
-                	
-                	empleado = new TDependiente(id, nombre, sueldo, contrasena, sumVentas);
-                }
+            if (esDirector(conn, id)) {
+            	String cargo = getCargoDirector(conn, id);
+            	
+            	empleado = new TDirector(id, nombre, sueldo, contrasena, cargo);
+            }
+            else if (esDependiente(conn, id)) {
+            	Float sumVentas = getSumVentas(conn, id);
+            	
+            	empleado = new TDependiente(id, nombre, sueldo, contrasena, sumVentas);
             }
 
         } catch (SQLException e) {

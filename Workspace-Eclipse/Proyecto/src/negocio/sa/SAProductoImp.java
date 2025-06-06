@@ -11,23 +11,27 @@ public class SAProductoImp implements SAProducto{
 	private DAOProducto daoProducto = new DAOProductoImp();
 
 	@Override
-	public boolean altaProducto(TProducto producto) {
-		return daoProducto.createProducto(producto);
+	public void altaProducto(TProducto producto) throws Exception {
+		
+		producto.validarDatos();
+		daoProducto.createProducto(producto);
 	}
 
 	@Override
-	public boolean deleteProducto(int id) {
-		return daoProducto.deleteProducto(id);
+	public void deleteProducto(int id) throws Exception {
+		daoProducto.deleteProducto(id);
 	}
 
 	@Override
-	public List<TProducto> listarProductos() {
+	public void updateProducto(TProducto producto) throws Exception {
+		
+		producto.validarDatos();
+		daoProducto.updateProducto(producto);
+	}
+
+	@Override
+	public List<TProducto> listarProductos() throws Exception {
 		return daoProducto.obtenerTodosLosProductos();
-	}
-
-	@Override
-	public boolean updateProducto(TProducto producto) {
-		return daoProducto.updateProducto(producto);
 	}
 
 }
