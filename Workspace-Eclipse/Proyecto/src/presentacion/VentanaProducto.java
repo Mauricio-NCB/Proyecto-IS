@@ -278,7 +278,7 @@ public class VentanaProducto extends JDialog {
         String numeroStr = txtCamisetaNumero.getText().trim();
         
         if (nombre.trim().isEmpty() || precioStr.trim().isEmpty() || stockStr.trim().isEmpty() || tallaStr.trim().isEmpty() || dorsal.trim().isEmpty() || numeroStr.trim().isEmpty()) {
-        	System.err.println("Datos inv醠idos para la camiseta");
+        	System.err.println("Introducir datos v醠idos para la camiseta");
         }
         else {
             try {
@@ -293,6 +293,8 @@ public class VentanaProducto extends JDialog {
                 
                 System.out.println("amiseta registrada con 閤ito! ");
                 JOptionPane.showMessageDialog(this, "Solicitud de registro de camiseta enviada.\nVerifique la salida en la ventana principal.", "Registro Iniciado", JOptionPane.INFORMATION_MESSAGE);
+           } catch(NumberFormatException e) {
+        	   System.err.println("Error: Formato de precio, talla, n鷐ero o stock inv醠ido.");
            } catch (Exception ex) { 
                JOptionPane.showMessageDialog(this, "Error al intentar registrar camiseta:\n" + ex.getMessage(), "Error de Registro", JOptionPane.ERROR_MESSAGE);
            }
@@ -308,15 +310,25 @@ public class VentanaProducto extends JDialog {
         String dorsal = txtCamisetaDorsal.getText().trim();
         String numeroStr = txtCamisetaNumero.getText().trim();
 
-        if (idStr.isEmpty()) {
-             JOptionPane.showMessageDialog(this, "El campo ID es requerido para actualizar.", "ID Faltante", JOptionPane.WARNING_MESSAGE);
+        if (idStr.isEmpty() || nombre.isEmpty() || precioStr.isEmpty() || stockStr.isEmpty() || tallaStr.isEmpty() || dorsal.isEmpty() || numeroStr.isEmpty()) {
+        	System.err.println("Introducir datos v醠idos para la camiseta");
         }
         else {
            try {
-                controlador.actualizarCamiseta(idStr, nombre, precioStr, stockStr, tallaStr, dorsal, numeroStr);
-                JOptionPane.showMessageDialog(this, "Solicitud de actualizaci贸n de camiseta enviada.\nVerifique la salida en la ventana principal.", "Actualizaci贸n Iniciada", JOptionPane.INFORMATION_MESSAGE);
+        	   System.out.println("\nIntentando actualizar nueva Camiseta...");
+        	   
+        	   float precio = Float.parseFloat(precioStr);
+               int stock = Integer.parseInt(stockStr);
+               int talla = Integer.parseInt(tallaStr);
+               int numJugador = Integer.parseInt(numeroStr);
+               int id = Integer.parseInt(idStr);
+        	   
+               controlador.actualizarCamiseta(id, nombre, precio, stock, talla, dorsal, numJugador);
+               JOptionPane.showMessageDialog(this, "Solicitud de actualizaci髇 de camiseta enviada.\nVerifique la salida en la ventana principal.", "Actualizaci髇 Iniciada", JOptionPane.INFORMATION_MESSAGE);
+           } catch (NumberFormatException e) {
+        	   System.err.println("Error: Formato de precio, talla, n鷐ero o stock inv醠ido.");
            } catch (Exception ex) {
-               JOptionPane.showMessageDialog(this, "Error al intentar actualizar camiseta:\n" + ex.getMessage(), "Error de Actualizaci贸n", JOptionPane.ERROR_MESSAGE);
+               JOptionPane.showMessageDialog(this, "Error al intentar actualizar camiseta:\n" + ex.getMessage(), "Error de Actualizaci髇", JOptionPane.ERROR_MESSAGE);
            }
         }
     }
@@ -331,18 +343,29 @@ public class VentanaProducto extends JDialog {
         String asiento = txtEntradaAsiento.getText().trim();
         String partido = txtEntradaPartido.getText().trim();
 
-        try {
-            // Parsear fecha (el controlador tambi茅n valida formato)
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            sdf.setLenient(false);
-            Date fecha = sdf.parse(fechaStr);
+        if (nombre.isEmpty() || precioStr.isEmpty() || stockStr.isEmpty() || fechaStr.isEmpty() || hora.isEmpty() || ubicacion.isEmpty() || 
+        		asiento.isEmpty() || partido.isEmpty()) { 
+        	System.err.println("Introducir datos v醠idos para la entrada");
+        }
+        else {
+            try {
+                // Parsear fecha (el controlador tambi茅n valida formato)
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                sdf.setLenient(false);
+                Date fecha = sdf.parse(fechaStr);
+                
+                float precio = Float.parseFloat(precioStr);
+                int stock = Integer.parseInt(stockStr);
 
-            controlador.registrarEntrada(nombre, precioStr, stockStr, fecha, hora, ubicacion, asiento, partido);
-            JOptionPane.showMessageDialog(this, "Solicitud de registro de entrada enviada.", "Registro Iniciado", JOptionPane.INFORMATION_MESSAGE);
-        } catch (ParseException pe) {
-             JOptionPane.showMessageDialog(this, "Formato de fecha inv谩lido. Use YYYY-MM-DD.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error al registrar entrada:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                controlador.registrarEntrada(nombre, precio, stock, fecha, hora, ubicacion, asiento, partido);
+                JOptionPane.showMessageDialog(this, "Solicitud de registro de entrada enviada.", "Registro Iniciado", JOptionPane.INFORMATION_MESSAGE);
+            } catch (NumberFormatException e) {
+                System.err.println("Error: Formato de precio o stock inv醠ido.");
+            } catch (ParseException pe) {
+                 JOptionPane.showMessageDialog(this, "Formato de fecha inv醠ido. Use YYYY-MM-DD.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error al registrar entrada:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
      }
 
@@ -357,22 +380,31 @@ public class VentanaProducto extends JDialog {
         String asiento = txtEntradaAsiento.getText().trim();
         String partido = txtEntradaPartido.getText().trim();
 
-         if (idStr.isEmpty()) { JOptionPane.showMessageDialog(this, "ID requerido.", "Error", JOptionPane.WARNING_MESSAGE); return; }
+        if (idStr.isEmpty() || nombre.isEmpty() || precioStr.isEmpty() || stockStr.isEmpty() || fechaStr.isEmpty() || hora.isEmpty() || ubicacion.isEmpty() || 
+        		asiento.isEmpty() || partido.isEmpty()) { 
+        	System.err.println("Introducir datos v醠idos para la entrada");
+        }
+        else {
+        	try {
+        		System.out.println("\nIntentando actualizar nueva entrada...");
+        		
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                sdf.setLenient(false);
+                Date fecha = sdf.parse(fechaStr);
+                
+                float precio = Float.parseFloat(precioStr);
+                int stock = Integer.parseInt(stockStr);
+                int id = Integer.parseInt(idStr);
 
-        try {
-            Date fecha = null;
-             if (!fechaStr.isEmpty()) {
-                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                 sdf.setLenient(false);
-                 fecha = sdf.parse(fechaStr);
-             }
-
-            controlador.actualizarEntrada(idStr, nombre, precioStr, stockStr, fecha, hora, ubicacion, asiento, partido);
-             JOptionPane.showMessageDialog(this, "Solicitud de actualizaci贸n de entrada enviada.", "Actualizaci贸n Iniciada", JOptionPane.INFORMATION_MESSAGE);
-        } catch (ParseException pe) {
-             JOptionPane.showMessageDialog(this, "Formato de fecha inv谩lido. Use YYYY-MM-DD.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
-             JOptionPane.showMessageDialog(this, "Error al actualizar entrada:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                controlador.actualizarEntrada(id, nombre, precio, stock, fecha, hora, ubicacion, asiento, partido);
+                 JOptionPane.showMessageDialog(this, "Solicitud de actualizaci贸n de entrada enviada.", "Actualizaci贸n Iniciada", JOptionPane.INFORMATION_MESSAGE);
+            } catch (NumberFormatException e) {
+          	  System.err.println("Error: Formato de precio o stock inv醠ido.");
+            } catch (ParseException pe) {
+                 JOptionPane.showMessageDialog(this, "Formato de fecha inv谩lido. Use YYYY-MM-DD.", "Error de Formato", JOptionPane.ERROR_MESSAGE); 
+            } catch (Exception ex) {
+                 JOptionPane.showMessageDialog(this, "Error al actualizar entrada:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
      }
 

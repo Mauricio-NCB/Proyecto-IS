@@ -118,92 +118,25 @@ public class ControladorProducto {
         prod.altaProducto(nuevaCamiseta); 
     }
 
-    public void actualizarCamiseta(String idStr, String nombre, String precioStr, String stockStr, String tallaStr, String dorsal, String numJugadorStr) {
-        System.out.println("\nIntentando actualizar nueva Camiseta...");
-        try {
-            if (idStr.trim().isEmpty() || nombre == null || nombre.trim().isEmpty() || precioStr.trim().isEmpty() || stockStr.trim().isEmpty() || tallaStr.trim().isEmpty() || dorsal.trim().isEmpty() || numJugadorStr.trim().isEmpty()){
-                System.err.println("Datos inválidos para la camiseta.");
-            }
-            else{
-                float precio = Float.parseFloat(precioStr);
-                int stock = Integer.parseInt(stockStr);
-                int talla = Integer.parseInt(tallaStr);
-                int numJugador = Integer.parseInt(numJugadorStr);
-                int id = Integer.parseInt(idStr);
-    
-                TCamiseta nuevaCamiseta = new TCamiseta(id, nombre.trim(), precio, stock, talla, dorsal, numJugador);
-                boolean exito = prod.updateProducto(nuevaCamiseta); 
-    
-                if (exito) {
-                    System.out.println("¡Camiseta registrada con éxito! ID asignado: " + nuevaCamiseta.getID());
-                } else {
-                    System.out.println("El registro de la camiseta no tuvo éxito (sin error específico).");
-                }
-            }
-        } catch (NumberFormatException e) {
-            System.err.println("Error: Formato de precio, talla, número o stock inválido.");
-        } catch (Exception e) {
-            System.err.println("Error inesperado al registrar camiseta: " + e.getMessage());
-            e.printStackTrace();
-        }
+    public void actualizarCamiseta(Integer id, String nombre, Float precio, Integer stock, Integer talla, String dorsal, Integer numJugador) throws Exception {
+
+		TCamiseta nuevaCamiseta = new TCamiseta(id, nombre, precio, stock, talla, dorsal, numJugador);
+        prod.updateProducto(nuevaCamiseta); 
     }
 
-    public void registrarEntrada(String nombre, String precioStr, String stockStr, Date fecha, String hora, 
-                                String ubicacion, String numeroAsiento, String partido) {
-        System.out.println("\nIntentando registrar nueva Entrada...");
-        try {
-            if (nombre == null || nombre.trim().isEmpty() || precioStr.trim().isEmpty() || stockStr.trim().isEmpty() || hora.trim().isEmpty() 
-                || ubicacion.trim().isEmpty() || numeroAsiento.trim().isEmpty() || partido.trim().isEmpty()){
-                System.err.println("Datos inválidos para la entrada.");
-            }
-            else{
-                float precio = Float.parseFloat(precioStr);
-                int stock = Integer.parseInt(stockStr);
+    public void registrarEntrada(String nombre, Float precio, Integer stock, Date fecha, String hora, 
+                                String ubicacion, String numeroAsiento, String partido) throws Exception {
+        
+        TEntrada nuevaEntrada = new TEntrada(nombre, precio, stock, fecha, hora, ubicacion, numeroAsiento, partido);
+        prod.altaProducto(nuevaEntrada); 
 
-                TEntrada nuevaEntrada = new TEntrada(nombre.trim(), precio, stock, fecha, hora.trim(), ubicacion.trim(), numeroAsiento.trim(), partido.trim());
-                boolean exito = prod.altaProducto(nuevaEntrada); 
-    
-                if (exito) {
-                    System.out.println("¡Entrada registrada con éxito! ID asignado: " + nuevaEntrada.getID());
-                } else {
-                    System.out.println("El registro de la entrada no tuvo éxito (sin error específico).");
-                }
-            }
-        } catch (NumberFormatException e) {
-            System.err.println("Error: Formato de precio o stock inválido.");
-        } catch (Exception e) {
-            System.err.println("Error inesperado al registrar entrada: " + e.getMessage());
-            e.printStackTrace();
-        }
     }
 
-    public void actualizarEntrada(String idStr, String nombre, String precioStr, String stockStr, Date fecha, String hora, 
-                                String ubicacion, String numeroAsiento, String partido) {
-        System.out.println("\nIntentando actualizar nueva entrada...");
-        try {
-            if (idStr.trim().isEmpty() || nombre == null || nombre.trim().isEmpty() || precioStr.trim().isEmpty() || stockStr.trim().isEmpty() || hora.trim().isEmpty() 
-                || ubicacion.trim().isEmpty() || numeroAsiento.trim().isEmpty() || partido.trim().isEmpty()){
-                System.err.println("Datos inválidos para la entrada.");
-            }
-            else{
-                float precio = Float.parseFloat(precioStr);
-                int stock = Integer.parseInt(stockStr);
-                int id = Integer.parseInt(idStr);
-                TEntrada nuevaEntrada = new TEntrada(id, nombre.trim(), precio, stock, fecha, hora.trim(), ubicacion.trim(), numeroAsiento.trim(), partido.trim());
-                boolean exito = prod.updateProducto(nuevaEntrada); 
-    
-                if (exito) {
-                    System.out.println("¡Entrada registrada con éxito! ID asignado: " + nuevaEntrada.getID());
-                } else {
-                    System.out.println("la actualización de la entrada no tuvo éxito (sin error específico).");
-                }
-            }
-        } catch (NumberFormatException e) {
-            System.err.println("Error: Formato de precio o stock inválido.");
-        } catch (Exception e) {
-            System.err.println("Error inesperado al actualizar entrada: " + e.getMessage());
-            e.printStackTrace();
-        }
+    public void actualizarEntrada(Integer id, String nombre, Float precio, Integer stock, Date fecha, String hora, 
+                                String ubicacion, String numeroAsiento, String partido) throws Exception {
+
+        TEntrada nuevaEntrada = new TEntrada(id, nombre, precio, stock, fecha, hora, ubicacion, numeroAsiento, partido);
+        prod.updateProducto(nuevaEntrada); 
     }
     
 
