@@ -27,10 +27,26 @@ public class SAEmpleadoImp implements SAEmpleado {
 		String hashContrasena = HashUtil.hashPassword(contrasena);
 		
 		if (!hashContrasena.equals(empleado.getContrasena())) {
-			throw new IllegalArgumentException("No coincide la contraseña");
+			throw new IllegalArgumentException("No coincide la contraseï¿½a");
 		}
 		
 		return empleado;
 	}
+	
+    public boolean eliminarEmpleado(String id) {
+    	return daoEmpleado.eliminar(id);
+    }
+    
+    public boolean actualizaDatosEmpleado(String id, Float sueldo, String contrasena) throws Exception {
+    	TEmpleado empleado = daoEmpleado.readEmpleado(id);
+  
+    	if (empleado == null) {
+    		throw new IllegalArgumentException("No existe ningÃºn empleado con identificador: " + id);
+    	}
+ 
+    	if (sueldo != null) {empleado.setSueldo(sueldo);}
+    	if (!contrasena.trim().isEmpty()) {empleado.setContrasena(HashUtil.hashPassword(contrasena));}
+    	return daoEmpleado.actualizarEmpleado(empleado);
+    }
 
 }

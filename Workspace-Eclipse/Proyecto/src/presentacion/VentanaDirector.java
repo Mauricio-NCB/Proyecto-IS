@@ -312,7 +312,7 @@ public class VentanaDirector extends JFrame {
                 updateStatus("Eliminando director...");
                 appendOutput("\n--- Solicitando eliminaciÃ³n del director ID: " + idEliminar + " ---\n");
                 try {
-                    controlador.eliminarDirector(idEliminar); 
+                    controladorEm.eliminarEmpleado(idEliminar); 
                     updateStatus("Proceso de eliminaciÃ³n finalizado (ver salida).");
                     txtIdEliminar.setText("");
                 } catch (Exception ex) {

@@ -16,7 +16,7 @@ import integracion.BDConexion;
 public class SADirectorImp implements SADirector {
     private DAODirector daoDirector = new DAODirectorImp();
 
-    public void altaDirector(TDirector director) {
+    public  void altaDirector(TDirector director) {
         if (director == null || director.getIdentificador() == null || director.getIdentificador().trim().isEmpty()) {
             System.err.println("Datos del director inválidos o identificador vacío.");
         }
@@ -30,7 +30,7 @@ public class SADirectorImp implements SADirector {
 		    System.err.println("Ya existe un director con el identificador: " + director.getIdentificador());
 		}
         
-        return daoDirector.createDirector(director);
+        daoDirector.createDirector(director);
     }
 
     public boolean eliminarDirector(String id) {

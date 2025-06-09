@@ -51,4 +51,20 @@ public class ControladorEmpleado {
 
 		servicioEmpleado.altaEmpleado(nuevoEmpleado);
     } 
+	
+    public void eliminarEmpleado(String id) {
+        System.out.println("\nIntentando eliminar empleado con ID: " + id);
+        
+        if (id == null || id.trim().isEmpty()) {
+            System.err.println("Error: El ID del empleado a eliminar no puede estar vacío.");
+            return;
+        }
+        
+        if (servicioEmpleado.eliminarEmpleado(id)) {
+        	 System.out.println("¡Director con ID: " + id.trim() + " eliminado correctamente!");
+        }
+        else {
+        	System.out.println("No se encontró un director con el ID: " + id.trim() + " (o ya había sido eliminado).");
+        }
+    }
 }

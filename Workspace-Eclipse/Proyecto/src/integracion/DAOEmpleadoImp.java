@@ -9,6 +9,9 @@ import negocio.dto.TDependiente;
 import negocio.dto.TDirector;
 import negocio.dto.TEmpleado;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class DAOEmpleadoImp implements DAOEmpleado {
 
 	@Override
@@ -86,6 +89,80 @@ public class DAOEmpleadoImp implements DAOEmpleado {
         } catch (SQLException e) {
         	throw new Exception("Error al crear empleado en la base de datos: " + e.getMessage(), e);
         }
+    }
+
+	//Actualiza los datos del empleado, tanto si es Director como si es Dependiente
+    @Override
+    public boolean actualizarEmpleado(TEmpleado empleado) {
+        String sqlEmpleado = "UPDATE Empleado SET nombre = ?, sueldo = ?, contrasena = ? WHERE identificador = ?";
+        
+		if (existeEmpleado(empleado.getIdentificador()) == false) {
+			Logger.getLogger(DAOEmpleadoImp.class.getName()).log(Level.WARNING, "El empleado con ID {0} no existe", empleado.getIdentificador());
+			return false;	
+		}
+
+        try (Connection conn = BDConexion.getInstance().getConnection();
+        		PreparedStatement psEm = conn.prepareStatement(sqlEmpleado)) {
+			psEm.setString(4, empleado.getIdentificador());
+			psEm.setString(1, empleado.getNombre());
+			psEm.setFloat(2, empleado.getSueldo());
+			psEm.setString(3, empleado.getContrasena());
+
+			if (psEm.executeUpdate() == 0) throw new SQLException("No se pudo actualizar el empleado en la tabla Empleado");
+			
+			boolean actualizado = false;
+			if (empleado instanceof TDirector) {
+				TDirector director = (TDirector) empleado;
+				String sqlDirector = "UPDATE Director SET cargo = ? WHERE id = ?";
+				try (PreparedStatement pstmtDir = conn.prepareStatement(sqlDirector)) {
+					pstmtDir.setString(1, director.getCargo());
+					pstmtDir.setString(2, director.getIdentificador());
+					actualizado = pstmtDir.executeUpdate() > 0;
+				}
+			} else if (empleado instanceof TDependiente) {
+				TDependiente dependiente = (TDependiente) empleado;
+				String sqlDependiente = "UPDATE Dependiente SET sum_ventas = ? WHERE id = ?";
+				try (PreparedStatement pstmtDep = conn.prepareStatement(sqlDependiente)) {
+					pstmtDep.setFloat(1, dependiente.getSumVentas());
+					pstmtDep.setString(2, dependiente.getIdentificador());
+					actualizado = pstmtDep.executeUpdate() > 0;
+				}
+			}
+			return actualizado;
+		} catch (SQLException e) {
+			Logger.getLogger(DAOEmpleadoImp.class.getName()).log(Level.SEVERE, "Error updating employee", e);
+		}
+		return false;
+    }
+
+
+    public boolean eliminar(String id){
+        String sqlDirector = "DELETE FROM Director WHERE id = ?";
+        String sqlDependiente = "DELETE FROM Dependiente WHERE id = ?";
+        String sqlEmpleado = "DELETE FROM Empleado WHERE identificador = ?";
+
+        try (Connection conn = BDConexion.getInstance().getConnection()) {
+
+            // Elimina en ambas tablas, por si acaso
+            try (PreparedStatement psDir = conn.prepareStatement(sqlDirector)) {
+                psDir.setString(1, id);
+                psDir.executeUpdate();
+            }
+            try (PreparedStatement psDep = conn.prepareStatement(sqlDependiente)) {
+                psDep.setString(1, id);
+                psDep.executeUpdate();
+            }
+            boolean eliminado = false;
+            try (PreparedStatement psEm = conn.prepareStatement(sqlEmpleado)) {
+                psEm.setString(1, id);
+                eliminado = psEm.executeUpdate() > 0;
+            }
+
+            return eliminado;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+		return false;
     }
 
 	@Override
