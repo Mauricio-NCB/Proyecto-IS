@@ -46,8 +46,7 @@ public class VentanaDirector extends JFrame {
     // Botones
     private JButton btnRegistrarDirector;
     private JButton btnListarDirectores;
-    private JButton btnEliminarDirector;
-    private JButton btnEliminarDependiente;
+    private JButton btnEliminarEmpleado;
     private JButton btnActualizarDatos;
     private JButton btnListarClientes;  
     private JButton btnCerrarSesion; 
@@ -127,8 +126,7 @@ public class VentanaDirector extends JFrame {
         // Botones
         btnRegistrarDirector = new JButton("Registrar Empleado");
         btnListarDirectores = new JButton("Listar Empleado");
-        btnEliminarDirector = new JButton("Eliminar Director");
-        btnEliminarDependiente = new JButton("Eliminar Dependiente");
+        btnEliminarEmpleado = new JButton("Eliminar Empleado");
         btnActualizarDatos = new JButton("Actualizar Datos");
         btnListarClientes = new JButton("Listar Clientes"); 
         btnCerrarSesion = new JButton("Cerrar SesiÃ³n"); 
@@ -192,8 +190,7 @@ public class VentanaDirector extends JFrame {
         // Configurar panel de eliminar
         panelEliminarDirector.add(lblIdEliminar);
         panelEliminarDirector.add(txtIdEliminar);
-        panelEliminarDirector.add(btnEliminarDirector);
-        panelEliminarDirector.add(btnEliminarDependiente);
+        panelEliminarDirector.add(btnEliminarEmpleado);
         panelEliminarDirector.setAlignmentX(Component.LEFT_ALIGNMENT); 
 
         // Configurar panel de acciones generales
@@ -297,59 +294,31 @@ public class VentanaDirector extends JFrame {
             }
         });
 
-        // --- Eliminar Director ---
-        btnEliminarDirector.addActionListener(e -> {
+        // --- Eliminar Empleado ---
+        btnEliminarEmpleado.addActionListener(e -> {
             String idEliminar = txtIdEliminar.getText().trim();
             if (idEliminar.isEmpty()) {
-                appendOutput("ERROR UI: Debe ingresar el ID del director a eliminar.\n");
-                updateStatus("Error: ID a eliminar vacÃ­o."); return;
+                appendOutput("ERROR UI: Debe ingresar el ID del empleado a eliminar.\n");
+                updateStatus("Error: ID a eliminar vacio."); return;
             }
             int confirm = JOptionPane.showConfirmDialog(VentanaDirector.this,
-                    "Â¿EstÃ¡ seguro de que desea eliminar al director con ID: " + idEliminar + "?",
-                    "Confirmar EliminaciÃ³n", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                    "¿Está seguro de que desea eliminar al director con ID: " + idEliminar + "?",
+                    "Confirmar Eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
             if (confirm == JOptionPane.YES_OPTION) {
-                updateStatus("Eliminando director...");
-                appendOutput("\n--- Solicitando eliminaciÃ³n del director ID: " + idEliminar + " ---\n");
+                updateStatus("Eliminando empleado...");
+                appendOutput("\n--- Solicitando eliminación del empleado ID: " + idEliminar + " ---\n");
                 try {
                     controladorEm.eliminarEmpleado(idEliminar); 
-                    updateStatus("Proceso de eliminaciÃ³n finalizado (ver salida).");
+                    updateStatus("Proceso de eliminación finalizado (ver salida).");
                     txtIdEliminar.setText("");
                 } catch (Exception ex) {
-                    updateStatus("Error durante la eliminaciÃ³n (ver salida).");
+                    updateStatus("Error durante la eliminación (ver salida).");
                     appendOutput("ERROR: " + ex.getMessage() + "\n");
                 }
             } else {
-                updateStatus("EliminaciÃ³n cancelada.");
-                appendOutput("--- EliminaciÃ³n cancelada por el usuario ---\n");
-            }
-        });
-
-        // --- Eliminar Dependiente ---
-        btnEliminarDependiente.addActionListener(e -> {
-            String idEliminar = txtIdEliminar.getText().trim();
-            if (idEliminar.isEmpty()) {
-                appendOutput("ERROR UI: Debe ingresar el ID del dependiente a eliminar.\n");
-                updateStatus("Error: ID a eliminar vacÃ­o."); return;
-            }
-            int confirm = JOptionPane.showConfirmDialog(VentanaDirector.this,
-                    "Â¿EstÃ¡ seguro de que desea eliminar al dependiente con ID: " + idEliminar + "?",
-                    "Confirmar EliminaciÃ³n", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-
-            if (confirm == JOptionPane.YES_OPTION) {
-                updateStatus("Eliminando dependiente...");
-                appendOutput("\n--- Solicitando eliminaciÃ³n del dependiente ID: " + idEliminar + " ---\n");
-                try {
-                    controladorDep.eliminarDependiente(idEliminar); 
-                    updateStatus("Proceso de eliminaciÃ³n finalizado (ver salida).");
-                    txtIdEliminar.setText("");
-                } catch (Exception ex) {
-                    updateStatus("Error durante la eliminaciÃ³n (ver salida).");
-                    appendOutput("ERROR: " + ex.getMessage() + "\n");
-                }
-            } else {
-                updateStatus("EliminaciÃ³n cancelada.");
-                appendOutput("--- EliminaciÃ³n cancelada por el usuario ---\n");
+                updateStatus("Eliminación cancelada.");
+                appendOutput("--- Eliminación cancelada por el usuario ---\n");
             }
         });
 
@@ -367,26 +336,26 @@ public class VentanaDirector extends JFrame {
 
             // ValidaciÃ³n bÃ¡sica ID
             if (idActualizar.isEmpty()) {
-                txtAreaOutput.append("ERROR UI: Debe ingresar el ID del empleado/director a actualizar.\n");
-                lblStatus.setText("Error: ID a actualizar vacÃ­o.");
+                txtAreaOutput.append("ERROR UI: Debe ingresar el ID del empleado a actualizar.\n");
+                lblStatus.setText("Error: ID a actualizar vacio.");
                 return;
             }
 
             // Verificar si se proporcionÃ³ al menos un dato para actualizar
             if (nuevoSueldo == null && nuevaContrasena.isEmpty()) {
-                 txtAreaOutput.append("INFO UI: No se ingresÃ³ nuevo sueldo ni nueva contraseÃ±a para actualizar.\n");
+                 txtAreaOutput.append("INFO UI: No se ingresó nuevo sueldo ni nueva contraseña para actualizar.\n");
                  lblStatus.setText("Nada para actualizar.");
                  return;
             }
 
             lblStatus.setText("Actualizando datos...");
-            txtAreaOutput.append("\n--- Solicitando actualizaciÃ³n de datos para ID: " + idActualizar + " ---\n");
+            txtAreaOutput.append("\n--- Solicitando actualización de datos para ID: " + idActualizar + " ---\n");
             try {
-                controlador.actualizarDatos(idActualizar, nuevoSueldo, nuevaContrasena);
-                lblStatus.setText("Proceso de actualizaciÃ³n finalizado (ver salida).");
+                controladorEm.actualizarDatos(idActualizar, nuevoSueldo, nuevaContrasena);
+                lblStatus.setText("Proceso de actualización finalizado (ver salida).");
                 limpiarCamposActualizacion();
             } catch (Exception ex) {
-                 lblStatus.setText("Error durante la actualizaciÃ³n (ver salida).");
+                 lblStatus.setText("Error durante la actualización (ver salida).");
             }
         });
 

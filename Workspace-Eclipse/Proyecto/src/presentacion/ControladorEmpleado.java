@@ -67,4 +67,19 @@ public class ControladorEmpleado {
         	System.out.println("No se encontró un director con el ID: " + id.trim() + " (o ya había sido eliminado).");
         }
     }
+    
+    public void actualizarDatos(String id, Float sueldo, String contrasena) throws Exception {
+    	System.out.println("\nIntentando actualizar datos para empleado ID: " + id);
+        if (id == null || id.trim().isEmpty()) {
+            System.err.println("Error: El ID del empleado a actualizar es requerido.");
+            return;
+        }
+        
+        if (servicioEmpleado.actualizaDatosEmpleado(id, sueldo, contrasena)) {
+        	System.out.println("¡Director con ID: " + id.trim() + " actualizado correctamente!");
+        }
+        else {
+        	System.out.println("No se encontró un director con el ID: " + id.trim() + " (o no se pudo actualizar).");
+        }
+    }
 }
