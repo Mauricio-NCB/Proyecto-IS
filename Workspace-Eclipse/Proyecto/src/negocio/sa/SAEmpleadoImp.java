@@ -1,5 +1,7 @@
 package negocio.sa;
 
+import java.util.List;
+
 import integracion.DAOEmpleado;
 import integracion.DAOEmpleadoImp;
 import negocio.dto.TDependiente;
@@ -47,6 +49,10 @@ public class SAEmpleadoImp implements SAEmpleado {
     	if (sueldo != null) {empleado.setSueldo(sueldo);}
     	if (!contrasena.trim().isEmpty()) {empleado.setContrasena(HashUtil.hashPassword(contrasena));}
     	return daoEmpleado.actualizarEmpleado(empleado);
+    }
+
+	public List<TEmpleado> mostrarEmpleados() {
+    	return daoEmpleado.ListarEmpleados();
     }
 
 }

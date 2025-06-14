@@ -9,6 +9,8 @@ import negocio.dto.TDependiente;
 import negocio.dto.TDirector;
 import negocio.dto.TEmpleado;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -163,6 +165,39 @@ public class DAOEmpleadoImp implements DAOEmpleado {
             e.printStackTrace();
         }
 		return false;
+    }
+
+	//Obtiene todos los Empleados
+    @Override
+    public List<TEmpleado> ListarEmpleados() {
+        String sql = "SELECT e.identificador, e.nombre, e.sueldo, e.contrasena, d.cargo, dep.sum_ventas " +
+                		"FROM Empleado e " +
+                      	"LEFT JOIN Director d ON e.identificador = d.id " +
+                 		"LEFT JOIN Dependiente dep ON e.identificador = dep.id";
+        List<TEmpleado> lista = new ArrayList<>();
+		try (Connection conn = BDConexion.getInstance().getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery()) {
+
+			while (rs.next()) {
+				String id = rs.getString("identificador");
+				String nombre = rs.getString("nombre");
+				float sueldo = rs.getFloat("sueldo");
+				String contrasena = rs.getString("contrasena");
+				String cargo = rs.getString("cargo");
+				Float sumVentas = (rs.getObject("sum_ventas") != null) ? rs.getFloat("sum_ventas") : null;
+
+				if (cargo != null) { // Es Director
+					lista.add(new TDirector(id, nombre, sueldo, contrasena, cargo));
+				} else if (sumVentas != null) { // Es Dependiente
+					lista.add(new TDependiente(id, nombre, sueldo, contrasena, sumVentas));
+				}
+			}
+			return lista;
+        } catch (SQLException e) {
+        	e.printStackTrace();
+        }
+        return lista;
     }
 
 	@Override

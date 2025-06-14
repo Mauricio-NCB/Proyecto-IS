@@ -1,5 +1,7 @@
 package presentacion;
 
+import java.util.List;
+
 import javax.swing.JOptionPane;
 
 import negocio.dto.TDependiente;
@@ -80,6 +82,19 @@ public class ControladorEmpleado {
         }
         else {
         	System.out.println("No se encontró un director con el ID: " + id.trim() + " (o no se pudo actualizar).");
+        }
+    }
+
+	public void mostrarEmpleados() {
+        System.out.println("\n--- Listado de Empleados ---");
+        List<TEmpleado> empleados = servicioEmpleado.mostrarEmpleados();
+
+        if (empleados == null || empleados.isEmpty()) {
+            System.out.println("No se encontraron empleados registrados.");
+        } else {
+            for (TEmpleado empleado : empleados) {
+                System.out.println(empleado);
+            }
         }
     }
 }

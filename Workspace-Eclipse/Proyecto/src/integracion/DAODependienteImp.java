@@ -58,23 +58,4 @@ public class DAODependienteImp implements DAODependiente{
 
 	     return lista;
 	 }
-
-	 @Override
-	 public boolean eliminar(String id) {
-		 String sqlDependiente = "DELETE FROM Dependiente WHERE id = ?";
-		 String sqlEmpleado = "DELETE FROM Empleado WHERE identificador = ?";
-		 try (Connection conn = BDConexion.getInstance().getConnection();
-				 PreparedStatement psDir = conn.prepareStatement(sqlDependiente)) {
-			 psDir.setString(1, id);
-			 if (psDir.executeUpdate() > 0) {
-				 try (PreparedStatement psEm = conn.prepareStatement(sqlEmpleado)){
-					 psEm.setString(1, id);
-					 return psEm.executeUpdate() > 0;
-				 }
-			 }
-		 } catch (SQLException e) {
-			 e.printStackTrace();
-		 }
-		 return false;
-	 }
 }

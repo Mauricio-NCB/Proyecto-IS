@@ -1,5 +1,9 @@
 package integracion;
 
+import java.util.List;
+
+import negocio.dto.TDependiente;
+import negocio.dto.TDirector;
 import negocio.dto.TEmpleado;
 
 public interface DAOEmpleado {
@@ -8,4 +12,5 @@ public interface DAOEmpleado {
 	boolean existeEmpleado(String id);
 	boolean actualizarEmpleado(TEmpleado empleado);
 	boolean eliminar(String id);
+	List<TEmpleado> ListarEmpleados();
 }

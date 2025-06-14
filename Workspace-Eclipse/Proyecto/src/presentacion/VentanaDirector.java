@@ -272,8 +272,7 @@ public class VentanaDirector extends JFrame {
             updateStatus("Listando empleados...");
             appendOutput("\n--- Solicitando listado de empleados ---\n");
             try {
-                controlador.mostrarTodosLosDirectores();
-                controladorDep.mostrarTodosLosDependientes();
+                controladorEm.mostrarEmpleados();
                 updateStatus("Listado de empleados mostrado (ver salida).");
             } catch (Exception ex) {
                 updateStatus("Error al listar empleados (ver salida).");
