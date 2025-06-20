@@ -80,9 +80,27 @@ public class SAFacturaImp implements SAFactura {
 	}
 
 	@Override
-	public List<TFactura> listarFacturas() {
+	public List<TFactura> leerFacturas() {
 		// TODO Auto-generated method stub
 		return daoFactura.listarFacturas();
+	}
+
+	@Override
+	public void actualizarFactura(TFactura factura) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eliminarFactura(String codigoFactura) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public TFactura leerFactura(String codigoFactura) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

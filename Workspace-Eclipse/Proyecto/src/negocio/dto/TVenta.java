@@ -10,18 +10,17 @@ public class TVenta {
 	private String codigo;
 	private LocalDate fecha;
     private LocalTime hora;
-    private float importe;
     private TCliente cliente;
     private TDependiente dependiente;
+    private TFactura factura;
     private List<TLineaVenta> lineasVenta = new ArrayList<>();
 	
-	public TVenta(String codigo, LocalDate fecha, LocalTime hora, TCliente cliente,  TDependiente dependiente, float importe) {
+	public TVenta(String codigo, LocalDate fecha, LocalTime hora, TCliente cliente,  TDependiente dependiente) {
 		this.codigo = codigo;
 		this.fecha = fecha;
 		this.hora = hora;
 		this.dependiente = dependiente;
 		this.cliente = cliente;
-		this.importe = importe;
 	}
 	
 	public String getCodigo() {
@@ -47,15 +46,7 @@ public class TVenta {
     public void setHora(final LocalTime localTime) {
         this.hora = localTime;
     }
-
-    public float getImporte() {
-        return this.importe;
-    }
-
-    public void setImporte(final float value) {
-        this.importe = value;
-    }
-
+    
 	public void setTiene(TCliente cliente) {
 		this.cliente = cliente;
 	}
@@ -72,7 +63,15 @@ public class TVenta {
 		return dependiente;
 	}
 	
-	 public List<TLineaVenta> getLineasVenta() {
+	public void setFactura(TFactura factura) {
+		this.factura = factura;
+	}
+	
+	public TFactura getFactura() {
+		return factura;
+	}
+	
+	public List<TLineaVenta> getLineasVenta() {
 	        return new ArrayList<>(lineasVenta); 
 	}
 	 
@@ -82,6 +81,14 @@ public class TVenta {
 	
 	public void addLineaVenta(TLineaVenta l) {
 		this.lineasVenta.add(l);
+	}
+	
+	public double getImporteTotal() {
+		double aux = 0;
+		for (TLineaVenta l: lineasVenta) {
+			aux += l.getPrecioTotal();
+		}
+		return aux;
 	}
 	
 }
