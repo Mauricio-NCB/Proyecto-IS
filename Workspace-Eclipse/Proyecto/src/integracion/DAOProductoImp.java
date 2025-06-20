@@ -81,7 +81,7 @@ public class DAOProductoImp implements DAOProducto{
 	        }
 
 		} catch (SQLException e) {
-			throw new Exception("Error al crear empleado en la base de datos: " + e.getMessage(), e);
+			throw new Exception("Error al crear producto en la base de datos: " + e.getMessage(), e);
         }
 	}
 	
@@ -102,7 +102,7 @@ public class DAOProductoImp implements DAOProducto{
              actualizarProducto(conn, producto);
 
 		} catch (SQLException e) {
-			throw new Exception("Error al leer empleado en la base de datos: " + e.getMessage(), e);
+			throw new Exception("Error al leer producto en la base de datos: " + e.getMessage(), e);
         }
 		
 	}
@@ -117,7 +117,7 @@ public class DAOProductoImp implements DAOProducto{
                 pstmt.setInt(3, c.getNumeroJugador());
                 pstmt.setInt(4, c.getID());
                 
-                if (pstmt.executeUpdate() == 0) throw new SQLException("No se pudo actualizar el producto en la tabla Empleado");
+                if (pstmt.executeUpdate() == 0) throw new SQLException("No se pudo actualizar el producto en la tabla Producto");
             }
         } else if (producto instanceof TEntrada) {
             TEntrada e = (TEntrada) producto;
@@ -130,7 +130,7 @@ public class DAOProductoImp implements DAOProducto{
                 pstmt.setString(5, e.getPartido());
                 pstmt.setInt(6, e.getID());
                 
-                if (pstmt.executeUpdate() == 0) throw new SQLException("No se pudo actualizar el producto en la tabla Empleado");
+                if (pstmt.executeUpdate() == 0) throw new SQLException("No se pudo actualizar el producto en la tabla Producto");
             }
         }
         else if (producto instanceof TJuguete) {
@@ -141,7 +141,7 @@ public class DAOProductoImp implements DAOProducto{
                 pstmt.setString(2, j.getTamano());
                 pstmt.setInt(3, j.getID());
                 
-                if (pstmt.executeUpdate() == 0) throw new SQLException("No se pudo actualizar el producto en la tabla Empleado");
+                if (pstmt.executeUpdate() == 0) throw new SQLException("No se pudo actualizar el producto en la tabla Producto");
             }
         }
         else if (producto instanceof TPoster) {
@@ -151,7 +151,7 @@ public class DAOProductoImp implements DAOProducto{
                 pstmt.setString(1, p.getTamano());
                 pstmt.setInt(2, p.getID());
                 
-                if (pstmt.executeUpdate() == 0) throw new SQLException("No se pudo actualizar el producto en la tabla Empleado");
+                if (pstmt.executeUpdate() == 0) throw new SQLException("No se pudo actualizar el producto en la tabla Producto");
             }
         }
     }
@@ -210,19 +210,19 @@ public class DAOProductoImp implements DAOProducto{
                 int stock = rs.getInt("stock");
 
                 if (esCamiseta(conn, id)) {
-                    TCamiseta camiseta = crearCamiseta(conn, id, nombre, precio, stock);
+                    TCamiseta camiseta = obtenerCamiseta(conn, id, nombre, precio, stock);
                     productos.add(camiseta);
                 } 
                 else if (esEntrada(conn, id)) {
-                    TEntrada entrada = crearEntrada(conn, id, nombre, precio, stock);
+                    TEntrada entrada = obtenerEntrada(conn, id, nombre, precio, stock);
                     productos.add(entrada);
                 }
                 else if (esJuguete(conn, id)) {
-                    TJuguete juguete = crearJuguete(conn, id, nombre, precio, stock);
+                    TJuguete juguete = obtenerJuguete(conn, id, nombre, precio, stock);
                     productos.add(juguete);
                 }
                 else if (esPoster(conn, id)) {
-                    TPoster poster = crearPoster(conn, id, nombre, precio, stock);
+                    TPoster poster = obtenerPoster(conn, id, nombre, precio, stock);
                     productos.add(poster);
                 }
             }
@@ -270,7 +270,7 @@ public class DAOProductoImp implements DAOProducto{
         }
     }
 
-    private TCamiseta crearCamiseta(Connection conn, int id, String nombre, float precio, int stock) throws SQLException {
+    private TCamiseta obtenerCamiseta(Connection conn, int id, String nombre, float precio, int stock) throws SQLException {
         String sql = "SELECT * FROM Camiseta WHERE ID = ?";
         try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
@@ -287,7 +287,7 @@ public class DAOProductoImp implements DAOProducto{
         return null;
     }
 
-    private TEntrada crearEntrada(Connection conn, int id, String nombre, float precio, int stock) throws SQLException {
+    private TEntrada obtenerEntrada(Connection conn, int id, String nombre, float precio, int stock) throws SQLException {
         String sql = "SELECT * FROM Entrada WHERE ID = ?";
         try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
@@ -306,7 +306,7 @@ public class DAOProductoImp implements DAOProducto{
         return null;
     }
 
-    private TJuguete crearJuguete(Connection conn, int id, String nombre, float precio, int stock) throws SQLException {
+    private TJuguete obtenerJuguete(Connection conn, int id, String nombre, float precio, int stock) throws SQLException {
         String sql = "SELECT * FROM Juguete WHERE ID = ?";
         try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
@@ -322,7 +322,7 @@ public class DAOProductoImp implements DAOProducto{
         return null;
     }
 
-    private TPoster crearPoster(Connection conn, int id, String nombre, float precio, int stock) throws SQLException {
+    private TPoster obtenerPoster(Connection conn, int id, String nombre, float precio, int stock) throws SQLException {
         String sql = "SELECT * FROM Poster WHERE ID = ?";
         try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
@@ -339,3 +339,4 @@ public class DAOProductoImp implements DAOProducto{
 
 
 }
+
