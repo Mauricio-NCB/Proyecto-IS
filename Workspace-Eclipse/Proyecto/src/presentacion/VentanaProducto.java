@@ -397,7 +397,7 @@ public class VentanaProducto extends JDialog {
                 int id = Integer.parseInt(idStr);
 
                 controlador.actualizarEntrada(id, nombre, precio, stock, fecha, hora, ubicacion, asiento, partido);
-                 JOptionPane.showMessageDialog(this, "Solicitud de actualizaci贸n de entrada enviada.", "Actualizaci贸n Iniciada", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Solicitud de actualizaci贸n de entrada enviada.", "Actualizaci贸n Iniciada", JOptionPane.INFORMATION_MESSAGE);
             } catch (NumberFormatException e) {
           	  System.err.println("Error: Formato de precio o stock inv醠ido.");
             } catch (ParseException pe) {

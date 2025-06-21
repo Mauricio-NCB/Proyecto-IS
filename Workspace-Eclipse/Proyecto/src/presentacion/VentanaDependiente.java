@@ -61,7 +61,7 @@ public class VentanaDependiente extends JFrame {
 		
 		btnListarFacturas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				List<TFactura> listaFacturas = ControladorFactura.getInstance().listarFacturas();
+				List<TFactura> listaFacturas = ControladorFactura.getInstance().consultarFacturas();
 				new VentanaListaFacturas(listaFacturas).setVisible(true);
 			}
 		});

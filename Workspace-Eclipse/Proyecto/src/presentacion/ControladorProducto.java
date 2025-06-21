@@ -1,5 +1,6 @@
 package presentacion;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,31 +29,43 @@ public class ControladorProducto {
 	}
 	
 	public boolean nuevoProducto(TProducto producto) {
-		if(prod.altaProducto(producto)) {
+		boolean exito;
+		try {
+			prod.altaProducto(producto);
 			System.out.println("Exito");
 			new VentanaNuevoProd().setVisible(true);
-			return true;
+			exito = true;
 		}
-		else {
-			System.out.println("Se ha producido un error al crear el producto");
-			return false;
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+			exito = false;
 		}
+		return exito;
 	}
 
     public boolean deleteProducto(String idStr) {
+    	boolean exito;
         int id = Integer.parseInt(idStr);
-		if(prod.deleteProducto(id)) {
+		try{
+			prod.deleteProducto(id);
 			System.out.println("Exito");
-			return true;
+			exito = true;
 		}
-		else {
-			System.out.println("Se ha producido un error al crear el producto");
-			return false;
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+			exito = false;
 		}
+		return exito;
 	}
 	
 	public List<TProducto> listarProductos() {
-		return prod.listarProductos();		
+		try {
+			return prod.listarProductos();		
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
 	}
 
 	    // Productos
@@ -60,7 +73,7 @@ public class ControladorProducto {
         System.out.println("\nIntentando registrar nuevo Poster...");
         try {
             if (nombre == null || nombre.trim().isEmpty() || precioStr.trim().isEmpty() || stockStr.trim().isEmpty() || tamano == null || tamano.trim().isEmpty()){
-                System.err.println("Datos invÃ¡lidos para el poster.");
+                System.err.println("Datos inválidos para el poster.");
             }
             else{
                 float precio = Float.parseFloat(precioStr);
@@ -68,16 +81,17 @@ public class ControladorProducto {
     
     
                 TPoster nuevoPoster = new TPoster(nombre.trim(), precio, stock, tamano.trim());
-                boolean exito = prod.altaProducto(nuevoPoster); 
-    
-                if (exito) {
-                    System.out.println("Â¡Poster registrado con Ã©xito! ID asignado: " + nuevoPoster.getID());
-                } else {
-                    System.out.println("El registro del poster no tuvo Ã©xito (sin error especÃ­fico).");
+                
+                try{
+                	prod.altaProducto(nuevoPoster); 
+                	System.out.println("¡Poster registrado con éxito! ID asignado: " + nuevoPoster.getID());
+                }
+                catch (Exception e) {
+                	System.out.println("El registro del poster no tuvo éxito (sin error específico).");
                 }
             }
         } catch (NumberFormatException e) {
-            System.err.println("Error: Formato de precio o stock invÃ¡lido.");
+            System.err.println("Error: Formato de precio o stock inválido.");
         } catch (Exception e) {
             System.err.println("Error inesperado al registrar poster: " + e.getMessage());
             e.printStackTrace();
@@ -88,7 +102,7 @@ public class ControladorProducto {
         System.out.println("\nIntentando actualizar Poster...");
         try {
             if (idStr.trim().isEmpty() || nombre == null || nombre.trim().isEmpty() || precioStr.trim().isEmpty() || stockStr.trim().isEmpty() || tamano == null || tamano.trim().isEmpty()){
-                System.err.println("Datos invÃ¡lidos para el poster.");
+                System.err.println("Datos inválidos para el poster.");
             }
             else{
                 float precio = Float.parseFloat(precioStr);
@@ -96,16 +110,17 @@ public class ControladorProducto {
                 int id = Integer.parseInt(idStr);
     
                 TPoster nuevoPoster = new TPoster(id, nombre.trim(), precio, stock, tamano.trim());
-                boolean exito = prod.updateProducto(nuevoPoster); 
-    
-                if (exito) {
-                    System.out.println("Â¡Poster registrado con Ã©xito! ID asignado: " + nuevoPoster.getID());
-                } else {
-                    System.out.println("El registro del poster no tuvo Ã©xito (sin error especÃ­fico).");
+                
+                try{
+                	prod.updateProducto(nuevoPoster); 
+                	 System.out.println("¡Poster registrado con éxito! ID asignado: " + nuevoPoster.getID());
+                }
+                catch(Exception e) {
+                	System.out.println(e.getMessage());
                 }
             }
         } catch (NumberFormatException e) {
-            System.err.println("Error: Formato de precio o stock invÃ¡lido.");
+            System.err.println("Error: Formato de precio o stock inválido.");
         } catch (Exception e) {
             System.err.println("Error inesperado al registrar poster: " + e.getMessage());
             e.printStackTrace();
@@ -144,7 +159,7 @@ public class ControladorProducto {
         System.out.println("\nIntentando registrar nuevo Juguete...");
         try {
             if (nombre == null || nombre.trim().isEmpty() || precioStr.trim().isEmpty() || stockStr.trim().isEmpty() || tipo.trim().isEmpty() || tamano.trim().isEmpty()){
-                System.err.println("Datos invÃ¡lidos para el juguete.");
+                System.err.println("Datos inválidos para el juguete.");
             }
             else{
                 float precio = Float.parseFloat(precioStr);
@@ -152,16 +167,17 @@ public class ControladorProducto {
     
     
                 TJuguete nuevoJuguete = new TJuguete(nombre.trim(), precio, stock, tipo.trim(),tamano.trim());
-                boolean exito = prod.altaProducto(nuevoJuguete); 
+               try {
+            	   prod.altaProducto(nuevoJuguete); 
+            	   System.out.println("¡Juguete registrado con éxito! ID asignado: " + nuevoJuguete.getID());
+               }
+               catch(Exception e) {
+            	   System.out.println("El registro del juguete no tuvo éxito (sin error específico).");
+               }
     
-                if (exito) {
-                    System.out.println("Â¡Juguete registrado con Ã©xito! ID asignado: " + nuevoJuguete.getID());
-                } else {
-                    System.out.println("El registro del juguete no tuvo Ã©xito (sin error especÃ­fico).");
-                }
             }
         } catch (NumberFormatException e) {
-            System.err.println("Error: Formato de precio o stock invÃ¡lido.");
+            System.err.println("Error: Formato de precio o stock inválido.");
         } catch (Exception e) {
             System.err.println("Error inesperado al registrar juguete: " + e.getMessage());
             e.printStackTrace();
@@ -172,7 +188,7 @@ public class ControladorProducto {
         System.out.println("\nIntentando registrar nuevo Juguete...");
         try {
             if (idStr.trim().isEmpty() || nombre == null || nombre.trim().isEmpty() || precioStr.trim().isEmpty() || stockStr.trim().isEmpty() || tipo.trim().isEmpty() || tamano.trim().isEmpty()){
-                System.err.println("Datos invÃ¡lidos para el juguete.");
+                System.err.println("Datos inválidos para el juguete.");
             }
             else{
                 float precio = Float.parseFloat(precioStr);
@@ -180,16 +196,16 @@ public class ControladorProducto {
                 int id = Integer.parseInt(idStr);
     
                 TJuguete nuevoJuguete = new TJuguete(id, nombre.trim(), precio, stock, tipo.trim(),tamano.trim());
-                boolean exito = prod.updateProducto(nuevoJuguete); 
-    
-                if (exito) {
-                    System.out.println("Â¡Juguete registrado con Ã©xito! ID asignado: " + nuevoJuguete.getID());
-                } else {
-                    System.out.println("El registro del juguete no tuvo Ã©xito (sin error especÃ­fico).");
+                try {
+                	prod.updateProducto(nuevoJuguete); 
+                	System.out.println("¡Juguete registrado con éxito! ID asignado: " + nuevoJuguete.getID());
+                }
+                catch(Exception e) {
+                	System.out.println("El registro del juguete no tuvo éxito (sin error específico).");
                 }
             }
         } catch (NumberFormatException e) {
-            System.err.println("Error: Formato de precio o stock invÃ¡lido.");
+            System.err.println("Error: Formato de precio o stock inválido.");
         } catch (Exception e) {
             System.err.println("Error inesperado al registrar juguete: " + e.getMessage());
             e.printStackTrace();
@@ -198,7 +214,13 @@ public class ControladorProducto {
 
     public void mostrarTodosLosProductos() {
         System.out.println("\n--- Listado de Productos ---");
-        List<TProducto> productos = prod.listarProductos();
+        List<TProducto> productos = new ArrayList<>();
+        try {
+        	 productos = prod.listarProductos();
+        }
+        catch (Exception e) {
+        	System.out.println(e.getMessage());
+        }
 
         if (productos == null || productos.isEmpty()) {
             System.out.println("No se encontraron productos registrados.");
@@ -213,16 +235,18 @@ public class ControladorProducto {
         System.out.println("\nIntentando eliminar producto con ID: " + idStr);
         
         if (idStr == null || idStr.trim().isEmpty()) {
-            System.err.println("Error: El ID del producto a eliminar no puede estar vacÃ­o.");
+            System.err.println("Error: El ID del producto a eliminar no puede estar vacío.");
             return;
         }
         
         int id = Integer.parseInt(idStr);
-        if (prod.deleteProducto(id)) {
-        	 System.out.println("Â¡Producto con ID: " + idStr + " eliminado correctamente!");
+        
+        try {
+        	prod.deleteProducto(id);
+        	System.out.println("¡Producto con ID: " + idStr + " eliminado correctamente!");
         }
-        else {
-        	System.out.println("No se encontrÃ³ un producto con el ID: " + idStr + " (o ya habÃ­a sido eliminado).");
+        catch (Exception e) {
+        	System.out.println("No se encontró un producto con el ID: " + idStr + " (o ya había sido eliminado).");
         }
     }
 }

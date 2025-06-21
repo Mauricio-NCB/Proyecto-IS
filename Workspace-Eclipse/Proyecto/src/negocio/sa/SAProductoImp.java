@@ -23,8 +23,7 @@ public class SAProductoImp implements SAProducto{
 	}
 
 	@Override
-	public void updateProducto(TProducto producto) throws Exception {
-		
+	public void updateProducto(TProducto producto) throws Exception {	
 		producto.validarDatos();
 		daoProducto.updateProducto(producto);
 	}
