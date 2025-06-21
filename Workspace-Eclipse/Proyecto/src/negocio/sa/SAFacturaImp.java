@@ -34,7 +34,7 @@ public class SAFacturaImp implements SAFactura {
 
 		if (!existeDep) throw new Exception("El dependiente con ID " + idDependiente + " no existe.");
 
-		// Validación de stock
+		// Validaciï¿½n de stock
 		for (Object[] par : productosConCantidad) {
 			TProducto producto = (TProducto) par[0];
 			int cantidad = (int) par[1];
@@ -67,7 +67,7 @@ public class SAFacturaImp implements SAFactura {
 		    .findFirst().orElseThrow(() -> new Exception("Dependiente no encontrado"));
 		f.setDependientes(dep);
 
-		daoFactura.insert(f);
+		daoFactura.createFactura(f);
 
 		// Descontar stock
 		for (Object[] par : productosConCantidad) {
@@ -80,27 +80,28 @@ public class SAFacturaImp implements SAFactura {
 	}
 
 	@Override
-	public List<TFactura> leerFacturas() {
-		// TODO Auto-generated method stub
-		return daoFactura.listarFacturas();
-	}
-
-	@Override
 	public void actualizarFactura(TFactura factura) throws Exception {
 		// TODO Auto-generated method stub
-		
+		daoFactura.updateFactura(factura);
 	}
 
 	@Override
 	public void eliminarFactura(String codigoFactura) throws Exception {
 		// TODO Auto-generated method stub
-		
+		daoFactura.deleteFactura(codigoFactura);
 	}
 
 	@Override
-	public TFactura leerFactura(String codigoFactura) throws Exception {
+	public TFactura obtenerFactura(String codigoFactura) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return daoFactura.readFactura(codigoFactura);
 	}
 
+	@Override
+	public List<TFactura> obtenerFacturas() {
+		// TODO Auto-generated method stub
+		return daoFactura.readAllFacturas();
+	}
+	
 }
+

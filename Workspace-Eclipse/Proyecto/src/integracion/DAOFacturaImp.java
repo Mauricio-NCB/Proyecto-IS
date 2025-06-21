@@ -1,6 +1,8 @@
 package integracion;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +40,7 @@ public class DAOFacturaImp implements DAOFactura {
     }
 
 	@Override
-	public void insert(TFactura factura) {
+	public void createFactura(TFactura factura) {
 	    String sql = "INSERT INTO Factura (codigo, fecha, hora, importe, cliente) VALUES (?, ?, ?, ?, ?)";
 
 	    try (Connection conn = BDConexion.getInstance().getConnection();
@@ -57,9 +59,52 @@ public class DAOFacturaImp implements DAOFactura {
 	        e.printStackTrace();
 	    }
 	}
+	
+	@Override
+	public void updateFactura(TFactura f) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
-	public List<TFactura> listarFacturas() {
+	public void deleteFactura(String codigoF) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public TFactura readFactura(String codigoF) throws Exception {
+		// TODO Auto-generated method stub
+		String sql = "SELECT * FROM Factura WHERE codigo = ?";
+		TFactura factura = null;
+		
+		try (Connection conn = BDConexion.getInstance().getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			
+			pstmt.setString(1, codigoF);
+			ResultSet rs = pstmt.executeQuery();
+			
+			if (!rs.next()) throw new SQLException("No se pudo obtener la factura en la tabla Factura");
+			
+			String codigo = rs.getString("codigo");
+			//LocalDate fecha = rs.getLocalDate("fecha");
+			//LocalTime hora = rs.getLocalTime("hora");
+			float importe = rs.getFloat("importe");
+			String nombreCliente = rs.getString("cliente");
+			
+			//
+			
+			//factura = new TFactura(codigo, fecha, hora, importe, nombreCliente);
+		}
+		catch(SQLException e) {
+            throw new Exception("Error al leer factura en la base de datos: " + e.getMessage(), e);
+		}
+		
+		return factura;
+	}
+
+	@Override
+	public List<TFactura> readAllFacturas() {
 		List<TFactura> lista = new ArrayList<>();
 
 		String sql = "SELECT * FROM Factura";
@@ -97,4 +142,6 @@ public class DAOFacturaImp implements DAOFactura {
 		}
 		return lista;
 	}
+
+	
 }
