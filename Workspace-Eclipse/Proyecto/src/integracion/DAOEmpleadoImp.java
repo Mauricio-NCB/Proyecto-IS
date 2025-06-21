@@ -1,13 +1,16 @@
 package integracion;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 
 import negocio.dto.TDependiente;
 import negocio.dto.TDirector;
 import negocio.dto.TEmpleado;
+import negocio.dto.TFactura;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +55,7 @@ public class DAOEmpleadoImp implements DAOEmpleado {
     }
 
 	@Override
-    public void createEmpleado(TEmpleado empleado) throws Exception {
+    public boolean createEmpleado(TEmpleado empleado) throws Exception {
     	String sqlEmpleado = "INSERT INTO Empleado (identificador, nombre, sueldo, contrasena) VALUES (?, ?, ?, ?)";
         String sqlDir = "INSERT INTO Director (id, cargo) VALUES (?, ?)";
 		String sqlDep = "INSERT INTO Dependiente (id, sum_ventas) VALUES (?, ?)";
@@ -88,6 +91,7 @@ public class DAOEmpleadoImp implements DAOEmpleado {
 				}
 			}
 
+			return true;
         } catch (SQLException e) {
         	throw new Exception("Error al crear empleado en la base de datos: " + e.getMessage(), e);
         }
@@ -97,11 +101,6 @@ public class DAOEmpleadoImp implements DAOEmpleado {
     @Override
     public boolean actualizarEmpleado(TEmpleado empleado) {
         String sqlEmpleado = "UPDATE Empleado SET nombre = ?, sueldo = ?, contrasena = ? WHERE identificador = ?";
-        
-		if (existeEmpleado(empleado.getIdentificador()) == false) {
-			Logger.getLogger(DAOEmpleadoImp.class.getName()).log(Level.WARNING, "El empleado con ID {0} no existe", empleado.getIdentificador());
-			return false;	
-		}
 
         try (Connection conn = BDConexion.getInstance().getConnection();
         		PreparedStatement psEm = conn.prepareStatement(sqlEmpleado)) {
@@ -255,5 +254,22 @@ public class DAOEmpleadoImp implements DAOEmpleado {
 			return rs.next() ? rs.getFloat("sum_ventas") : 0;
 		}
 	}
-	
+
+	public boolean crearFactura(TFactura factura) {
+		String sql = "INSERT INTO Factura (codigo, fecha, hora, importe) VALUES (?, ?, ?, ?)";
+
+		try (Connection conn = BDConexion.getInstance().getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+			pstmt.setString(1, factura.getCodigo());
+			pstmt.setDate(2, Date.valueOf(factura.getFecha()));
+			pstmt.setTime(3, Time.valueOf(factura.getHora()));
+			pstmt.setFloat(4, factura.getImporte());
+
+			return pstmt.executeUpdate() > 0;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}	
 }

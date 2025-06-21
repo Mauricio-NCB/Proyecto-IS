@@ -9,6 +9,7 @@ import negocio.dto.TDependiente;
 import negocio.dto.TDirector;
 import negocio.dto.TEmpleado;
 import negocio.sa.SAEmpleadoImp;
+import util.HashUtil;
 
 class SAEmpleadoTest {
 
@@ -64,5 +65,52 @@ class SAEmpleadoTest {
     public void testLoginIncorrecto() {
         TEmpleado emp = saempleado.loguearEmpleado("noexiste", "passwordfalsa");
         assertNull(emp, "No debería loguearse con credenciales inválidas");
+    }
+
+    	@Test
+    public void testAltaDirectoryEliminar() {
+		
+        // Datos de usuario 1 en la BD
+        String id = "EMP006";
+        String nombre = "Juan Jose";
+        Float sueldo = 7500.50F;
+        String contrasena = "123";
+
+        String contrasenaHash = HashUtil.hashPassword(contrasena);
+        boolean exito = saempleado.altaEmpleado(new TDirector(id, nombre, sueldo, contrasenaHash, "DIRECTOR PRUEBA"));
+        
+        assertTrue(exito, "El empleado debería existir");
+
+        exito = saempleado.eliminarEmpleado(id);
+
+        assertTrue(exito, "El empleado debería haber sido eliminado");
+    }
+
+    @Test
+    public void TestActualizaDirector() {
+		
+        // Datos de usuario 1 en la BD
+        String id = "EMP001";
+        Float sueldo = 7500.50F;
+        String contrasena = "nuevapass";
+
+        String contrasenaHash = HashUtil.hashPassword(contrasena);
+        boolean exito = saempleado.actualizaDatosEmpleado(id, sueldo, contrasenaHash);
+        
+        assertTrue(exito, "El empleado debería haber sido actualizado");
+    }
+	
+	@Test
+    public void TestErrorActualizaDirector() {
+		
+        // No existe usuario
+        String id = "1";
+        Float sueldo = 7500.50F;
+        String contrasena = "nuevapass";
+
+        String contrasenaHash = HashUtil.hashPassword(contrasena);
+        boolean exito = saempleado.actualizaDatosEmpleado(id, sueldo, contrasenaHash);
+        
+        assertTrue(exito, "El empleado debería haber sido actualizado");
     }
 }

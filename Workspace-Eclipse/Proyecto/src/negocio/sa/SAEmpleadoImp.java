@@ -4,8 +4,6 @@ import java.util.List;
 
 import integracion.DAOEmpleado;
 import integracion.DAOEmpleadoImp;
-import negocio.dto.TDependiente;
-import negocio.dto.TDirector;
 import negocio.dto.TEmpleado;
 import util.HashUtil;
 
@@ -14,13 +12,13 @@ public class SAEmpleadoImp implements SAEmpleado {
 	private DAOEmpleado daoEmpleado = new DAOEmpleadoImp();
 
 	@Override
-	public void altaEmpleado(TEmpleado empleado) throws Exception {
+	public boolean altaEmpleado(TEmpleado empleado) throws Exception {
 		
 		if (daoEmpleado.existeEmpleado(empleado.getIdentificador())) {
 			throw new IllegalArgumentException("Ya existe un empleado con el identificador: " + empleado.getIdentificador());
 		}
 
-		daoEmpleado.createEmpleado(empleado);
+		return daoEmpleado.createEmpleado(empleado);
     }
 
 	@Override
@@ -54,5 +52,4 @@ public class SAEmpleadoImp implements SAEmpleado {
 	public List<TEmpleado> mostrarEmpleados() {
     	return daoEmpleado.ListarEmpleados();
     }
-
 }
