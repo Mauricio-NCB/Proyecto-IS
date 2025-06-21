@@ -242,6 +242,23 @@ public class DAOProductoImp implements DAOProducto{
             return rs.next();
         }
     }
+	
+	private TCamiseta obtenerCamiseta(Connection conn, int id, String nombre, float precio, int stock) throws SQLException {
+		if (esCamiseta(conn, id)) {
+	        String sql = "SELECT talla, dorsal, numero FROM Camiseta WHERE ID = ?";
+	        try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	            pstmt.setInt(1, id);
+	            ResultSet rs = pstmt.executeQuery();
+	            if (rs.next()) {
+	                int talla = rs.getInt("talla");
+	                String dorsalJugador = rs.getString("dorsal");
+	                int numeroJugador = rs.getInt("numero");
+	                return new TCamiseta(id, nombre, precio, stock, talla, dorsalJugador, numeroJugador);
+	            }
+	        }
+	    }
+	    return null;
+    }
 
     private boolean esEntrada(Connection conn, int id) throws SQLException {
         String sql = "SELECT * FROM Entrada WHERE ID = ?";
@@ -251,6 +268,26 @@ public class DAOProductoImp implements DAOProducto{
             return rs.next();
         }
     }
+    
+    private TEntrada obtenerEntrada(Connection conn, int id, String nombre, float precio, int stock) throws SQLException {
+    	if (esEntrada(conn, id)) {
+            String sql = "SELECT fecha, hora, ubicacion, numero_asiento, partido FROM Entrada WHERE ID = ?";
+            try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setInt(1, id);
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    Date fecha = rs.getDate("fecha");
+                    String hora = rs.getString("hora");
+                    String ubicacion = rs.getString("ubicacion");
+                    String numeroAsiento = rs.getString("numero_asiento");
+                    String partido = rs.getString("partido");
+                    return new TEntrada(id, nombre, precio, stock, fecha, hora, ubicacion, numeroAsiento, partido);
+                }
+            }
+        }
+        return null;
+    }
+
 
     private boolean esJuguete(Connection conn, int id) throws SQLException {
         String sql = "SELECT * FROM Juguete WHERE ID = ?";
@@ -259,6 +296,22 @@ public class DAOProductoImp implements DAOProducto{
             ResultSet rs = pstmt.executeQuery();
             return rs.next();
         }
+    }
+    
+    private TJuguete obtenerJuguete(Connection conn, int id, String nombre, float precio, int stock) throws SQLException {
+    	if (esJuguete(conn, id)) {
+    		String sql = "SELECT tipo, tamano FROM Juguete WHERE ID = ?";
+    	    try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+    	    	pstmt.setInt(1, id);
+    	        ResultSet rs = pstmt.executeQuery();
+    	        if (rs.next()) {
+    	        	String tipo = rs.getString("tipo");
+    	            String tamano = rs.getString("tamano");
+    	            return new TJuguete(id, nombre, precio, stock, tipo, tamano);
+    	        }
+    	    }
+    	 }
+    	 return null;
     }
 
     private boolean esPoster(Connection conn, int id) throws SQLException {
@@ -269,74 +322,23 @@ public class DAOProductoImp implements DAOProducto{
             return rs.next();
         }
     }
-
-    private TCamiseta obtenerCamiseta(Connection conn, int id, String nombre, float precio, int stock) throws SQLException {
-        String sql = "SELECT * FROM Camiseta WHERE ID = ?";
-        try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, id);
-            ResultSet rs = pstmt.executeQuery();
-            
-            if (rs.next()) {
-                int talla = rs.getInt("talla");
-                String dorsalJugador = rs.getString("dorsal");
-                int numeroJugador = rs.getInt("numero");
-                
-                return new TCamiseta(id, nombre, precio, stock, talla, dorsalJugador, numeroJugador);
-            }
-        }
-        return null;
-    }
-
-    private TEntrada obtenerEntrada(Connection conn, int id, String nombre, float precio, int stock) throws SQLException {
-        String sql = "SELECT * FROM Entrada WHERE ID = ?";
-        try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, id);
-            ResultSet rs = pstmt.executeQuery();
-            
-            if (rs.next()) {
-                Date fecha = rs.getDate("fecha");
-                String hora = rs.getString("hora");
-                String ubicacion = rs.getString("ubicacion");
-                String numeroAsiento = rs.getString("numero_asiento");
-                String partido = rs.getString("partido");
-                
-                return new TEntrada(id, nombre, precio, stock, fecha, hora, ubicacion, numeroAsiento, partido);
-            }
-        }
-        return null;
-    }
-
-    private TJuguete obtenerJuguete(Connection conn, int id, String nombre, float precio, int stock) throws SQLException {
-        String sql = "SELECT * FROM Juguete WHERE ID = ?";
-        try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, id);
-            ResultSet rs = pstmt.executeQuery();
-            
-            if (rs.next()) {
-                String tipo = rs.getString("tipo");
-                String tamano = rs.getString("tamano");
-                
-                return new TJuguete(id, nombre, precio, stock, tipo, tamano);
-            }
-        }
-        return null;
-    }
-
+    
     private TPoster obtenerPoster(Connection conn, int id, String nombre, float precio, int stock) throws SQLException {
-        String sql = "SELECT * FROM Poster WHERE ID = ?";
-        try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, id);
-            ResultSet rs = pstmt.executeQuery();
-            
-            if (rs.next()) {
-                String tamano = rs.getString("tamano");
-                
-                return new TPoster(id, nombre, precio, stock, tamano);
+    	if (esPoster(conn,id)) {
+    		String sql = "SELECT tamano FROM Poster WHERE ID = ?";
+            try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setInt(1, id);
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    String tamano = rs.getString("tamano");
+                    return new TPoster(id, nombre, precio, stock, tamano);
+                }
             }
-        }
-        return null;
+    	}
+    	return null;
     }
-
 
 }
+
+
 
