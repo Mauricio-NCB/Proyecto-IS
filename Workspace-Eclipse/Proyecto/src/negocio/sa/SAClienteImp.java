@@ -17,14 +17,29 @@ public class SAClienteImp implements SACliente {
     public boolean altaCliente(TCliente cliente) {
         return daoCliente.createCliente(cliente);
     }
+    
+    @Override
+    public boolean eliminarCliente(int numSocio) {
+        return daoCliente.deleteCliente(numSocio);
+    }
 
     @Override
-    public List<TCliente> getAllClientes() {
+    public boolean modificarCliente(int numSocio, String direccion, String correo) {
+        return daoCliente.updateCliente(numSocio, direccion, correo);
+    }
+
+    @Override
+    public TCliente obtenerCliente(int numSocio) {
+        return daoCliente.readCliente(numSocio);
+    }
+
+    @Override
+    public List<TCliente> listarClientes() {
         return daoCliente.getAllClientes(); 
     }
 
     @Override
-    public List<Object[]> obtenerFacturasCliente(int numSocio) {
+    public List<Object[]> obtenerFacturasCliente(int numSocio) throws Exception {
         DAOFactura daoFactura = new DAOFacturaImp();
         return daoFactura.obtenerFacturasPorCliente(numSocio);
     }

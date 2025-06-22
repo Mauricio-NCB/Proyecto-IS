@@ -25,6 +25,61 @@ public class DAOClienteImp implements DAOCliente {
     }
 
     @Override
+    public boolean deleteCliente(int numSocio) {
+        String sql = "DELETE FROM Cliente WHERE num_socio = ?";
+
+        try (Connection conn = BDConexion.getInstance().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, numSocio);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateCliente(int numSocio, String direccion, String correo) {
+        String sql = "UPDATE Cliente SET direccion = ?, correo = ? WHERE num_socio = ?";
+
+        try (Connection conn = BDConexion.getInstance().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, direccion);
+            pstmt.setString(2, correo);
+            pstmt.setInt(3, numSocio);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public TCliente readCliente(int numSocio) {
+        String sql = "SELECT nombre, direccion, correo FROM Cliente WHERE num_socio = ?";
+        TCliente cliente = null;
+
+        try (Connection conn = BDConexion.getInstance().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, numSocio);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                cliente = new TCliente(
+                    rs.getString("nombre"),
+                    rs.getString("direccion"),
+                    rs.getString("correo")
+                );
+                cliente.setNumSocio(numSocio); // Asignar el num_socio al objeto TCliente
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return cliente;
+    }
+
+    @Override
     public List<TCliente> getAllClientes() {
         List<TCliente> lista = new ArrayList<>();
         String sql = "SELECT num_socio, nombre, direccion, correo FROM Cliente";
