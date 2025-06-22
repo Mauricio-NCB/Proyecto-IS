@@ -6,14 +6,12 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import negocio.dto.TCliente;
-import negocio.dto.TDependiente;
 import negocio.dto.TFactura;
 
 public class DAOFacturaImp implements DAOFactura {
 
     @Override
-    public List<Object[]> obtenerFacturasPorCliente(int numSocio) {
+    public List<Object[]> obtenerFacturasPorCliente(int numSocio) throws Exception {
         List<Object[]> resultados = new ArrayList<>();
         String sql = "SELECT codigo, fecha, hora, importe FROM Factura WHERE cliente = ?";
 
@@ -33,15 +31,15 @@ public class DAOFacturaImp implements DAOFactura {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+        	throw new Exception("Error al crear factura en la base de datos: " + e.getMessage(), e);
         }
 
         return resultados;
     }
 
 	@Override
-	public void createFactura(TFactura factura) {
-	    String sql = "INSERT INTO Factura (codigo, fecha, hora, importe, cliente) VALUES (?, ?, ?, ?, ?)";
+	public void createFactura(TFactura factura) throws Exception {
+	    String sql = "INSERT INTO Factura (codigo, fecha, hora, importe) VALUES (?, ?, ?, ?)";
 
 	    try (Connection conn = BDConexion.getInstance().getConnection();
 	         PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -50,8 +48,6 @@ public class DAOFacturaImp implements DAOFactura {
 	        ps.setDate(2, Date.valueOf(factura.getFecha()));
 	        ps.setTime(3, Time.valueOf(factura.getHora()));
 	        ps.setFloat(4, factura.getImporte());
-
-	        ps.setInt(5, factura.getTiene().getNumSocio());
 
 	        ps.executeUpdate();
 
@@ -87,14 +83,11 @@ public class DAOFacturaImp implements DAOFactura {
 			if (!rs.next()) throw new SQLException("No se pudo obtener la factura en la tabla Factura");
 			
 			String codigo = rs.getString("codigo");
-			//LocalDate fecha = rs.getLocalDate("fecha");
-			//LocalTime hora = rs.getLocalTime("hora");
-			float importe = rs.getFloat("importe");
-			String nombreCliente = rs.getString("cliente");
+			LocalDate fecha = rs.getDate("fecha").toLocalDate();
+			LocalTime hora = rs.getTime("hora").toLocalTime();
+			float importe = rs.getFloat("importe");		
 			
-			//
-			
-			//factura = new TFactura(codigo, fecha, hora, importe, nombreCliente);
+			factura = new TFactura(codigo, fecha, hora, importe);
 		}
 		catch(SQLException e) {
             throw new Exception("Error al leer factura en la base de datos: " + e.getMessage(), e);
@@ -109,21 +102,23 @@ public class DAOFacturaImp implements DAOFactura {
 
 		String sql = "SELECT * FROM Factura";
 		
-		DAOCliente daocliente = new DAOClienteImp();
-		List<TCliente> clientes = daocliente.getAllClientes();
+		//DAOCliente daocliente = new DAOClienteImp();
+		//List<TCliente> clientes = daocliente.getAllClientes();
 
 		try (Connection conn = BDConexion.getInstance().getConnection();
 		     PreparedStatement stmt = conn.prepareStatement(sql);
 		     ResultSet rs = stmt.executeQuery()) {
 
 			while (rs.next()) {
-				TFactura f = new TFactura();
-				f.setCodigo(rs.getString("codigo"));
-				f.setFecha(rs.getDate("fecha").toLocalDate());
-				f.setHora(rs.getTime("hora").toLocalTime());
-				f.setImporte(rs.getFloat("importe"));
+				
+				String codigo = rs.getString("codigo");
+				LocalDate fecha = rs.getDate("fecha").toLocalDate();
+				LocalTime hora = rs.getTime("hora").toLocalTime();
+				float importe = rs.getFloat("importe");
+				
+				TFactura f = new TFactura(codigo, fecha, hora, importe);
 
-				int idCliente = rs.getInt("cliente");
+				/*int idCliente = rs.getInt("cliente");
 
 				TCliente cliente = null;
 				for (TCliente c : clientes) {
@@ -133,7 +128,7 @@ public class DAOFacturaImp implements DAOFactura {
 				    }
 				}
 
-				f.setTiene(cliente);
+				f.setTiene(cliente);*/
 
 				lista.add(f);
 			}

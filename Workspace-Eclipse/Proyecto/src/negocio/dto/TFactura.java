@@ -11,15 +11,13 @@ public class TFactura {
     private LocalDate fecha;
     private LocalTime hora;
     private float importe;
-    public TCliente tiene;
-    public TDependiente dependientes;
 
-    public TFactura(final Date fecha, final int hora, final float importe) {
+    public TFactura(final String codigo, final LocalDate fecha, final LocalTime hora, final float importe) {
+    	this.codigo = codigo;
+    	this.fecha = fecha;
+    	this.hora = hora;
+    	this.importe = importe;
     }
-
-    public TFactura() {
-		// TODO Auto-generated constructor stub
-	}
 
 	public String getCodigo() {
         // Automatically generated method. Please delete this comment before entering specific code.
@@ -60,25 +58,5 @@ public class TFactura {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.importe = value;
     }
-
-	public void setTiene(TCliente cliente) {
-		// TODO Auto-generated method stub
-		this.tiene = cliente;
-	}
-	
-	public TCliente getTiene() {
-		// TODO Auto-generated method stub
-		return tiene;
-	}
-
-	public void setDependientes(TDependiente dep) {
-		// TODO Auto-generated method stub
-		this.dependientes = dep;
-	}
-
-	public TDependiente getDependientes() {
-		// TODO Auto-generated method stub
-		return dependientes;
-	}
 
 }
