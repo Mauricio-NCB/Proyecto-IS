@@ -6,7 +6,8 @@ import java.util.List;
 public interface SAEmpleado {
 	TEmpleado loguearEmpleado(String id, String contrasena) throws Exception;
 	boolean altaEmpleado(TEmpleado empleado) throws Exception;
-	boolean eliminarEmpleado(String id);
+	boolean eliminarEmpleado(String id) throws Exception;
 	boolean actualizaDatosEmpleado(String id, Float sueldo, String contrasena) throws Exception;
-	List<TEmpleado> mostrarEmpleados();
+	List<TEmpleado> mostrarEmpleados() throws Exception;
+	TEmpleado buscarEmpleado(String id) throws Exception;
 }

@@ -15,7 +15,7 @@ public class SAEmpleadoImp implements SAEmpleado {
 	public boolean altaEmpleado(TEmpleado empleado) throws Exception {
 		
 		if (daoEmpleado.existeEmpleado(empleado.getIdentificador())) {
-			throw new IllegalArgumentException("Ya existe un empleado con el identificador: " + empleado.getIdentificador());
+			throw new Exception("Ya existe un empleado con el identificador: " + empleado.getIdentificador());
 		}
 
 		return daoEmpleado.createEmpleado(empleado);
@@ -24,24 +24,29 @@ public class SAEmpleadoImp implements SAEmpleado {
 	@Override
 	public TEmpleado loguearEmpleado(String id, String contrasena) throws Exception {
 		TEmpleado empleado = daoEmpleado.readEmpleado(id);
+		if (empleado == null) {
+			throw new Exception("No existe un empleado con el ID: " + id);
+		}
 		String hashContrasena = HashUtil.hashPassword(contrasena);
-		
 		if (!hashContrasena.equals(empleado.getContrasena())) {
-			throw new IllegalArgumentException("No coincide la contrase�a");
+			throw new Exception("No coincide la contraseña");
 		}
 		
 		return empleado;
 	}
 	
-    public boolean eliminarEmpleado(String id) {
-    	return daoEmpleado.eliminar(id);
-    }
+	public boolean eliminarEmpleado(String id) throws Exception {
+		if (!daoEmpleado.existeEmpleado(id)){
+			throw new Exception("No existe ningún empleado con identificador: " + id);
+		}
+		return daoEmpleado.eliminar(id);
+	}
     
     public boolean actualizaDatosEmpleado(String id, Float sueldo, String contrasena) throws Exception {
     	TEmpleado empleado = daoEmpleado.readEmpleado(id);
   
     	if (empleado == null) {
-    		throw new IllegalArgumentException("No existe ningún empleado con identificador: " + id);
+    		throw new Exception("No existe ningún empleado con identificador: " + id);
     	}
  
     	if (sueldo != null) {empleado.setSueldo(sueldo);}
@@ -49,7 +54,20 @@ public class SAEmpleadoImp implements SAEmpleado {
     	return daoEmpleado.actualizarEmpleado(empleado);
     }
 
-	public List<TEmpleado> mostrarEmpleados() {
-    	return daoEmpleado.ListarEmpleados();
-    }
+	public List<TEmpleado> mostrarEmpleados() throws Exception {
+		List<TEmpleado> empleados = daoEmpleado.ListarEmpleados();
+		if (empleados == null || empleados.isEmpty()) {
+			throw new Exception("No se encontraron empleados registrados.");
+		} 
+
+		return empleados;
+	}
+
+	public TEmpleado buscarEmpleado(String id) throws Exception {
+
+		if (!daoEmpleado.existeEmpleado(id)) {
+			throw new Exception("No existe un empleado con el ID: " + id);
+		}
+		return daoEmpleado.readEmpleado(id);
+	}
 }

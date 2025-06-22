@@ -2,6 +2,7 @@ package presentacion;
 
 import javax.swing.*;
 
+import negocio.dto.TEmpleado;
 import negocio.dto.TProducto;
 
 import java.awt.*;
@@ -46,6 +47,7 @@ public class VentanaEmpleado extends JFrame {
     // Botones
     private JButton btnRegistrarDirector;
     private JButton btnListarDirectores;
+    private JButton btnListarEmpleados;
     private JButton btnEliminarEmpleado;
     private JButton btnActualizarDatos;
     private JButton btnListarClientes;  
@@ -117,14 +119,15 @@ public class VentanaEmpleado extends JFrame {
         bgTipoEmpleado.add(rbDirector);
         bgTipoEmpleado.add(rbDependiente);
 
-        // Botones
         btnRegistrarDirector = new JButton("Registrar Empleado");
         btnListarDirectores = new JButton("Listar Empleado");
+        btnListarEmpleados = new JButton("Listar Empleados");
         btnEliminarEmpleado = new JButton("Eliminar Empleado");
         btnActualizarDatos = new JButton("Actualizar Datos");
         btnListarClientes = new JButton("Listar Clientes"); 
         btnCerrarSesion = new JButton("Cerrar SesiÃ³n"); 
         btnMostrarCatalogo = new JButton("Mostrar CatÃ¡logo");  
+        btnGestionarProductos = new JButton("Gestionar Productos"); 
         btnGestionarProductos = new JButton("Gestionar Productos"); 
 
         // Ã�rea de Texto y ScrollPane
@@ -186,12 +189,13 @@ public class VentanaEmpleado extends JFrame {
         panelEliminarDirector.add(txtIdEliminar);
         panelEliminarDirector.add(btnEliminarEmpleado);
         panelEliminarDirector.setAlignmentX(Component.LEFT_ALIGNMENT); 
-
-        // Configurar panel de acciones generales
         panelAccionesGenerales.add(btnListarDirectores);
+        panelAccionesGenerales.add(btnListarEmpleados);
         panelAccionesGenerales.add(btnListarClientes); 
         panelAccionesGenerales.add(btnMostrarCatalogo); 
         panelAccionesGenerales.add(btnGestionarProductos);
+        panelAccionesGenerales.add(btnCerrarSesion);    
+        panelAccionesGenerales.setAlignmentX(Component.LEFT_ALIGNMENT); 
         panelAccionesGenerales.add(btnCerrarSesion);    
         panelAccionesGenerales.setAlignmentX(Component.LEFT_ALIGNMENT); 
 
@@ -261,13 +265,20 @@ public class VentanaEmpleado extends JFrame {
             }
     	});
 
-        // --- Listar Directores ---
-        btnListarDirectores.addActionListener(e -> {
+        // --- Listar Empleados ---
+        btnListarEmpleados.addActionListener(e -> {
             updateStatus("Listando empleados...");
-            appendOutput("\n--- Solicitando listado de empleados ---\n");
+            appendOutput("\n--- Listado de empleados ---\n");
             try {
-                controladorEm.mostrarEmpleados();
-                updateStatus("Listado de empleados mostrado (ver salida).");
+                List<TEmpleado> empleados = controladorEm.mostrarEmpleados();
+                if (empleados.isEmpty()) {
+                    appendOutput("No hay empleados registrados.\n");
+                } else {
+                    for (TEmpleado empleado : empleados) {
+                        appendOutput(empleado.toString() + "\n");
+                    }
+                }
+                updateStatus("Listado de empleados mostrado.");
             } catch (Exception ex) {
                 updateStatus("Error al listar empleados (ver salida).");
                 appendOutput("ERROR: " + ex.getMessage() + "\n"); 
@@ -302,12 +313,17 @@ public class VentanaEmpleado extends JFrame {
                 updateStatus("Eliminando empleado...");
                 appendOutput("\n--- Solicitando eliminación del empleado ID: " + idEliminar + " ---\n");
                 try {
-                    controladorEm.eliminarEmpleado(idEliminar); 
-                    updateStatus("Proceso de eliminación finalizado (ver salida).");
-                    txtIdEliminar.setText("");
+                    if (controladorEm.eliminarEmpleado(idEliminar)) {
+                        appendOutput("¡Empleado con ID: " + idEliminar + " eliminado correctamente!");
+                    }
+                        
                 } catch (Exception ex) {
                     updateStatus("Error durante la eliminación (ver salida).");
                     appendOutput("ERROR: " + ex.getMessage() + "\n");
+                }
+                finally{
+                    updateStatus("Proceso de eliminación finalizado (ver salida).");
+                    txtIdEliminar.setText("");
                 }
             } else {
                 updateStatus("Eliminación cancelada.");
@@ -344,7 +360,10 @@ public class VentanaEmpleado extends JFrame {
             lblStatus.setText("Actualizando datos...");
             txtAreaOutput.append("\n--- Solicitando actualización de datos para ID: " + idActualizar + " ---\n");
             try {
-                controladorEm.actualizarDatos(idActualizar, nuevoSueldo, nuevaContrasena);
+                if (controladorEm.actualizarDatos(idActualizar, nuevoSueldo, nuevaContrasena)){
+                    appendOutput("¡Empleado con ID: " + idActualizar + " eliminado correctamente!");
+                }
+                ;
                 lblStatus.setText("Proceso de actualización finalizado (ver salida).");
                 limpiarCamposActualizacion();
             } catch (Exception ex) {
@@ -430,4 +449,4 @@ public class VentanaEmpleado extends JFrame {
         System.setErr(consoleStream);
         System.out.println("--- Salida de consola redirigida a la ventana ---"); // Mensaje inicial
     }
-} 
+}

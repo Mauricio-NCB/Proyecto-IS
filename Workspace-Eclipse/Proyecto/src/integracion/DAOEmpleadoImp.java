@@ -14,8 +14,7 @@ import negocio.dto.TFactura;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class DAOEmpleadoImp implements DAOEmpleado {
 
@@ -131,7 +130,7 @@ public class DAOEmpleadoImp implements DAOEmpleado {
 			}
 			return actualizado;
 		} catch (SQLException e) {
-			Logger.getLogger(DAOEmpleadoImp.class.getName()).log(Level.SEVERE, "Error updating employee", e);
+			e.printStackTrace();
 		}
 		return false;
     }
@@ -141,29 +140,28 @@ public class DAOEmpleadoImp implements DAOEmpleado {
         String sqlDirector = "DELETE FROM Director WHERE id = ?";
         String sqlDependiente = "DELETE FROM Dependiente WHERE id = ?";
         String sqlEmpleado = "DELETE FROM Empleado WHERE identificador = ?";
+		boolean eliminado = false;
 
         try (Connection conn = BDConexion.getInstance().getConnection()) {
 
             // Elimina en ambas tablas, por si acaso
-            try (PreparedStatement psDir = conn.prepareStatement(sqlDirector)) {
-                psDir.setString(1, id);
-                psDir.executeUpdate();
-            }
-            try (PreparedStatement psDep = conn.prepareStatement(sqlDependiente)) {
-                psDep.setString(1, id);
-                psDep.executeUpdate();
-            }
-            boolean eliminado = false;
-            try (PreparedStatement psEm = conn.prepareStatement(sqlEmpleado)) {
-                psEm.setString(1, id);
-                eliminado = psEm.executeUpdate() > 0;
-            }
+            PreparedStatement psDir = conn.prepareStatement(sqlDirector);
+            psDir.setString(1, id);
+            psDir.executeUpdate();
+
+            PreparedStatement psDep = conn.prepareStatement(sqlDependiente);
+            psDep.setString(1, id);
+            psDep.executeUpdate();
+
+            PreparedStatement psEm = conn.prepareStatement(sqlEmpleado);
+            psEm.setString(1, id);
+            eliminado = psEm.executeUpdate() > 0;
 
             return eliminado;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-		return false;
+		return eliminado;
     }
 
 	//Obtiene todos los Empleados
@@ -206,9 +204,9 @@ public class DAOEmpleadoImp implements DAOEmpleado {
         try (Connection conn = BDConexion.getInstance().getConnection();
         		PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, id);
-            try (ResultSet rs = ps.executeQuery()) {
-                return rs.next();
-            }
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+
         } catch (SQLException e) {
         	e.printStackTrace();
         }
@@ -269,7 +267,7 @@ public class DAOEmpleadoImp implements DAOEmpleado {
 			return pstmt.executeUpdate() > 0;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
 		}
+		return false;
 	}	
 }

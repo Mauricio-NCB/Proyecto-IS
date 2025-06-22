@@ -2,8 +2,6 @@ package presentacion;
 
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
 import negocio.dto.TDependiente;
 import negocio.dto.TDirector;
 import negocio.dto.TEmpleado;
@@ -30,7 +28,7 @@ public class ControladorEmpleado {
 		TEmpleado empleado = servicioEmpleado.loguearEmpleado(id, contrasena);
 			
 		if(empleado instanceof TDirector) {
-			new VentanaDirector().setVisible(true);
+			new VentanaEmpleado().setVisible(true);
 		}
 		else if (empleado instanceof TDependiente) {
 			new VentanaDependiente().setVisible(true);
@@ -54,47 +52,20 @@ public class ControladorEmpleado {
 		servicioEmpleado.altaEmpleado(nuevoEmpleado);
     } 
 	
-    public void eliminarEmpleado(String id) {
-        System.out.println("\nIntentando eliminar empleado con ID: " + id);
-        
-        if (id == null || id.trim().isEmpty()) {
-            System.err.println("Error: El ID del empleado a eliminar no puede estar vacío.");
-            return;
-        }
-        
-        if (servicioEmpleado.eliminarEmpleado(id)) {
-        	 System.out.println("¡Director con ID: " + id.trim() + " eliminado correctamente!");
-        }
-        else {
-        	System.out.println("No se encontró un director con el ID: " + id.trim() + " (o ya había sido eliminado).");
-        }
+    public boolean eliminarEmpleado(String id) throws Exception {
+        return servicioEmpleado.eliminarEmpleado(id);
     }
     
-    public void actualizarDatos(String id, Float sueldo, String contrasena) throws Exception {
-    	System.out.println("\nIntentando actualizar datos para empleado ID: " + id);
-        if (id == null || id.trim().isEmpty()) {
-            System.err.println("Error: El ID del empleado a actualizar es requerido.");
-            return;
-        }
-        
-        if (servicioEmpleado.actualizaDatosEmpleado(id, sueldo, contrasena)) {
-        	System.out.println("¡Director con ID: " + id.trim() + " actualizado correctamente!");
-        }
-        else {
-        	System.out.println("No se encontró un director con el ID: " + id.trim() + " (o no se pudo actualizar).");
-        }
+    public boolean actualizarDatos(String id, Float sueldo, String contrasena) throws Exception {
+        return servicioEmpleado.actualizaDatosEmpleado(id, sueldo, contrasena);
     }
 
-	public void mostrarEmpleados() {
-        System.out.println("\n--- Listado de Empleados ---");
+	public List<TEmpleado> mostrarEmpleados() throws Exception {
         List<TEmpleado> empleados = servicioEmpleado.mostrarEmpleados();
-
-        if (empleados == null || empleados.isEmpty()) {
-            System.out.println("No se encontraron empleados registrados.");
-        } else {
-            for (TEmpleado empleado : empleados) {
-                System.out.println(empleado);
-            }
-        }
+        return empleados;
     }
+
+	public TEmpleado buscarEmpleado(String id) throws Exception {
+		return servicioEmpleado.buscarEmpleado(id);
+	}
 }
