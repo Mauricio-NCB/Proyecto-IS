@@ -9,5 +9,5 @@ public interface SAEmpleado {
 	boolean eliminarEmpleado(String id) throws Exception;
 	boolean actualizaDatosEmpleado(String id, Float sueldo, String contrasena) throws Exception;
 	List<TEmpleado> mostrarEmpleados() throws Exception;
-	TEmpleado buscarEmpleado(String id) throws Exception;
+	TEmpleado obtenerEmpleado(String id) throws Exception;
 }

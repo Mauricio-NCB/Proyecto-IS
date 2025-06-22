@@ -33,29 +33,4 @@ public class DAODependienteImp implements DAODependiente{
 	            return false;
 	        }
 	    }
-	 @Override
-	 public List<TDependiente> listarDependientes() {
-	     List<TDependiente> lista = new ArrayList<>();
-	     String sql = "SELECT * FROM Empleado e JOIN Dependiente d ON e.identificador = d.id";
-
-	     try (Connection conn = BDConexion.getInstance().getConnection();
-	          PreparedStatement pstmt = conn.prepareStatement(sql);
-	          ResultSet rs = pstmt.executeQuery()) {
-
-	         while (rs.next()) {
-	             TDependiente dep = new TDependiente(
-	                 rs.getString("identificador"),
-	                 rs.getString("nombre"),
-	                 rs.getFloat("sueldo"),
-	                 rs.getString("contrasena"),
-	                 rs.getFloat("sum_ventas")
-	             );
-	             lista.add(dep);
-	         }
-	     } catch (SQLException e) {
-	         e.printStackTrace();
-	     }
-
-	     return lista;
-	 }
 }

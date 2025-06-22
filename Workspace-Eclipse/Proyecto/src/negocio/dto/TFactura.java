@@ -59,4 +59,7 @@ public class TFactura {
         this.importe = value;
     }
 
+    public void setDependientes(String dependiente) {
+    }
+
 }

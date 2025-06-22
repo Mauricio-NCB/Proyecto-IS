@@ -16,7 +16,7 @@ import negocio.dto.TProducto;
 public class SAFacturaImp implements SAFactura {
 
 	SACliente saCliente = new SAClienteImp();
-	SADependiente saDependiente = new SADependienteImp();
+	SAEmpleado saEmpleado = new SAEmpleadoImp();
 	DAOProducto daoProducto = new DAOProductoImp();
 	DAOFactura daoFactura = new DAOFacturaImp();
 	
@@ -29,10 +29,10 @@ public class SAFacturaImp implements SAFactura {
 
 		if (!existeCliente) throw new Exception("El cliente con ID " + idCliente + " no existe.");
 
-		List<TDependiente> dependientes = saDependiente.listarDependientes();
-		boolean existeDep = dependientes.stream().anyMatch(d -> d.getIdentificador().equals(idDependiente));
+		
+		TDependiente dependiente = (TDependiente) saEmpleado.obtenerEmpleado(idDependiente); 
 
-		if (!existeDep) throw new Exception("El dependiente con ID " + idDependiente + " no existe.");
+		if (dependiente == null) throw new Exception("El dependiente con ID " + idDependiente + " no existe.");
 
 		// Validaci�n de stock
 		for (Object[] par : productosConCantidad) {
@@ -62,10 +62,7 @@ public class SAFacturaImp implements SAFactura {
 		    .findFirst().orElseThrow(() -> new Exception("Cliente no encontrado"));
 		f.setTiene(cliente);
 
-		TDependiente dep = dependientes.stream()
-		    .filter(d -> d.getIdentificador().equals(idDependiente))
-		    .findFirst().orElseThrow(() -> new Exception("Dependiente no encontrado"));
-		f.setDependientes(dep);
+		f.setDependientes(dependiente.getNombre());
 
 		daoFactura.createFactura(f);
 

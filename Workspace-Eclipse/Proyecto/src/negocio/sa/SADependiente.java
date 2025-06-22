@@ -8,5 +8,4 @@ import negocio.dto.TFactura;
 
 public interface SADependiente {
 	  boolean generarFactura(TFactura factura);
-	  List<TDependiente> listarDependientes();
 }

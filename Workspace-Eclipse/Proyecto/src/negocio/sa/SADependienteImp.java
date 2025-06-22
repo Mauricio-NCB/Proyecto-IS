@@ -15,7 +15,4 @@ public class SADependienteImp implements SADependiente{
     public boolean generarFactura(TFactura factura) {
         return daoFactura.crearFactura(factura);
     }
-    public List<TDependiente> listarDependientes() {
-        return daoFactura.listarDependientes();
-    }
 }

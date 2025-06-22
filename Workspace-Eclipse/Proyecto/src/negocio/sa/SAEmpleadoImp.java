@@ -63,7 +63,7 @@ public class SAEmpleadoImp implements SAEmpleado {
 		return empleados;
 	}
 
-	public TEmpleado buscarEmpleado(String id) throws Exception {
+	public TEmpleado obtenerEmpleado(String id) throws Exception {
 
 		if (!daoEmpleado.existeEmpleado(id)) {
 			throw new Exception("No existe un empleado con el ID: " + id);
