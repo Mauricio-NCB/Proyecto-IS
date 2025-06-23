@@ -14,7 +14,7 @@ public class SAEmpleadoImp implements SAEmpleado {
 	@Override
 	public boolean altaEmpleado(TEmpleado empleado) throws Exception {
 		
-		if (daoEmpleado.existeEmpleado(empleado.getIdentificador())) {
+		if (daoEmpleado.existEmpleado(empleado.getIdentificador())) {
 			throw new Exception("Ya existe un empleado con el identificador: " + empleado.getIdentificador());
 		}
 
@@ -36,10 +36,10 @@ public class SAEmpleadoImp implements SAEmpleado {
 	}
 	
 	public boolean eliminarEmpleado(String id) throws Exception {
-		if (!daoEmpleado.existeEmpleado(id)){
+		if (!daoEmpleado.existEmpleado(id)){
 			throw new Exception("No existe ningún empleado con identificador: " + id);
 		}
-		return daoEmpleado.eliminar(id);
+		return daoEmpleado.deleteEmpleado(id);
 	}
     
     public boolean actualizaDatosEmpleado(String id, Float sueldo, String contrasena) throws Exception {
@@ -51,11 +51,11 @@ public class SAEmpleadoImp implements SAEmpleado {
  
     	if (sueldo != null) {empleado.setSueldo(sueldo);}
     	if (!contrasena.trim().isEmpty()) {empleado.setContrasena(HashUtil.hashPassword(contrasena));}
-    	return daoEmpleado.actualizarEmpleado(empleado);
+    	return daoEmpleado.updateEmpleado(empleado);
     }
 
 	public List<TEmpleado> mostrarEmpleados() throws Exception {
-		List<TEmpleado> empleados = daoEmpleado.ListarEmpleados();
+		List<TEmpleado> empleados = daoEmpleado.listEmpleados();
 		if (empleados == null || empleados.isEmpty()) {
 			throw new Exception("No se encontraron empleados registrados.");
 		} 
@@ -65,7 +65,7 @@ public class SAEmpleadoImp implements SAEmpleado {
 
 	public TEmpleado obtenerEmpleado(String id) throws Exception {
 
-		if (!daoEmpleado.existeEmpleado(id)) {
+		if (!daoEmpleado.existEmpleado(id)) {
 			throw new Exception("No existe un empleado con el ID: " + id);
 		}
 		return daoEmpleado.readEmpleado(id);

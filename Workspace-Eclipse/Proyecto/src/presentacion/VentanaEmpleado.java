@@ -2,6 +2,7 @@ package presentacion;
 
 import javax.swing.*;
 
+import negocio.dto.TCliente;
 import negocio.dto.TEmpleado;
 import negocio.dto.TProducto;
 
@@ -21,9 +22,9 @@ public class VentanaEmpleado extends JFrame {
     // --- Componentes de la UI ---
     // Paneles
     private JPanel panelNorte, panelCentro, panelSur;
-    private JPanel panelRegistroDirector;
+    private JPanel panelRegistroEmpleado;
     private JPanel panelAccionesGenerales;
-    private JPanel panelEliminarDirector;
+    private JPanel panelEliminarEmpleado;
     private JPanel panelActualizarDatos;
 
     // Labels
@@ -35,7 +36,7 @@ public class VentanaEmpleado extends JFrame {
     // Campos de Texto
     private JTextField txtId, txtNombre, txtSueldo;
     private JPasswordField txtContrasena;
-    private JTextField txtIdEliminar;
+    private JTextField txtIdEmpleado; 
     private JTextField txtIdActualizar, txtNuevoSueldo;
     private JPasswordField txtNuevaContrasena;
 
@@ -45,8 +46,7 @@ public class VentanaEmpleado extends JFrame {
     private ButtonGroup bgTipoEmpleado;
 
     // Botones
-    private JButton btnRegistrarDirector;
-    private JButton btnListarDirectores;
+    private JButton btnRegistrarEmpleado;
     private JButton btnListarEmpleados;
     private JButton btnEliminarEmpleado;
     private JButton btnActualizarDatos;
@@ -54,16 +54,19 @@ public class VentanaEmpleado extends JFrame {
     private JButton btnCerrarSesion; 
     private JButton btnMostrarCatalogo;      
     private JButton btnGestionarProductos; 
-      
+    private JButton btnBuscarEmpleado; 
+
     // Ã�rea de Texto para Salida
     private JTextArea txtAreaOutput;
     private JScrollPane scrollPaneOutput;
     private ControladorEmpleado controladorEm;
+    private ControladorCliente controladorCl;
 
     // Constructor
     public VentanaEmpleado() {
         super("Panel de Control del empleado");
         controladorEm = ControladorEmpleado.getInstance();
+        controladorCl = ControladorCliente.getInstance();
         initComponents();
         initLayout();
         initListeners();
@@ -82,12 +85,12 @@ public class VentanaEmpleado extends JFrame {
         panelCentro = new JPanel(new BorderLayout());
         panelSur = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-        panelRegistroDirector = new JPanel(new GridBagLayout());
-        panelRegistroDirector.setBorder(BorderFactory.createTitledBorder("Registrar Nuevo Director/Dependiente"));
+        panelRegistroEmpleado= new JPanel(new GridBagLayout());
+        panelRegistroEmpleado.setBorder(BorderFactory.createTitledBorder("Registrar Nuevo Director/Dependiente"));
         panelActualizarDatos = new JPanel(new GridBagLayout());
         panelActualizarDatos.setBorder(BorderFactory.createTitledBorder("Actualizar Datos Director"));
-        panelEliminarDirector = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        panelEliminarDirector.setBorder(BorderFactory.createTitledBorder("Eliminar empleado"));
+        panelEliminarEmpleado = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        panelEliminarEmpleado.setBorder(BorderFactory.createTitledBorder("Gestionar empleado"));
         panelAccionesGenerales = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelAccionesGenerales.setBorder(BorderFactory.createTitledBorder("Acciones Generales"));
 
@@ -96,7 +99,7 @@ public class VentanaEmpleado extends JFrame {
         lblNombre = new JLabel("Nombre:");
         lblSueldo = new JLabel("Sueldo:");
         lblContrasena = new JLabel("ContraseÃ±a:");
-        lblIdEliminar = new JLabel("ID a Eliminar:");
+        lblIdEliminar = new JLabel("ID del Empleado:");
         lblIdActualizar = new JLabel("ID a Actualizar:");
         lblNuevoSueldo = new JLabel("Nuevo Sueldo (opcional):");
         lblNuevaContrasena = new JLabel("Nueva ContraseÃ±a (opcional):");
@@ -107,7 +110,7 @@ public class VentanaEmpleado extends JFrame {
         txtNombre = new JTextField(15);
         txtSueldo = new JTextField(8);
         txtContrasena = new JPasswordField(10);
-        txtIdEliminar = new JTextField(10);
+        txtIdEmpleado = new JTextField(10); 
         txtIdActualizar = new JTextField(10);
         txtNuevoSueldo = new JTextField(8);
         txtNuevaContrasena = new JPasswordField(10);
@@ -119,8 +122,7 @@ public class VentanaEmpleado extends JFrame {
         bgTipoEmpleado.add(rbDirector);
         bgTipoEmpleado.add(rbDependiente);
 
-        btnRegistrarDirector = new JButton("Registrar Empleado");
-        btnListarDirectores = new JButton("Listar Empleado");
+        btnRegistrarEmpleado = new JButton("Registrar Empleado");
         btnListarEmpleados = new JButton("Listar Empleados");
         btnEliminarEmpleado = new JButton("Eliminar Empleado");
         btnActualizarDatos = new JButton("Actualizar Datos");
@@ -128,7 +130,7 @@ public class VentanaEmpleado extends JFrame {
         btnCerrarSesion = new JButton("Cerrar SesiÃ³n"); 
         btnMostrarCatalogo = new JButton("Mostrar CatÃ¡logo");  
         btnGestionarProductos = new JButton("Gestionar Productos"); 
-        btnGestionarProductos = new JButton("Gestionar Productos"); 
+        btnBuscarEmpleado = new JButton("Buscar Empleado"); 
 
         // Ã�rea de Texto y ScrollPane
         txtAreaOutput = new JTextArea(18, 75); 
@@ -156,19 +158,19 @@ public class VentanaEmpleado extends JFrame {
         panelTipo.add(rbDependiente);
         gbcReg.gridx = 0; gbcReg.gridy = 0; gbcReg.gridwidth = 4; gbcReg.fill = GridBagConstraints.HORIZONTAL; 
         gbcReg.anchor = GridBagConstraints.LINE_START;
-        panelRegistroDirector.add(panelTipo, gbcReg); 
+        panelRegistroEmpleado.add(panelTipo, gbcReg); 
         gbcReg.gridwidth = 1; gbcReg.fill = GridBagConstraints.NONE; gbcReg.anchor = GridBagConstraints.WEST; 
-        gbcReg.gridx = 0; gbcReg.gridy = 1; panelRegistroDirector.add(lblId, gbcReg);
-        gbcReg.gridx = 1; gbcReg.gridy = 1; panelRegistroDirector.add(txtId, gbcReg);
-        gbcReg.gridx = 2; gbcReg.gridy = 1; panelRegistroDirector.add(lblNombre, gbcReg);
-        gbcReg.gridx = 3; gbcReg.gridy = 1; panelRegistroDirector.add(txtNombre, gbcReg);
-        gbcReg.gridx = 0; gbcReg.gridy = 2; panelRegistroDirector.add(lblSueldo, gbcReg);
-        gbcReg.gridx = 1; gbcReg.gridy = 2; panelRegistroDirector.add(txtSueldo, gbcReg);
-        gbcReg.gridx = 2; gbcReg.gridy = 2; panelRegistroDirector.add(lblContrasena, gbcReg);
-        gbcReg.gridx = 3; gbcReg.gridy = 2; panelRegistroDirector.add(txtContrasena, gbcReg);
+        gbcReg.gridx = 0; gbcReg.gridy = 1; panelRegistroEmpleado.add(lblId, gbcReg);
+        gbcReg.gridx = 1; gbcReg.gridy = 1; panelRegistroEmpleado.add(txtId, gbcReg);
+        gbcReg.gridx = 2; gbcReg.gridy = 1; panelRegistroEmpleado.add(lblNombre, gbcReg);
+        gbcReg.gridx = 3; gbcReg.gridy = 1; panelRegistroEmpleado.add(txtNombre, gbcReg);
+        gbcReg.gridx = 0; gbcReg.gridy = 2; panelRegistroEmpleado.add(lblSueldo, gbcReg);
+        gbcReg.gridx = 1; gbcReg.gridy = 2; panelRegistroEmpleado.add(txtSueldo, gbcReg);
+        gbcReg.gridx = 2; gbcReg.gridy = 2; panelRegistroEmpleado.add(lblContrasena, gbcReg);
+        gbcReg.gridx = 3; gbcReg.gridy = 2; panelRegistroEmpleado.add(txtContrasena, gbcReg);
         gbcReg.gridx = 0; gbcReg.gridy = 3; gbcReg.gridwidth = 4; gbcReg.anchor = GridBagConstraints.CENTER;
-        panelRegistroDirector.add(btnRegistrarDirector, gbcReg);
-        panelRegistroDirector.setAlignmentX(Component.LEFT_ALIGNMENT); // Alinear panel
+        panelRegistroEmpleado.add(btnRegistrarEmpleado, gbcReg);
+        panelRegistroEmpleado.setAlignmentX(Component.LEFT_ALIGNMENT); // Alinear panel
 
         // Configurar panel de actualizar datos
         GridBagConstraints gbcUpd = new GridBagConstraints();
@@ -185,11 +187,11 @@ public class VentanaEmpleado extends JFrame {
         panelActualizarDatos.setAlignmentX(Component.LEFT_ALIGNMENT); 
 
         // Configurar panel de eliminar
-        panelEliminarDirector.add(lblIdEliminar);
-        panelEliminarDirector.add(txtIdEliminar);
-        panelEliminarDirector.add(btnEliminarEmpleado);
-        panelEliminarDirector.setAlignmentX(Component.LEFT_ALIGNMENT); 
-        panelAccionesGenerales.add(btnListarDirectores);
+        panelEliminarEmpleado.add(lblIdEliminar);
+        panelEliminarEmpleado.add(txtIdEmpleado); // Cambiado de txtIdEliminar a txtIdEmpleado
+        panelEliminarEmpleado.add(btnEliminarEmpleado);
+        panelEliminarEmpleado.add(btnBuscarEmpleado);
+        panelEliminarEmpleado.setAlignmentX(Component.LEFT_ALIGNMENT); 
         panelAccionesGenerales.add(btnListarEmpleados);
         panelAccionesGenerales.add(btnListarClientes); 
         panelAccionesGenerales.add(btnMostrarCatalogo); 
@@ -200,9 +202,9 @@ public class VentanaEmpleado extends JFrame {
         panelAccionesGenerales.setAlignmentX(Component.LEFT_ALIGNMENT); 
 
         // AÃ±adir sub-paneles al panel norte (verticalmente)
-        panelNorte.add(panelRegistroDirector);
+        panelNorte.add(panelRegistroEmpleado);
         panelNorte.add(panelActualizarDatos);
-        panelNorte.add(panelEliminarDirector);
+        panelNorte.add(panelEliminarEmpleado);
         panelNorte.add(panelAccionesGenerales);
 
         // --- Panel Centro ---
@@ -219,7 +221,7 @@ public class VentanaEmpleado extends JFrame {
     // --- InicializaciÃ³n de Listeners --- (Se ha usado Lambda)
     private void initListeners() {
         // --- Registrar Director/Dependiente ---
-        btnRegistrarDirector.addActionListener(e -> {
+        btnRegistrarEmpleado.addActionListener(e -> {
             String id = txtId.getText().trim();
             String nombre = txtNombre.getText().trim();
             char[] contrasenaChars = txtContrasena.getPassword();
@@ -257,7 +259,9 @@ public class VentanaEmpleado extends JFrame {
 
             lblStatus.setText("Registrando empleado...");
             try {
-                controladorEm.registrarEmpleado(id, nombre, sueldo, contrasena, tipoEmpleado);
+                if (controladorEm.registrarEmpleado(id, nombre, sueldo, contrasena, tipoEmpleado)) {
+                	appendOutput("¡Empleado con ID: " + id + " registrado correctamente!");
+                }
                 lblStatus.setText("Proceso de registro finalizado");
                 limpiarCamposRegistro(); 
             } catch (Exception ex) { 
@@ -284,23 +288,56 @@ public class VentanaEmpleado extends JFrame {
                 appendOutput("ERROR: " + ex.getMessage() + "\n"); 
             }
         });
+        
+        btnBuscarEmpleado.addActionListener(e -> {
+            String idBuscar = txtIdEmpleado.getText().trim(); // Cambiado de txtIdEliminar a txtIdEmpleado
+            if (idBuscar.isEmpty()) {
+                appendOutput("ERROR UI: Debe ingresar el ID del empleado a buscar.\n");
+                updateStatus("Error: ID a buscar vacío.");
+                return;
+            }
+            updateStatus("Buscando empleado...");
+            appendOutput("\n--- Buscando empleado con ID: " + idBuscar + " ---\n");
+            try {
+                TEmpleado empleado = controladorEm.buscarEmpleado(idBuscar);
+                if (empleado == null) {
+                    appendOutput("No se encontró ningún empleado con ese ID.\n");
+                } else {
+                    appendOutput(empleado.toString() + "\n");
+                }
+            } catch (Exception ex) {
+                updateStatus("Error: no se pudo encontrar al empleado");
+                appendOutput("ERROR: " + ex.getMessage() + "\n"); 
+            }
+            finally {
+            	updateStatus("Búsqueda finalizada.");
+            	txtIdEmpleado.setText("");
+            }
+        });
 
-         // --- Listar Clientes ---
+        // --- Listar Clientes ---
         btnListarClientes.addActionListener(e -> {
             updateStatus("Listando clientes...");
             appendOutput("\n--- Solicitando listado de clientes ---\n");
             try {
-                //controlador.mostrarTodosLosClientes(); 
-                updateStatus("Listado de clientes mostrado (ver salida).");
+                List<TCliente> clientes = controladorCl.listarClientes();
+                if (clientes.isEmpty()) {
+                    appendOutput("No hay clientes registrados.\n");
+                } else {
+                    for (TCliente cliente : clientes) {
+                        appendOutput(cliente.toString() + "\n");
+                    }
+                }
+                updateStatus("Listado de clientes mostrado.");
             } catch (Exception ex) {
-                updateStatus("Error al listar clientes (ver salida).");
+                updateStatus("Error al listar clientes.");
                 appendOutput("ERROR: " + ex.getMessage() + "\n");
             }
         });
 
         // --- Eliminar Empleado ---
         btnEliminarEmpleado.addActionListener(e -> {
-            String idEliminar = txtIdEliminar.getText().trim();
+            String idEliminar = txtIdEmpleado.getText().trim(); // Cambiado de txtIdEliminar a txtIdEmpleado
             if (idEliminar.isEmpty()) {
                 appendOutput("ERROR UI: Debe ingresar el ID del empleado a eliminar.\n");
                 updateStatus("Error: ID a eliminar vacio."); return;
@@ -323,7 +360,7 @@ public class VentanaEmpleado extends JFrame {
                 }
                 finally{
                     updateStatus("Proceso de eliminación finalizado (ver salida).");
-                    txtIdEliminar.setText("");
+                    txtIdEmpleado.setText(""); 
                 }
             } else {
                 updateStatus("Eliminación cancelada.");

@@ -8,6 +8,7 @@ import integracion.DAOFactura;
 import integracion.DAOFacturaImp;
 
 import negocio.dto.TCliente;
+import negocio.dto.TFactura;
 
 public class SAClienteImp implements SACliente {
 
@@ -39,7 +40,7 @@ public class SAClienteImp implements SACliente {
     }
 
     @Override
-    public List<Object[]> obtenerFacturasCliente(int numSocio) throws Exception {
+    public List<TFactura> obtenerFacturasCliente(int numSocio) throws Exception {
         DAOFactura daoFactura = new DAOFacturaImp();
         return daoFactura.obtenerFacturasPorCliente(numSocio);
     }

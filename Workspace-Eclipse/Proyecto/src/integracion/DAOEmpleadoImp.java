@@ -35,12 +35,12 @@ public class DAOEmpleadoImp implements DAOEmpleado {
             float sueldo = rs.getFloat("sueldo");
             String contrasena = rs.getString("contrasena");
 
-            if (esDirector(conn, id)) {
+            if (isDirector(conn, id)) {
             	String cargo = getCargoDirector(conn, id);
             	
             	empleado = new TDirector(id, nombre, sueldo, contrasena, cargo);
             }
-            else if (esDependiente(conn, id)) {
+            else if (isDependiente(conn, id)) {
             	Float sumVentas = getSumVentas(conn, id);
             	
             	empleado = new TDependiente(id, nombre, sueldo, contrasena, sumVentas);
@@ -98,7 +98,7 @@ public class DAOEmpleadoImp implements DAOEmpleado {
 
 	//Actualiza los datos del empleado, tanto si es Director como si es Dependiente
     @Override
-    public boolean actualizarEmpleado(TEmpleado empleado) {
+    public boolean updateEmpleado(TEmpleado empleado) {
         String sqlEmpleado = "UPDATE Empleado SET nombre = ?, sueldo = ?, contrasena = ? WHERE identificador = ?";
 
         try (Connection conn = BDConexion.getInstance().getConnection();
@@ -136,7 +136,7 @@ public class DAOEmpleadoImp implements DAOEmpleado {
     }
 
 
-    public boolean eliminar(String id){
+    public boolean deleteEmpleado(String id){
         String sqlDirector = "DELETE FROM Director WHERE id = ?";
         String sqlDependiente = "DELETE FROM Dependiente WHERE id = ?";
         String sqlEmpleado = "DELETE FROM Empleado WHERE identificador = ?";
@@ -166,7 +166,7 @@ public class DAOEmpleadoImp implements DAOEmpleado {
 
 	//Obtiene todos los Empleados
     @Override
-    public List<TEmpleado> ListarEmpleados() {
+    public List<TEmpleado> listEmpleados() {
         String sql = "SELECT e.identificador, e.nombre, e.sueldo, e.contrasena, d.cargo, dep.sum_ventas " +
                 		"FROM Empleado e " +
                       	"LEFT JOIN Director d ON e.identificador = d.id " +
@@ -198,7 +198,7 @@ public class DAOEmpleadoImp implements DAOEmpleado {
     }
 
 	@Override
-    public boolean existeEmpleado(String id) {
+    public boolean existEmpleado(String id) {
 		// Devuelve true si existe un empleado con ese id
         String sql = "SELECT 1 FROM Empleado WHERE identificador = ? LIMIT 1";
         try (Connection conn = BDConexion.getInstance().getConnection();
@@ -213,7 +213,7 @@ public class DAOEmpleadoImp implements DAOEmpleado {
         return false;
     }
 	
-	private boolean esDirector(Connection conn, String id) throws SQLException {
+	private boolean isDirector(Connection conn, String id) throws SQLException {
 		String sql = "SELECT * FROM Director WHERE id = ?";
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, id);
@@ -223,7 +223,7 @@ public class DAOEmpleadoImp implements DAOEmpleado {
 		}
 	}
 	
-	private boolean esDependiente(Connection conn, String id) throws SQLException {
+	private boolean isDependiente(Connection conn, String id) throws SQLException {
 		String sql = "SELECT * FROM Dependiente WHERE id = ?";
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, id);
@@ -253,7 +253,7 @@ public class DAOEmpleadoImp implements DAOEmpleado {
 		}
 	}
 
-	public boolean crearFactura(TFactura factura) {
+	public boolean createFactura(TFactura factura) {
 		String sql = "INSERT INTO Factura (codigo, fecha, hora, importe) VALUES (?, ?, ?, ?)";
 
 		try (Connection conn = BDConexion.getInstance().getConnection();

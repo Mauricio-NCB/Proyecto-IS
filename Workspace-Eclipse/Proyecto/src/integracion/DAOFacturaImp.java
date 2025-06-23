@@ -11,8 +11,8 @@ import negocio.dto.TFactura;
 public class DAOFacturaImp implements DAOFactura {
 
     @Override
-    public List<Object[]> obtenerFacturasPorCliente(int numSocio) throws Exception {
-        List<Object[]> resultados = new ArrayList<>();
+    public List<TFactura> obtenerFacturasPorCliente(int numSocio) throws Exception {
+        List<TFactura> resultados = new ArrayList<>();
         String sql = "SELECT codigo, fecha, hora, importe FROM Factura WHERE cliente = ?";
 
         try (Connection conn = BDConexion.getInstance().getConnection();
@@ -22,11 +22,12 @@ public class DAOFacturaImp implements DAOFactura {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                Object[] fila = new Object[4];
-                fila[0] = rs.getString("codigo");
-                fila[1] = rs.getDate("fecha");
-                fila[2] = rs.getString("hora");
-                fila[3] = rs.getFloat("importe");
+                TFactura fila = new TFactura(
+                    rs.getString("codigo"),
+                    rs.getDate("fecha").toLocalDate(),
+                    rs.getTime("hora").toLocalTime(),
+                    rs.getFloat("importe")
+                );
                 resultados.add(fila);
             }
 

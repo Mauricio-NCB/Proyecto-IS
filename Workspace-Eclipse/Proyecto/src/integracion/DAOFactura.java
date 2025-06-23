@@ -5,7 +5,7 @@ import java.util.List;
 import negocio.dto.TFactura;
 
 public interface DAOFactura {
-    List<Object[]> obtenerFacturasPorCliente(int numSocio) throws Exception;
+    List<TFactura> obtenerFacturasPorCliente(int numSocio) throws Exception;
 	void createFactura(TFactura f) throws Exception;
 	void updateFactura(TFactura f);
 	void deleteFactura(String codigoF);

@@ -38,7 +38,7 @@ public class ControladorEmpleado {
 
 	}
 
-	public void registrarEmpleado(String id, String nombre, Float sueldo, String contrasena, String cargo) throws Exception {
+	public boolean registrarEmpleado(String id, String nombre, Float sueldo, String contrasena, String cargo) throws Exception {
 			
 		TEmpleado nuevoEmpleado;
 		
@@ -49,7 +49,7 @@ public class ControladorEmpleado {
 			nuevoEmpleado = new TDependiente(id, nombre, sueldo, HashUtil.hashPassword(contrasena), 0);
 		}
 
-		servicioEmpleado.altaEmpleado(nuevoEmpleado);
+		return servicioEmpleado.altaEmpleado(nuevoEmpleado);
     } 
 	
     public boolean eliminarEmpleado(String id) throws Exception {
@@ -66,6 +66,6 @@ public class ControladorEmpleado {
     }
 
 	public TEmpleado buscarEmpleado(String id) throws Exception {
-		return servicioEmpleado.buscarEmpleado(id);
+		return servicioEmpleado.obtenerEmpleado(id);
 	}
 }

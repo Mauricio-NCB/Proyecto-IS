@@ -31,8 +31,4 @@ public class ControladorDependiente {
             System.out.println("Error al generar la factura");
         }
     }
-    
-    public List<TDependiente> listarDependientes() {
-        return servicioDependiente.listarDependientes();
-    }
 }

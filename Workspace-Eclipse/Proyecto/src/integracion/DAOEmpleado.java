@@ -7,9 +7,9 @@ import negocio.dto.TFactura;
 public interface DAOEmpleado {
 	TEmpleado readEmpleado(String id) throws Exception;
 	boolean createEmpleado(TEmpleado empleado) throws Exception;
-	boolean existeEmpleado(String id);
-	boolean actualizarEmpleado(TEmpleado empleado);
-	boolean eliminar(String id);
-	List<TEmpleado> ListarEmpleados();
-	boolean crearFactura(TFactura factura);
+	boolean existEmpleado(String id);
+	boolean updateEmpleado(TEmpleado empleado);
+	boolean deleteEmpleado(String id);
+	List<TEmpleado> listEmpleados();
+	boolean createFactura(TFactura factura);
 }
