@@ -94,16 +94,6 @@ CREATE TABLE Factura(
     importe FLOAT NOT NULL
 );
 
-CREATE TABLE Linea_venta (
-    venta VARCHAR(50) NOT NULL,
-    producto INT NOT NULL,
-    cantidad INT NOT NULL,
-    precio_unitario FLOAT NOT NULL,
-    PRIMARY KEY (venta, producto),
-    FOREIGN KEY (venta) REFERENCES Venta(codigo) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (producto) REFERENCES Producto(id) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
 CREATE TABLE Venta (
     codigo VARCHAR(50) NOT NULL PRIMARY KEY,
     fecha DATE NOT NULL,
@@ -112,6 +102,16 @@ CREATE TABLE Venta (
     dependiente VARCHAR(20) NOT NULL,
     factura VARCHAR(50) NOT NULL,
     FOREIGN KEY (cliente) REFERENCES Cliente(num_socio) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (dependiente) REFERENCES Empleado(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (dependiente) REFERENCES Empleado(identificador) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (factura) REFERENCES Factura(codigo) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Linea_venta (
+    venta VARCHAR(50) NOT NULL,
+    producto INT NOT NULL,
+    cantidad INT NOT NULL,
+    precio_unitario FLOAT NOT NULL,
+    PRIMARY KEY (venta, producto),
+    FOREIGN KEY (venta) REFERENCES Venta(codigo) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (producto) REFERENCES Producto(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
