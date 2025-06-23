@@ -35,4 +35,20 @@ public class ControladorCliente {
     public List<TFactura> mostrarFacturasCliente(int numSocio) throws Exception {
         return servicioCliente.obtenerFacturasCliente(numSocio);
     }
+    /*public void mostrarFacturasCliente(int numSocio) {
+        List<Object[]> facturas = servicioCliente.obtenerFacturasCliente(numSocio);
+
+        if (facturas.isEmpty()) {
+            System.out.println("Este cliente no tiene facturas.");
+        } else {
+            System.out.println("Facturas del cliente con número de socio: " + numSocio);
+            for (Object[] f : facturas) {
+                System.out.println("Código: " + f[0]
+                    + " | Fecha: " + f[1]
+                    + " | Hora: " + f[2]
+                    + " | Importe: $" + f[3]);
+            }
+        }
+    }*/
+
 }

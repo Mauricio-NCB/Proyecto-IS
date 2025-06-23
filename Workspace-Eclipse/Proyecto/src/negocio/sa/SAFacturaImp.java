@@ -21,83 +21,58 @@ public class SAFacturaImp implements SAFactura {
 	DAOFactura daoFactura = new DAOFacturaImp();
 	
 	@Override
-	public void crearFactura(int idCliente, String idDependiente, List<Object[]> productosConCantidad) throws Exception {
+	public void crearFactura(TFactura factura) throws Exception {
 		// TODO Auto-generated method stub
-
-		List<TCliente> clientes = saCliente.getAllClientes(); 
-		boolean existeCliente = clientes.stream().anyMatch(c -> c.getNumSocio() == idCliente);
-
-		if (!existeCliente) throw new Exception("El cliente con ID " + idCliente + " no existe.");
-
-		
-		TDependiente dependiente = (TDependiente) saEmpleado.obtenerEmpleado(idDependiente); 
-
-		if (dependiente == null) throw new Exception("El dependiente con ID " + idDependiente + " no existe.");
-
-		// Validaciï¿½n de stock
-		for (Object[] par : productosConCantidad) {
-			TProducto producto = (TProducto) par[0];
-			int cantidad = (int) par[1];
-
-			if (producto.getStock() < cantidad)
-				throw new Exception("No hay suficiente stock para el producto con ID " + producto.getID());
-		}
-
-		// Calcular total e insertar factura
-		float total = 0f;
-		for (Object[] par : productosConCantidad) {
-			TProducto producto = (TProducto) par[0];
-			int cantidad = (int) par[1];
-			total += producto.getPrecio() * cantidad;
-		}
-
-		TFactura f = new TFactura();
-		f.setCodigo(UUID.randomUUID().toString());
-		f.setFecha(LocalDate.now());
-		f.setHora(LocalTime.now());
-		f.setImporte(total);
-
-		TCliente cliente = clientes.stream()
-		    .filter(c -> c.getNumSocio() == idCliente)
-		    .findFirst().orElseThrow(() -> new Exception("Cliente no encontrado"));
-		f.setTiene(cliente);
-
-		f.setDependientes(dependiente.getNombre());
-
-		daoFactura.createFactura(f);
-
-		// Descontar stock
-		for (Object[] par : productosConCantidad) {
-			TProducto producto = (TProducto) par[0];
-			int cantidad = (int) par[1];
-			producto.setStock(producto.getStock() - cantidad);
-			daoProducto.updateProducto(producto);
-
-		}
+		daoFactura.createFactura(factura);
 	}
 
 	@Override
 	public void actualizarFactura(TFactura factura) throws Exception {
 		// TODO Auto-generated method stub
+		TFactura f = daoFactura.readFactura(factura.getCodigo());
+		
+		if (f == null) throw new Exception("No existe ninguna factura con identificador: " + factura.getCodigo());
+		if (factura.getFecha() == null) throw new IllegalArgumentException("La fecha no puede estar vacía"); 
+		if (factura.getHora() == null) throw new IllegalArgumentException("La hora no puede estar vacía"); 
+		if (factura.getImporte() < 0) throw new IllegalArgumentException("El importe no puede ser negativo"); 
+		
 		daoFactura.updateFactura(factura);
 	}
 
 	@Override
 	public void eliminarFactura(String codigoFactura) throws Exception {
 		// TODO Auto-generated method stub
+		TFactura factura = daoFactura.readFactura(codigoFactura);
+		
+		if (factura == null) {
+			throw new Exception("No existe ninguna factura con identificador" + codigoFactura);
+		}
+		
 		daoFactura.deleteFactura(codigoFactura);
 	}
 
 	@Override
 	public TFactura obtenerFactura(String codigoFactura) throws Exception {
 		// TODO Auto-generated method stub
-		return daoFactura.readFactura(codigoFactura);
+		TFactura factura = daoFactura.readFactura(codigoFactura);
+
+		if (factura == null) {
+			throw new Exception("No existe ninguna factura con identificador: " + codigoFactura);
+		}
+		
+		return factura;
 	}
 
 	@Override
-	public List<TFactura> obtenerFacturas() {
+	public List<TFactura> obtenerFacturas() throws Exception {
 		// TODO Auto-generated method stub
-		return daoFactura.readAllFacturas();
+		List<TFactura> facturas = daoFactura.readAllFacturas();
+		
+		if (facturas == null || facturas.isEmpty()) {
+			throw new Exception("No se encontraron facturas registradas");
+		}
+		
+		return facturas;
 	}
 	
 }

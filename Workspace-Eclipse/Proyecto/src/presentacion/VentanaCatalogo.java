@@ -122,7 +122,7 @@ public class VentanaCatalogo extends JFrame{
 				if (seleccionados.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "No has seleccionado ninguna cantidad.");
 				} else {
-					new VentanaFactura(seleccionados);
+					new VentanaVenta();
 					dispose();
 				}
 			}

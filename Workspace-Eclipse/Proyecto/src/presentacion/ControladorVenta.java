@@ -52,10 +52,10 @@ public class ControladorVenta {
         }
     }
   
-    public boolean añadirProducto(String codigoVenta, TProducto producto, int cantidad) {
+    public boolean anadirProducto(String codigoVenta, TProducto producto, int cantidad) {
         try {
             TLineaVenta linea = new TLineaVenta(producto, cantidad);
-            servicioVenta.añadirProducto(codigoVenta, linea);
+            servicioVenta.anadirProducto(codigoVenta, linea);
             System.out.println("Producto añadido con éxito");
             return true;
         } catch (Exception e) {

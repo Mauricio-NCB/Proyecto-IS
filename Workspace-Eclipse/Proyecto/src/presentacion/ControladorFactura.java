@@ -23,8 +23,8 @@ public class ControladorFactura {
 		return instancia;
 	}
 
-	public void nuevaFactura(int idCliente, String idDependiente, List<Object[]> productosConCantidad) throws Exception {
-		servicioFactura.crearFactura(idCliente, idDependiente, productosConCantidad);
+	public void nuevaFactura(TFactura factura) throws Exception {
+		servicioFactura.crearFactura(factura);
 	}
 	
 	public void modificarFactura(TFactura factura) throws Exception {
@@ -36,10 +36,10 @@ public class ControladorFactura {
 	}
 	
 	public TFactura consultarFactura(String codigoFactura) throws Exception {
-		return servicioFactura.leerFactura(codigoFactura);
+		return servicioFactura.obtenerFactura(codigoFactura);
 	}
 	
-	public List<TFactura> consultarFacturas() {
-		return servicioFactura.leerFacturas();
+	public List<TFactura> consultarFacturas() throws Exception {
+		return servicioFactura.obtenerFacturas();
 	}
 }

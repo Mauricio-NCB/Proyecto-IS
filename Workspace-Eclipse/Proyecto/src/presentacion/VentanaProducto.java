@@ -235,7 +235,14 @@ public class VentanaProducto extends JDialog {
 
     // Listeners
     private void mostrarCatalogo() {
-        List<TProducto> listaProductos = ControladorProducto.getInstance().listarProductos();
+        List<TProducto> listaProductos = null;
+        
+		try {
+			listaProductos = ControladorProducto.getInstance().listarProductos();
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(null, ex.getMessage());
+		}
+		
         new VentanaCatalogo(listaProductos).setVisible(true);
     }
 

@@ -10,7 +10,6 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -40,7 +39,7 @@ public class VentanaDependiente extends JFrame {
 		panelBotones.setLayout(new BoxLayout(panelBotones, BoxLayout.X_AXIS));
 		panelBotones.setBorder(BorderFactory.createEmptyBorder(20, 100, 20, 100)); // Espaciado interno
 
-		JButton btnVenta = new JButton("Nueva venta");
+		JButton btnVenta = new JButton("Gestión ventas");
 		JButton btnListarFacturas = new JButton("Listar facturas");
 
 
@@ -53,15 +52,22 @@ public class VentanaDependiente extends JFrame {
 		btnVenta.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				List<TProducto> listaProductos = ControladorProducto.getInstance().listarProductos();
-				new VentanaCatalogo(listaProductos).setVisible(true);
+				
+				new VentanaVenta().setVisible(true);
 			}
 			
 		});
 		
 		btnListarFacturas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				List<TFactura> listaFacturas = ControladorFactura.getInstance().consultarFacturas();
+				List<TFactura> listaFacturas = null;
+				
+				try {
+					listaFacturas = ControladorFactura.getInstance().consultarFacturas();
+				} catch (Exception ex) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null, ex.getMessage());
+				}
 				new VentanaListaFacturas(listaFacturas).setVisible(true);
 			}
 		});

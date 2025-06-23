@@ -7,17 +7,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import negocio.dto.TCamiseta;
 import negocio.dto.TCliente;
 import negocio.dto.TDependiente;
+import negocio.dto.TEntrada;
 import negocio.dto.TFactura;
+import negocio.dto.TJuguete;
 import negocio.dto.TLineaVenta;
+import negocio.dto.TPoster;
 import negocio.dto.TProducto;
 import negocio.dto.TVenta;
 
 public class DAOVentaImp implements DAOVenta{
 
-	
-	private List<TVenta> ventas = new ArrayList<>(); 
+
 	@Override
 	public void crearVenta(TVenta venta) throws Exception {
         String sqlVenta = "INSERT INTO Ventas (codigo, fecha, hora, id_cliente, id_dependiente) VALUES (?, ?, ?, ?, ?)";
@@ -74,7 +77,7 @@ public class DAOVentaImp implements DAOVenta{
 	            pstmt.setString(6, venta.getCodigo());
 
 	            if (pstmt.executeUpdate() == 0) {
-	                throw new SQLException("No se actualizÃ³ ninguna venta");
+	                throw new SQLException("No se actualizó ninguna venta");
 	            }
 	        }
 	}
@@ -120,8 +123,7 @@ public class DAOVentaImp implements DAOVenta{
 
            String codigoFactura = rs.getString("codigo_factura");
            if (codigoFactura != null) {
-               TFactura factura = new TFactura();
-               factura.setCodigo(codigoFactura);
+               TFactura factura = new TFactura(codigoFactura, rs.getDate("fecha").toLocalDate(), rs.getTime("hora").toLocalTime(), rs.getFloat("Importe"));
                venta.setFactura(factura);
            }
 
@@ -164,13 +166,56 @@ public class DAOVentaImp implements DAOVenta{
             ResultSet rs = stmt.executeQuery();
             
             while (rs.next()) {
-                TProducto producto = new TProducto(
-                    rs.getInt("id"),
-                    rs.getString("nombre"),
-                    rs.getString("descripcion"),
-                    rs.getDouble("precio"),
-                    rs.getInt("stock")
-                );
+            	 TProducto producto;
+                 String tipoProducto = rs.getString("tipo"); 
+                 switch(tipoProducto) {
+                 case "CAMISETA":
+                     producto = new TCamiseta(
+                         rs.getInt("id"),
+                         rs.getString("nombre"),
+                         rs.getFloat("precio"),
+                         rs.getInt("stock"),
+                         rs.getInt("talla"),
+                         rs.getString("dorsal"),
+                         rs.getInt("numero")
+                     );
+                     break;
+                 case "ENTRADA":
+                     producto = new TEntrada(
+                         rs.getInt("id"),
+                         rs.getString("nombre"),
+                         rs.getFloat("precio"),
+                         rs.getInt("stock"),
+                         rs.getDate("fecha_evento"),
+                         rs.getString("hora_evento"),
+                         rs.getString("ubicacion"), 
+                         rs.getString("numAsiento"), 
+                         rs.getString("partido")
+                     );
+                     break;
+                 case "POSTER":
+                	 producto = new TPoster(
+                             rs.getInt("id"),
+                             rs.getString("nombre"),
+                             rs.getFloat("precio"),
+                             rs.getInt("stock"),
+                             rs.getString("tamano")
+                         );
+                	 break;
+                 case "JUGUETE":
+                	 producto = new TJuguete(
+                             rs.getInt("id"),
+                             rs.getString("nombre"),
+                             rs.getFloat("precio"),
+                             rs.getInt("stock"),
+                             rs.getString("tipo"),
+                             rs.getString("tamano")
+                         );
+                	 break;
+                
+                 default:
+                     throw new SQLException("Tipo de producto desconocido: " + tipoProducto);
+             }
                 
                 TLineaVenta linea = new TLineaVenta(
                     producto,

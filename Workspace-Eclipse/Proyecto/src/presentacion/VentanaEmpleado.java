@@ -428,7 +428,15 @@ public class VentanaEmpleado extends JFrame {
 
         // --- Mostrar Productos ---
         btnMostrarCatalogo.addActionListener(e -> {
-			List<TProducto> listaProductos = ControladorProducto.getInstance().listarProductos();
+			List<TProducto> listaProductos = null;
+			
+			try {
+				listaProductos = ControladorProducto.getInstance().listarProductos();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 			new VentanaCatalogo(listaProductos).setVisible(true);
         });
 

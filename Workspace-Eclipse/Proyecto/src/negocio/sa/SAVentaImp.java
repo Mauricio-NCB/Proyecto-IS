@@ -36,7 +36,7 @@ public class SAVentaImp implements SAVenta{
 	public void abrirVenta(int idCliente, String idDependiente, List<TLineaVenta> listaProductos) throws Exception {
 		
 
-		List<TCliente> clientes = saCliente.getAllClientes(); 
+		List<TCliente> clientes = saCliente.listarClientes(); 
 		boolean existeCliente = clientes.stream().anyMatch(c -> c.getNumSocio() == idCliente);
 		if (!existeCliente) throw new Exception("El cliente con ID " + idCliente + " no existe.");
 		
@@ -45,13 +45,12 @@ public class SAVentaImp implements SAVenta{
 
 		if (!existeDep) throw new Exception("El dependiente con ID " + idDependiente + " no existe.");
 		
-		
-		
         for (TLineaVenta linea : listaProductos) {
-       	 	TProducto producto;
+       	 	TProducto producto = null;
             for (TProducto p: daoProducto.obtenerTodosLosProductos()) {
-            	if (p.getID() == producto.getID()) {
+            	if (p.getID() == linea.getProducto().getID()) {
             		producto = p;
+            		
             	}
             }
             if (producto == null) {
@@ -61,6 +60,7 @@ public class SAVentaImp implements SAVenta{
                 throw new Exception("Stock insuficiente para producto: " + producto.getNombre());
             }
         }
+        
         TCliente cliente = clientes.stream().filter(c -> c.getNumSocio() == idCliente)
     		    .findFirst().orElseThrow(() -> new Exception("Cliente no encontrado"));
     	
@@ -95,29 +95,17 @@ public class SAVentaImp implements SAVenta{
         }
 
         // Generar factura 
-        TFactura factura = new TFactura();
-        factura.setCodigo(UUID.randomUUID().toString());
-        factura.setFecha(LocalDate.now());
-        factura.setHora(LocalTime.now());
-        factura.setImporte((float) venta.getImporteTotal());
-        factura.setTiene(venta.getTiene());
-        factura.setDependientes(venta.getDependiente());
-
-        saFactura.crearFactura(venta.getTiene().getNumSocio(), 
-                              venta.getDependiente().getIdentificador(), 
-                              venta.getLineasVenta().stream()
-                                  .map(lv -> new Object[]{lv.getProducto(), lv.getCantidad()})
-                                  .toList());
-
-       
+        TFactura factura = new TFactura(UUID.randomUUID().toString(), LocalDate.now(), LocalTime.now(), (float) venta.getImporteTotal());
+        saFactura.crearFactura(factura);
+        
         venta.setFactura(factura);
         daoVenta.actualizarVenta(venta);
     }
 		
-	}
+	
 
 	@Override
-	public void a√±adirProducto(String idVenta, TLineaVenta lineaVenta) throws Exception {
+	public void anadirProducto(String idVenta, TLineaVenta lineaVenta) throws Exception {
 		
         TVenta venta = daoVenta.obtenerVenta(idVenta);
         if (venta == null) {
@@ -127,10 +115,10 @@ public class SAVentaImp implements SAVenta{
       
         TProducto producto = lineaVenta.getProducto();
         if (producto == null) {
-            throw new Exception("Producto no v√°lido");
+            throw new Exception("Producto no v·lido");
         }
 
-        TProducto productoBD;
+        TProducto productoBD = null;
         for (TProducto p: daoProducto.obtenerTodosLosProductos()) {
         	if (p.getID() == producto.getID()) {
         		productoBD = p;
@@ -144,7 +132,7 @@ public class SAVentaImp implements SAVenta{
             throw new Exception("Stock insuficiente para producto: " + productoBD.getNombre());
         }
 
-        // A√±adir l√≠nea de venta
+        // AÒadir lÌnea de venta
         venta.addLineaVenta(lineaVenta);
         daoVenta.actualizarVenta(venta);
 		
@@ -160,8 +148,13 @@ public class SAVentaImp implements SAVenta{
 	}
 
 	@Override
-	public List<TVenta> obtenerventas() {
-		 return daoVenta.obtenerTodasVentas();
+	public List<TVenta> obtenerventas() throws Exception {
+		List<TVenta> ventas = daoVenta.obtenerTodasVentas();
+		if (ventas == null) {
+			throw new Exception("No se encontraron ventas registradas.");
+		}
+		return ventas;
 	}
 
 }
+

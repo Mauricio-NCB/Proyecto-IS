@@ -26,7 +26,6 @@ public class VentanaListaFacturas extends JFrame {
 			datos[i][1] = f.getFecha().toString();
 			datos[i][2] = f.getHora().toString();
 			datos[i][3] = String.valueOf(f.getImporte());
-			datos[i][4] = f.getTiene().getNombre();
 		}
 
 		JTable tabla = new JTable(datos, columnas);
