@@ -11,6 +11,7 @@ import integracion.DAOVenta;
 import integracion.DAOVentaImp;
 import negocio.dto.TCliente;
 import negocio.dto.TDependiente;
+import negocio.dto.TEmpleado;
 import negocio.dto.TFactura;
 import negocio.dto.TLineaVenta;
 import negocio.dto.TProducto;
@@ -21,14 +22,14 @@ public class SAVentaImp implements SAVenta{
 	 	private DAOVenta daoVenta;
 	    private DAOProducto daoProducto;
 	    private SACliente saCliente;
-	    private SADependiente saDependiente;
+	    private SAEmpleado saEmpleado;
 	    private SAFactura saFactura;
 
 	    public SAVentaImp() {
 	    	daoVenta = new DAOVentaImp();
 	    	daoProducto = new DAOProductoImp();
 	    	saCliente = new SAClienteImp();
-	    	saDependiente = new SADependienteImp();
+	    	saEmpleado = new SAEmpleadoImp();
 	    	saFactura = new SAFacturaImp();
 	    }
 
@@ -40,8 +41,8 @@ public class SAVentaImp implements SAVenta{
 		boolean existeCliente = clientes.stream().anyMatch(c -> c.getNumSocio() == idCliente);
 		if (!existeCliente) throw new Exception("El cliente con ID " + idCliente + " no existe.");
 		
-		List<TDependiente> dependientes = saDependiente.listarDependientes();
-		boolean existeDep = dependientes.stream().anyMatch(d -> d.getIdentificador().equals(idDependiente));
+		List<TEmpleado> empleados = saEmpleado.mostrarEmpleados();
+		boolean existeDep = empleados.stream().anyMatch(d -> d.getIdentificador().equals(idDependiente));
 
 		if (!existeDep) throw new Exception("El dependiente con ID " + idDependiente + " no existe.");
 		
@@ -65,10 +66,15 @@ public class SAVentaImp implements SAVenta{
     		    .findFirst().orElseThrow(() -> new Exception("Cliente no encontrado"));
     	
 
-		TDependiente dep = dependientes.stream().filter(d -> d.getIdentificador().equals(idDependiente))
+		TEmpleado empleado = empleados.stream().filter(d -> d.getIdentificador().equals(idDependiente))
     		    .findFirst().orElseThrow(() -> new Exception("Dependiente no encontrado"));
     		
-        
+		if (!(empleado instanceof TDependiente)) {
+		    throw new Exception("El empleado con ID " + idDependiente + " no es un dependiente.");
+		}
+		
+		TDependiente dep = (TDependiente) empleado;
+         
         String codigo = UUID.randomUUID().toString();
         TVenta venta = new TVenta(codigo, LocalDate.now(), LocalTime.now(),cliente,dep);
         

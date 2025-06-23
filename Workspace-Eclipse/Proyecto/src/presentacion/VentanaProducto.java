@@ -65,7 +65,7 @@ public class VentanaProducto extends JDialog {
         tabbedPane.addTab("Entradas", panelEntrada);
         tabbedPane.addTab("Juguetes", panelJuguete);
         tabbedPane.addTab("Posters", panelPoster);
-        tabbedPane.addTab("Catálogo", panelCatalogo);
+        tabbedPane.addTab("Catalogo", panelCatalogo);
 
         add(tabbedPane);
 
@@ -81,7 +81,7 @@ public class VentanaProducto extends JDialog {
         gbc.insets = new Insets(4, 4, 4, 4);
         gbc.anchor = GridBagConstraints.WEST;
         lblId = new JLabel("ID (a eliminar):");      txtEliminarField = new JTextField(5);
-        btnMostrarCatalogo = new JButton("Catálogo"); btnElimButton = new JButton("Eliminar Producto");
+        btnMostrarCatalogo = new JButton("Catalogo"); btnElimButton = new JButton("Eliminar Producto");
         gbc.gridx=-2; gbc.gridy=0; panel.add(lblId, gbc);
         gbc.gridx=-1; gbc.gridy=0; panel.add(txtEliminarField, gbc);
         gbc.gridx=0; gbc.gridy=4; gbc.gridwidth=2; gbc.anchor=GridBagConstraints.CENTER; panel.add(btnElimButton, gbc);
@@ -98,13 +98,13 @@ public class VentanaProducto extends JDialog {
         gbc.anchor = GridBagConstraints.WEST;
 
         // Labels y TextFields para Camiseta
-        lblId = new JLabel("ID (sólo actualizar):");          txtCamisetaId = new JTextField(5);
+        lblId = new JLabel("ID (solo actualizar):");          txtCamisetaId = new JTextField(5);
         lblNombre = new JLabel("Nombre:");                    txtCamisetaNombre = new JTextField(15);
         lblPrecio = new JLabel("Precio:");                    txtCamisetaPrecio = new JTextField(7);
         lblStock = new JLabel("Stock:");                      txtCamisetaStock = new JTextField(5);
-        lblTalla = new JLabel("Talla (número):");             txtCamisetaTalla = new JTextField(5);
+        lblTalla = new JLabel("Talla (numero):");             txtCamisetaTalla = new JTextField(5);
         lblDorsal = new JLabel("Dorsal (nombre):");           txtCamisetaDorsal = new JTextField(12);
-        lblNumero = new JLabel("Número (jugador):");          txtCamisetaNumero = new JTextField(5);
+        lblNumero = new JLabel("Numero (jugador):");          txtCamisetaNumero = new JTextField(5);
         btnRegCamiseta = new JButton("Registrar Camiseta"); btnUpdCamiseta = new JButton("Actualizar Camiseta");
 
         // Fila 0
@@ -143,14 +143,14 @@ public class VentanaProducto extends JDialog {
          gbc.anchor = GridBagConstraints.WEST;
 
         // Labels y TextFields
-        lblId = new JLabel("ID (sólo actualizar):");      txtEntradaId = new JTextField(5);
+        lblId = new JLabel("ID (solo actualizar):");      txtEntradaId = new JTextField(5);
         lblNombre = new JLabel("Nombre Evento:");        txtEntradaNombre = new JTextField(15);
         lblPrecio = new JLabel("Precio:");                txtEntradaPrecio = new JTextField(7);
         lblStock = new JLabel("Stock:");                  txtEntradaStock = new JTextField(5);
         lblFecha = new JLabel("Fecha (YYYY-MM-DD):");    txtEntradaFecha = new JTextField(10);
         lblHora = new JLabel("Hora (HH:MM):");          txtEntradaHora = new JTextField(5);
-        lblUbicacion = new JLabel("Ubicación:");          txtEntradaUbicacion = new JTextField(12);
-        lblAsiento = new JLabel("Nº Asiento:");          txtEntradaAsiento = new JTextField(8);
+        lblUbicacion = new JLabel("Ubicacion:");          txtEntradaUbicacion = new JTextField(12);
+        lblAsiento = new JLabel("N� Asiento:");          txtEntradaAsiento = new JTextField(8);
         lblPartido = new JLabel("Partido/Detalle:");      txtEntradaPartido = new JTextField(15);
         btnRegEntrada = new JButton("Registrar Entrada"); btnUpdEntrada = new JButton("Actualizar Entrada");
 
@@ -180,12 +180,12 @@ public class VentanaProducto extends JDialog {
          gbc.anchor = GridBagConstraints.WEST;
 
         // Labels y TextFields 
-        lblId = new JLabel("ID (sólo actualizar):");  txtJugueteId = new JTextField(5);
+        lblId = new JLabel("ID (solo actualizar):");  txtJugueteId = new JTextField(5);
         lblNombre = new JLabel("Nombre:");            txtJugueteNombre = new JTextField(15);
         lblPrecio = new JLabel("Precio:");            txtJuguetePrecio = new JTextField(7);
         lblStock = new JLabel("Stock:");              txtJugueteStock = new JTextField(5);
         lblTipo = new JLabel("Tipo:");                txtJugueteTipo = new JTextField(10);
-        lblTamano = new JLabel("Tamaño:");            txtJugueteTamano = new JTextField(10);
+        lblTamano = new JLabel("Tamano:");            txtJugueteTamano = new JTextField(10);
         btnRegJuguete = new JButton("Registrar Juguete"); btnUpdJuguete = new JButton("Actualizar Juguete");
 
         gbc.gridx=0; gbc.gridy=0; panel.add(lblId, gbc); gbc.gridx=1; panel.add(txtJugueteId, gbc);
@@ -211,11 +211,11 @@ public class VentanaProducto extends JDialog {
          gbc.anchor = GridBagConstraints.WEST;
 
         // Labels y TextFields 
-        lblId = new JLabel("ID (sólo actualizar):");  txtPosterId = new JTextField(5);
+        lblId = new JLabel("ID (solo actualizar):");  txtPosterId = new JTextField(5);
         lblNombre = new JLabel("Nombre:");            txtPosterNombre = new JTextField(15);
         lblPrecio = new JLabel("Precio:");            txtPosterPrecio = new JTextField(7);
         lblStock = new JLabel("Stock:");              txtPosterStock = new JTextField(5);
-        lblTamano = new JLabel("Tamaño:");            txtPosterTamano = new JTextField(10);
+        lblTamano = new JLabel("Tamano:");            txtPosterTamano = new JTextField(10);
         btnRegPoster = new JButton("Registrar Poster"); btnUpdPoster = new JButton("Actualizar Poster");
 
         gbc.gridx=0; gbc.gridy=0; panel.add(lblId, gbc); gbc.gridx=1; panel.add(txtPosterId, gbc);
@@ -262,7 +262,9 @@ public class VentanaProducto extends JDialog {
                 System.out.print("Eliminando producto...");
                 System.out.print("\n--- Solicitando eliminaci�n del producto ID: " + idEliminar + " ---\n");
                 try {
-                    controlador.deleteProducto(idEliminar); 
+                	int id = Integer.parseInt(idEliminar.trim());
+                	
+                    controlador.deleteProducto(id); 
                     System.out.print("Proceso de eliminaci�n finalizado (ver salida).");
                     txtEliminarField.setText("");
                 } catch (Exception ex) {
@@ -356,6 +358,8 @@ public class VentanaProducto extends JDialog {
         }
         else {
             try {
+            	System.out.println("\nIntentando registrar nueva Entrada...");
+            	
                 // Parsear fecha (el controlador también valida formato)
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 sdf.setLenient(false);
@@ -421,11 +425,24 @@ public class VentanaProducto extends JDialog {
          String stockStr = txtJugueteStock.getText().trim();
          String tipo = txtJugueteTipo.getText().trim();
          String tamano = txtJugueteTamano.getText().trim();
-         try {
-             controlador.registrarJuguete(nombre, precioStr, stockStr, tipo, tamano);
-             JOptionPane.showMessageDialog(this, "Solicitud de registro de juguete enviada.", "Registro Iniciado", JOptionPane.INFORMATION_MESSAGE);
-         } catch (Exception ex) {
-              JOptionPane.showMessageDialog(this, "Error al registrar juguete:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+         
+         if (nombre.isEmpty() || precioStr.isEmpty() || stockStr.isEmpty() || tipo.isEmpty() || tamano.isEmpty()) {
+        	 System.err.println("Introducir datos v�lidos para la entrada");
+         }
+         else {
+	         try {
+	        	 System.out.println("\nIntentando registrar nuevo Juguete...");
+	        	 
+	        	 float precio = Float.parseFloat(precioStr);
+	        	 int stock = Integer.parseInt(stockStr);
+	        	 
+	             controlador.registrarJuguete(nombre, precio, stock, tipo, tamano);
+	             JOptionPane.showMessageDialog(this, "Solicitud de registro de juguete enviada.", "Registro Iniciado", JOptionPane.INFORMATION_MESSAGE);
+	         } catch (NumberFormatException e) {
+	             	  System.err.println("Error: Formato de precio o stock inv�lido.");
+	         } catch (Exception ex) {
+	              JOptionPane.showMessageDialog(this, "Error al registrar juguete:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+	         }
          }
      }
 
@@ -436,13 +453,24 @@ public class VentanaProducto extends JDialog {
          String stockStr = txtJugueteStock.getText().trim();
          String tipo = txtJugueteTipo.getText().trim();
          String tamano = txtJugueteTamano.getText().trim();
-         if (idStr.isEmpty()) { JOptionPane.showMessageDialog(this, "ID requerido.", "Error", JOptionPane.WARNING_MESSAGE); return; }
-         try {
-             // La llamada a actualizarJuguete debe existir en el controlador
-             controlador.actualizarJuguete(idStr, nombre, precioStr, stockStr, tipo, tamano); // NECESITAS ESTE MÉTODO EN ControladorDirector
-             JOptionPane.showMessageDialog(this, "Solicitud de actualización de juguete enviada.", "Actualización Iniciada", JOptionPane.INFORMATION_MESSAGE);
-         } catch (Exception ex) {
-              JOptionPane.showMessageDialog(this, "Error al actualizar juguete:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+         
+         if (idStr.isEmpty() || nombre.isEmpty() || precioStr.isEmpty() || stockStr.isEmpty() || tipo.isEmpty() || tamano.isEmpty()) {       	 
+        	 System.err.println("Introducir datos v�lidos para la entrada");
+         }
+         else {
+	         try {
+	        	 System.out.println("\nIntentando actualizar nuevo Juguete...");
+	        	 
+	        	 int id = Integer.parseInt(idStr);
+	        	 float precio = Float.parseFloat(precioStr);
+	        	 int stock = Integer.parseInt(stockStr);
+	        	 
+	             // La llamada a actualizarJuguete debe existir en el controlador
+	             controlador.actualizarJuguete(id, nombre, precio, stock, tipo, tamano); // NECESITAS ESTE MÉTODO EN ControladorDirector
+	             JOptionPane.showMessageDialog(this, "Solicitud de actualización de juguete enviada.", "Actualización Iniciada", JOptionPane.INFORMATION_MESSAGE);
+	         } catch (Exception ex) {
+	              JOptionPane.showMessageDialog(this, "Error al actualizar juguete:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+	         }
          }
      }
 
@@ -451,11 +479,22 @@ public class VentanaProducto extends JDialog {
          String precioStr = txtPosterPrecio.getText().trim();
          String stockStr = txtPosterStock.getText().trim();
          String tamano = txtPosterTamano.getText().trim();
-         try {
-             controlador.registrarPoster(nombre, precioStr, stockStr, tamano);
-             JOptionPane.showMessageDialog(this, "Solicitud de registro de poster enviada.", "Registro Iniciado", JOptionPane.INFORMATION_MESSAGE);
-         } catch (Exception ex) {
-              JOptionPane.showMessageDialog(this, "Error al registrar poster:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+         
+         if (nombre.isEmpty() || precioStr.isEmpty() || stockStr.isEmpty() || tamano.isEmpty()) {
+        	 System.err.println("Introducir datos v�lidos para la entrada");
+         }
+         else {
+        	 try {
+        		 System.out.println("\nIntentando registrar nuevo Poster...");
+        		 
+        		 float precio = Float.parseFloat(precioStr);
+        		 int stock = Integer.parseInt(stockStr);
+        		 
+                 controlador.registrarPoster(nombre, precio, stock, tamano);
+                 JOptionPane.showMessageDialog(this, "Solicitud de registro de poster enviada.", "Registro Iniciado", JOptionPane.INFORMATION_MESSAGE);
+             } catch (Exception ex) {
+                  JOptionPane.showMessageDialog(this, "Error al registrar poster:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+             }
          }
      }
 
@@ -465,12 +504,23 @@ public class VentanaProducto extends JDialog {
         String precioStr = txtPosterPrecio.getText().trim();
         String stockStr = txtPosterStock.getText().trim();
         String tamano = txtPosterTamano.getText().trim();
-        if (idStr.isEmpty()) { JOptionPane.showMessageDialog(this, "ID requerido.", "Error", JOptionPane.WARNING_MESSAGE); return; }
-        try {
-            controlador.actualizarPoster(idStr, nombre, precioStr, stockStr, tamano);
-            JOptionPane.showMessageDialog(this, "Solicitud de actualización de poster enviada.", "Actualización Iniciada", JOptionPane.INFORMATION_MESSAGE);
-        } catch (Exception ex) {
-             JOptionPane.showMessageDialog(this, "Error al actualizar poster:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        
+        if (idStr.isEmpty() || nombre.isEmpty() || precioStr.isEmpty() || stockStr.isEmpty() || tamano.isEmpty()) {
+        	System.err.println("Introducir datos v�lidos para la entrada");
+        }
+        else {
+            try {
+            	System.out.println("\nIntentando actualizar nuevo Poster...");
+            	
+            	int id = Integer.parseInt(idStr);
+            	float precio = Float.parseFloat(precioStr);
+       		 	int stock = Integer.parseInt(stockStr);
+            	
+                controlador.actualizarPoster(id, nombre, precio, stock, tamano);
+                JOptionPane.showMessageDialog(this, "Solicitud de actualización de poster enviada.", "Actualización Iniciada", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception ex) {
+                 JOptionPane.showMessageDialog(this, "Error al actualizar poster:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
      }
 
