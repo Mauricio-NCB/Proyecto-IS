@@ -13,6 +13,8 @@ TRUNCATE TABLE Director;
 TRUNCATE TABLE Dependiente;
 TRUNCATE TABLE Cliente;
 TRUNCATE TABLE Factura;
+TRUNCATE TABLE Venta;
+TRUNCATE TABLE Linea_venta;
 SET FOREIGN_KEY_CHECKS=1;
 
 -- Productos
@@ -53,6 +55,15 @@ INSERT INTO Cliente (nombre, direccion, correo) VALUES
 ('Carlos Sánchez', 'Calle Fútbol 10', 'carlos@email.com'), 
 ('Ana Torres', 'Avenida Gol 20', 'ana@email.com');
 
+-- Ventas
+INSERT INTO Venta (codigo, fecha, hora, cliente, dependiente, factura) VALUES 
+('VEN001', '2025-03-25', '15:30:00', 1, 'EMP002', 'FAC001');
+
+--Lineas de venta
+INSERT INTO Linea_venta (venta, producto, cantidad, precio_unitario) VALUES 
+('VEN001', 1, 2, 79.99),
+('VEN001', 2, 1, 29.99);
+
 -- Facturas
-INSERT INTO Factura (codigo, fecha, hora, importe, cliente, dependiente) VALUES 
-('FAC001', '2025-03-25', '15:30:00', 159.99, 1, 'EMP002');
+INSERT INTO Factura (codigo, fecha, hora, importe) VALUES 
+('FAC001', '2025-03-25', '15:30:00', 159.99);

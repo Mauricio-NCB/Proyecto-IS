@@ -23,8 +23,8 @@ public class DAOVentaImp implements DAOVenta{
 
 	@Override
 	public void crearVenta(TVenta venta) throws Exception {
-        String sqlVenta = "INSERT INTO Ventas (codigo, fecha, hora, id_cliente, id_dependiente) VALUES (?, ?, ?, ?, ?)";
-        String sqlLinea = "INSERT INTO Lineas_Venta (id_venta, id_producto, cantidad, precio_unitario) VALUES (?, ?, ?, ?)";
+        String sqlVenta = "INSERT INTO Venta (codigo, fecha, hora, cliente, dependiente) VALUES (?, ?, ?, ?, ?)";
+        String sqlLinea = "INSERT INTO Linea_Venta (venta, producto, cantidad, precio_unitario) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = BDConexion.getInstance().getConnection()) {
             conn.setAutoCommit(false); 
@@ -64,7 +64,7 @@ public class DAOVentaImp implements DAOVenta{
 
 	@Override
 	public void actualizarVenta(TVenta venta) throws Exception {
-		   String sql = "UPDATE Ventas SET fecha = ?, hora = ?, id_cliente = ?, id_dependiente = ?, id_factura = ? WHERE codigo = ?";
+		   String sql = "UPDATE Venta SET fecha = ?, hora = ?, cliente = ?, dependiente = ?, factura = ? WHERE codigo = ?";
 
 	        try (Connection conn = BDConexion.getInstance().getConnection();
 	             PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -85,10 +85,10 @@ public class DAOVentaImp implements DAOVenta{
 	@Override
 	public TVenta obtenerVenta(String codigo) throws Exception {
 		String sql = "SELECT v.*, c.nombre as nombre_cliente, d.nombre as nombre_dependiente, f.codigo as codigo_factura " +
-                "FROM Ventas v " +
-                "JOIN Clientes c ON v.id_cliente = c.num_socio " +
-                "JOIN Dependientes d ON v.id_dependiente = d.identificador " +
-                "LEFT JOIN Facturas f ON v.id_factura = f.codigo " +
+                "FROM Venta v " +
+                "JOIN Cliente c ON v.cliente = c.num_socio " +
+                "JOIN Dependiente d ON v.dependiente = d.identificador " +
+                "LEFT JOIN Factura f ON v.factura = f.codigo " +
                 "WHERE v.codigo = ?";
 
    try (Connection conn = BDConexion.getInstance().getConnection();
@@ -106,7 +106,7 @@ public class DAOVentaImp implements DAOVenta{
                );
 
                TDependiente dependiente = new TDependiente(
-                       rs.getString("id_dependiente"),
+                       rs.getString("dependiente"),
                        rs.getString("nombre_dependiente"),
                        rs.getFloat("sueldo"),
                        "", 
@@ -123,7 +123,7 @@ public class DAOVentaImp implements DAOVenta{
 
            String codigoFactura = rs.getString("codigo_factura");
            if (codigoFactura != null) {
-               TFactura factura = new TFactura(codigoFactura, rs.getDate("fecha").toLocalDate(), rs.getTime("hora").toLocalTime(), rs.getFloat("Importe"));
+               TFactura factura = new TFactura(codigoFactura, rs.getDate("fecha").toLocalDate(), rs.getTime("hora").toLocalTime(), rs.getFloat("importe"));
                venta.setFactura(factura);
            }
 
@@ -138,7 +138,7 @@ public class DAOVentaImp implements DAOVenta{
 
 	@Override
 	public List<TVenta> obtenerTodasVentas () throws Exception {
-		String sql = "SELECT codigo FROM Ventas";
+		String sql = "SELECT codigo FROM Venta";
         List<TVenta> ventas = new ArrayList<>();
 
         try (Connection conn = BDConexion.getInstance().getConnection();
@@ -156,7 +156,7 @@ public class DAOVentaImp implements DAOVenta{
 	
 	
 	public List<TLineaVenta> obtenerLineasVenta(String codigoVenta) throws SQLException {
-        String sql = "SELECT lv.*, p.* FROM lineas_venta lv JOIN productos p ON lv.id_producto = p.id WHERE lv.id_venta = ?";
+        String sql = "SELECT lv.*, p.* FROM linea_venta lv JOIN productos p ON lv.producto = p.id WHERE lv.venta = ?";
         List<TLineaVenta> lineas = new ArrayList<>();
         
         try (Connection conn = BDConexion.getInstance().getConnection();
