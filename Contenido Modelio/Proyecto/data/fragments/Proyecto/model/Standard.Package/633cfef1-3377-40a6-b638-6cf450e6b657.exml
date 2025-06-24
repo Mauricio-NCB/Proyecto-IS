@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Diagrama de clases" version="4">
+  <OBJECT>
+    <ID name="Diagrama de clases" mc="Standard.Package" uid="633cfef1-3377-40a6-b638-6cf450e6b657"/>
+    <PID name="Subsistema Empleado" mc="Standard.Package" uid="97feae94-f865-4dc9-9e9c-276e532b3735"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Diagrama de clases]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="VentanaEmpleado" mc="Standard.Class" uid="7090d1d3-4d25-4abd-82b1-809ccd0fd0e0"/>
+        <COMPID name="ControladorEmpleado" mc="Standard.Class" uid="5f32eb47-22b9-472a-a71c-e2771f2e483b"/>
+        <COMPID name="SAEmpleado" mc="Standard.Interface" uid="98dfd1aa-2302-473c-bd6d-80ef4b11cfc6"/>
+        <COMPID name="SAEmpleadoImp" mc="Standard.Class" uid="8ef6a3f6-06f5-4266-a901-a4f36b691dc5"/>
+        <COMPID name="DAOEmpleado" mc="Standard.Interface" uid="8c65f572-53a0-470c-80e8-b658574af505"/>
+        <COMPID name="DAOEmpleadoImp" mc="Standard.Class" uid="f1ce1176-7920-427e-9e90-0f1b1ba8391f"/>
+        <COMPID name="TEmpleado" mc="Standard.Class" uid="fc53ba27-c4e6-427d-b320-0bcf1f566576"/>
+        <COMPID name="TDirector" mc="Standard.Class" uid="41fc150b-e8a7-4ad4-8c8e-882e9ec27f16"/>
+        <COMPID name="TDependiente" mc="Standard.Class" uid="6aa068c0-972f-4d5e-894f-b01b3334e071"/>
+        <COMPID name="VentanaLogin" mc="Standard.Class" uid="05970a38-ff06-4f09-9d16-04455a20c76c"/>
+      </COMP>
+      <COMP relation="Product">
+        <COMPID name="Diagrama de clases" mc="Standard.ClassDiagram" uid="2e977b1e-111f-47ac-8f48-82641d968ce4"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

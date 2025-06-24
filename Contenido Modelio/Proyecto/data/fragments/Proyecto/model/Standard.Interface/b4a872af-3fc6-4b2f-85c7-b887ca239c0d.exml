@@ -2,7 +2,7 @@
 <!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="DAOFactura" version="4">
   <OBJECT>
     <ID name="DAOFactura" mc="Standard.Interface" uid="b4a872af-3fc6-4b2f-85c7-b887ca239c0d"/>
-    <PID name="Subsistema Factura" mc="Standard.Package" uid="4c60fe51-a732-4e23-9539-d2db175f938a"/>
+    <PID name="Diagrama de clases" mc="Standard.Package" uid="dcd1b234-39b5-433d-bb1a-3daeecc3de53"/>
     <ATTRIBUTES>
       <ATT name="IsElementary">false</ATT>
       <ATT name="IsAbstract">true</ATT>
@@ -85,7 +85,7 @@
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <LINK relation="Type">
-                    <ID name="TFactura" mc="Standard.DataType" uid="c1981dde-215d-48ab-b3fd-65df8112af16"/>
+                    <ID name="TFactura" mc="Standard.Class" uid="aacab93a-8109-4fc8-8dbc-8ffdd5f1567c"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
@@ -124,7 +124,7 @@
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <LINK relation="Type">
-                    <ID name="TFactura" mc="Standard.DataType" uid="c1981dde-215d-48ab-b3fd-65df8112af16"/>
+                    <ID name="TFactura" mc="Standard.Class" uid="aacab93a-8109-4fc8-8dbc-8ffdd5f1567c"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>

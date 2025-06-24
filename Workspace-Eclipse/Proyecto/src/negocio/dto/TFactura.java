@@ -2,7 +2,6 @@ package negocio.dto;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 
 
 public class TFactura {
@@ -57,9 +56,6 @@ public class TFactura {
     public void setImporte(final float value) {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.importe = value;
-    }
-
-    public void setDependientes(String dependiente) {
     }
 
 }

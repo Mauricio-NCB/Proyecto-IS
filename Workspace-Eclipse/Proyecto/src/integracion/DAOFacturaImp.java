@@ -60,13 +60,37 @@ public class DAOFacturaImp implements DAOFactura {
 	@Override
 	public void updateFactura(TFactura f) {
 		// TODO Auto-generated method stub
+		String sql = "UPDATE * FROM Factura WHERE codigo = ?, fecha = ?, hora = ?, importe = ?";
 		
+		try (Connection conn = BDConexion.getInstance().getConnection()) {
+			
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, f.getCodigo());
+	        pstmt.setDate(2, Date.valueOf(f.getFecha()));
+	        pstmt.setTime(3, Time.valueOf(f.getHora()));
+	        pstmt.setFloat(4, f.getImporte());
+
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+            e.printStackTrace();
+        }
 	}
 
 	@Override
 	public void deleteFactura(String codigoF) {
 		// TODO Auto-generated method stub
+		String sql = "DELETE * FROM Factura WHERE codigo = ?";
 		
+		try (Connection conn = BDConexion.getInstance().getConnection()) {
+			
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, codigoF);
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+            e.printStackTrace();
+        }
 	}
 
 	@Override
@@ -102,10 +126,6 @@ public class DAOFacturaImp implements DAOFactura {
 		List<TFactura> lista = new ArrayList<>();
 
 		String sql = "SELECT * FROM Factura";
-		
-		//DAOCliente daocliente = new DAOClienteImp();
-		//List<TCliente> clientes = daocliente.getAllClientes();
-
 		try (Connection conn = BDConexion.getInstance().getConnection();
 		     PreparedStatement stmt = conn.prepareStatement(sql);
 		     ResultSet rs = stmt.executeQuery()) {
@@ -118,18 +138,6 @@ public class DAOFacturaImp implements DAOFactura {
 				float importe = rs.getFloat("importe");
 				
 				TFactura f = new TFactura(codigo, fecha, hora, importe);
-
-				/*int idCliente = rs.getInt("cliente");
-
-				TCliente cliente = null;
-				for (TCliente c : clientes) {
-				    if (c.getNumSocio() == idCliente) {
-				        cliente = c;
-				        break;
-				    }
-				}
-
-				f.setTiene(cliente);*/
 
 				lista.add(f);
 			}

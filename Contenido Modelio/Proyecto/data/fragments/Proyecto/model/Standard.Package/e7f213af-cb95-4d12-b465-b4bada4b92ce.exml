@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Diagrama de secuencias" version="4">
+  <OBJECT>
+    <ID name="Diagrama de secuencias" mc="Standard.Package" uid="e7f213af-cb95-4d12-b465-b4bada4b92ce"/>
+    <PID name="Subsistema Empleado" mc="Standard.Package" uid="97feae94-f865-4dc9-9e9c-276e532b3735"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Diagrama de secuencias]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedBehavior">
+        <COMPID name="Interaction" mc="Standard.Interaction" uid="1fa94859-b8ae-4b66-9d1e-22b3bd9692c1"/>
+        <COMPID name="Interaction1" mc="Standard.Interaction" uid="e0cb1218-1493-4ea4-8b2e-df167deac568"/>
+        <COMPID name="Interaction2" mc="Standard.Interaction" uid="5161e438-4a6e-493e-8af8-849de675ee4e"/>
+        <COMPID name="Interaction3" mc="Standard.Interaction" uid="e96e8287-9f84-4f7b-afd4-2d45d202ad14"/>
+        <COMPID name="Interaction4" mc="Standard.Interaction" uid="d67d4c3f-14cd-42d5-9218-d8234edd2639"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

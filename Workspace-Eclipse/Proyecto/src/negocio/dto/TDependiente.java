@@ -1,12 +1,9 @@
 package negocio.dto;
 
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class TDependiente extends TEmpleado {
     private float sumVentas;
-    public List<TFactura> genera = new ArrayList<TFactura> ();
 
     public TDependiente(final String identificador, final String nombre, final float sueldo, final String contrasena, final float sumVentas) {
     	super(identificador, nombre, sueldo, contrasena);

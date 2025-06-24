@@ -1,8 +1,5 @@
 package negocio.dto;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class TCliente {
 	
@@ -10,8 +7,6 @@ public class TCliente {
     private String nombre;
     private String direccion;
     private String correo;
-    public List<TFactura> facturas = new ArrayList<TFactura> ();
-
 
     public TCliente(final String nombre, final String direccion, final String correo) {
     	this.nombre = nombre;

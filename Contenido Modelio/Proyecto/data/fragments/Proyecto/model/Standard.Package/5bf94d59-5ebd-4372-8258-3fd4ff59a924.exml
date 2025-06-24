@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Subsistema Venta" version="4">
+  <OBJECT>
+    <ID name="Subsistema Venta" mc="Standard.Package" uid="5bf94d59-5ebd-4372-8258-3fd4ff59a924"/>
+    <PID name="proyecto" mc="Standard.Package" uid="0750b6d0-30ad-4c12-a21c-d4d606f4390c"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Subsistema Venta]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="Diagrama de clases" mc="Standard.Package" uid="7277885a-d118-4c09-9bd3-4569e71a000a"/>
+        <COMPID name="Diagrama de secuencias" mc="Standard.Package" uid="5d8ebb02-18fc-4cc6-bb56-ade1a854d7e7"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

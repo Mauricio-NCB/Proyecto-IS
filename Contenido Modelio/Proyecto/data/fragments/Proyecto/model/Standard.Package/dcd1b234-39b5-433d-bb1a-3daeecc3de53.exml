@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Diagrama de clases" version="4">
+  <OBJECT>
+    <ID name="Diagrama de clases" mc="Standard.Package" uid="dcd1b234-39b5-433d-bb1a-3daeecc3de53"/>
+    <PID name="Subsistema Factura" mc="Standard.Package" uid="4c60fe51-a732-4e23-9539-d2db175f938a"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Diagrama de clases]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="DAOFactura" mc="Standard.Interface" uid="b4a872af-3fc6-4b2f-85c7-b887ca239c0d"/>
+        <COMPID name="SAFactura" mc="Standard.Interface" uid="ba6f13a9-00df-4023-866c-fd75397c02b4"/>
+        <COMPID name="DaoFacturaImp" mc="Standard.Class" uid="efb21136-ed03-4e32-ad48-58671bebc917"/>
+        <COMPID name="SAFacturaImp" mc="Standard.Class" uid="40611490-15cc-443d-8bd9-1d191695e9eb"/>
+        <COMPID name="TFactura" mc="Standard.Class" uid="aacab93a-8109-4fc8-8dbc-8ffdd5f1567c"/>
+        <COMPID name="ControladorFactura" mc="Standard.Class" uid="2878e518-9cd8-4552-87a6-b2079a3f0986"/>
+        <COMPID name="VentanaDependiente" mc="Standard.Class" uid="767e77fb-23d4-4d8d-aa76-8e7ac1e3bfe3"/>
+        <COMPID name="VentanaEmpleado" mc="Standard.Class" uid="18b674aa-0461-425e-8ece-67d919c60e8f"/>
+      </COMP>
+      <COMP relation="Product">
+        <COMPID name="Diagrama de clases" mc="Standard.ClassDiagram" uid="b15850aa-1924-447a-82d9-72752616d3df"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Diagrama de clases" version="4">
+  <OBJECT>
+    <ID name="Diagrama de clases" mc="Standard.Package" uid="8e0f84d3-36d2-4f94-ac66-d4e04b91e708"/>
+    <PID name="Subsistema Producto" mc="Standard.Package" uid="611a621e-b0c0-49dc-8d13-ab306c239164"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Diagrama de clases]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="SAProducto" mc="Standard.Interface" uid="5ecdc233-3f3d-4e27-ada4-0c2f054fc521"/>
+        <COMPID name="DAOProducto" mc="Standard.Interface" uid="cd458179-59e9-4de0-833f-a3340fe32ac7"/>
+        <COMPID name="SAProductoImp" mc="Standard.Class" uid="bce331e5-f1c5-4d42-b8e5-a53f5ea2474f"/>
+        <COMPID name="TProducto" mc="Standard.Class" uid="903ba8d8-f2ff-4257-81a2-ea91249fcff4"/>
+        <COMPID name="TEntrada" mc="Standard.Class" uid="798cf742-6edc-411e-810a-60ea29e6c3f7"/>
+        <COMPID name="TPoster" mc="Standard.Class" uid="95914258-ea07-48fe-99ee-c9b2f21c695e"/>
+        <COMPID name="TCamiseta" mc="Standard.Class" uid="96ea0814-78c7-44ee-816d-4a04432b37b1"/>
+        <COMPID name="TJuguete" mc="Standard.Class" uid="19d074eb-b3d4-4a7b-b44b-54c5a47cdbb6"/>
+        <COMPID name="DAOProductoImp" mc="Standard.Class" uid="614211db-c8bb-4b10-a641-92b27a202509"/>
+        <COMPID name="ControladorProducto" mc="Standard.Class" uid="c056eb0a-bcba-4a91-8677-2b2be2d65807"/>
+        <COMPID name="VentanaProducto" mc="Standard.Class" uid="ccd1ec5c-e1c5-4b40-b1aa-26d61798d891"/>
+        <COMPID name="VentanaCatalogo" mc="Standard.Class" uid="407e697d-dc4e-4d05-b94c-88bde2331f4a"/>
+      </COMP>
+      <COMP relation="Product">
+        <COMPID name="Diagrama de clases" mc="Standard.ClassDiagram" uid="ad50848c-9cde-4b07-8b15-f166dd0c2474"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

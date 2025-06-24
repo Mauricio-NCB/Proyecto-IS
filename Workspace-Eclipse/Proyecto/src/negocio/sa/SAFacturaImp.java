@@ -1,23 +1,12 @@
 package negocio.sa;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
-import java.util.UUID;
 import integracion.DAOFactura;
 import integracion.DAOFacturaImp;
-import integracion.DAOProducto;
-import integracion.DAOProductoImp;
-import negocio.dto.TCliente;
-import negocio.dto.TDependiente;
 import negocio.dto.TFactura;
-import negocio.dto.TProducto;
 
 public class SAFacturaImp implements SAFactura {
 
-	SACliente saCliente = new SAClienteImp();
-	SAEmpleado saEmpleado = new SAEmpleadoImp();
-	DAOProducto daoProducto = new DAOProductoImp();
 	DAOFactura daoFactura = new DAOFacturaImp();
 	
 	@Override

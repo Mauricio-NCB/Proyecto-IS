@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Diagrama de secuencias" version="4">
+  <OBJECT>
+    <ID name="Diagrama de secuencias" mc="Standard.Package" uid="5d8ebb02-18fc-4cc6-bb56-ade1a854d7e7"/>
+    <PID name="Subsistema Venta" mc="Standard.Package" uid="5bf94d59-5ebd-4372-8258-3fd4ff59a924"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Diagrama de secuencias]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedBehavior">
+        <COMPID name="Interaction1" mc="Standard.Interaction" uid="35ae33e1-bdfb-46de-a9e2-0e700854d95d"/>
+        <COMPID name="Interaction2" mc="Standard.Interaction" uid="f16b2b7a-3218-4205-9f73-365b31178c30"/>
+        <COMPID name="Interaction3" mc="Standard.Interaction" uid="35c794b9-f467-49ee-a3d1-4bdad928bffc"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

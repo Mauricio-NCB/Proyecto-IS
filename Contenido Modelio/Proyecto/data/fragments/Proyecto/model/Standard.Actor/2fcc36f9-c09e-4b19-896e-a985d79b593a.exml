@@ -155,7 +155,7 @@
           </ATTRIBUTES>
           <DEPENDENCIES>
             <LINK relation="Target">
-              <ID name="Mostrar todas las facturas" mc="Standard.UseCase" uid="2284af46-2de1-4aa6-8484-cdb73fbe0e0d"/>
+              <ID name="Mostrar todas las ventas" mc="Standard.UseCase" uid="2284af46-2de1-4aa6-8484-cdb73fbe0e0d"/>
             </LINK>
             <COMP relation="Opposite">
               <OBJECT>
@@ -216,7 +216,7 @@
           </ATTRIBUTES>
           <DEPENDENCIES>
             <LINK relation="Target">
-              <ID name="Mostrar Factura" mc="Standard.UseCase" uid="a1e2fafe-dc6e-48e8-93ec-db7c91c8267c"/>
+              <ID name="Mostrar Venta" mc="Standard.UseCase" uid="a1e2fafe-dc6e-48e8-93ec-db7c91c8267c"/>
             </LINK>
             <COMP relation="Opposite">
               <OBJECT>

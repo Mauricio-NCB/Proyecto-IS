@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Diagrama de clases" version="4">
+  <OBJECT>
+    <ID name="Diagrama de clases" mc="Standard.Package" uid="7277885a-d118-4c09-9bd3-4569e71a000a"/>
+    <PID name="Subsistema Venta" mc="Standard.Package" uid="5bf94d59-5ebd-4372-8258-3fd4ff59a924"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Diagrama de clases]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="SAVentaImp" mc="Standard.Class" uid="becfc8ea-fc71-4ad1-bba1-408ef3c252de"/>
+        <COMPID name="DAOVentaImp" mc="Standard.Class" uid="e1a71d3c-4fd1-4690-bd04-b980f595e3e0"/>
+        <COMPID name="LineaVenta" mc="Standard.Class" uid="aa518605-8bcc-4f65-95e3-379051f6c9a7"/>
+        <COMPID name="SAVenta" mc="Standard.Interface" uid="f7d6132c-29a2-4388-befe-03935d4fc75f"/>
+        <COMPID name="DAOVenta" mc="Standard.Interface" uid="0050c9c3-c7b9-44bd-92ac-90d83744d293"/>
+        <COMPID name="transferVenta" mc="Standard.Class" uid="f7493d95-7194-4ddc-ba47-9c8cea7b7868"/>
+        <COMPID name="Fecha" mc="Standard.Class" uid="5f48e826-00d9-41a3-95fa-eae3147ad000"/>
+        <COMPID name="Hora" mc="Standard.Class" uid="ca6bac5e-9a50-4911-adea-6c950ca64480"/>
+        <COMPID name="transferCliente" mc="Standard.Class" uid="ff02bd95-837b-4519-a3d2-8d44136d794f"/>
+        <COMPID name="transferDependiente" mc="Standard.Class" uid="6abb4deb-5691-400c-b147-809d495175cc"/>
+        <COMPID name="transferFactura" mc="Standard.Class" uid="25bdd95f-c6c2-44d7-ad99-3de5fddc45e0"/>
+        <COMPID name="controladorVenta" mc="Standard.Class" uid="21aff47f-3885-47cf-8501-81bf84afdad7"/>
+        <COMPID name="GUIVenta" mc="Standard.Class" uid="6398513f-6b39-4448-9c60-082d51e67eeb"/>
+        <COMPID name="transferProducto" mc="Standard.Class" uid="46039913-796d-443a-bae8-c52761fa3241"/>
+      </COMP>
+      <COMP relation="Product">
+        <COMPID name="Diagrama de clases" mc="Standard.ClassDiagram" uid="03ad816e-e81b-4235-9fc7-5a4ac0e28aa5"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

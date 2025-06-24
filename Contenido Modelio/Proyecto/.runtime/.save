@@ -1,5 +1,10 @@
-#Tue May 06 09:27:04 CEST 2025
+#Tue Jun 24 20:37:11 CEST 2025
 org.modelio.app.module.propertytab.GModule\ [id\='JavaDesigner',\ version\='5.4.00',\ type\='MODULE',\ definitionScope\='LOCAL',\ state\='MOUNTED']\ runtime\ module_.org.modelio.full.perspective.parentId=app.ui.ext_com.partstack.bottom
+org.modelio.app.diagram.editor.OpenedDiagrams0='Obtener factura' {f0493dbe-0e34-4e2e-b970-ef046392df82} Standard.SequenceDiagram
 org.modelio.app.module.propertytab.GModule\ [id\='JavaDesigner',\ version\='5.4.00',\ type\='MODULE',\ definitionScope\='LOCAL',\ state\='MOUNTED']\ runtime\ module_.org.modelio.development.perspective.parentId=app.ui.ext_com.partstack.bottom
+org.modelio.app.diagram.editor.OpenedDiagrams3='Eliminar factura' {2c911475-f4a1-47d7-b423-1e80e66acb0f} Standard.SequenceDiagram
+org.modelio.app.diagram.editor.OpenedDiagrams4='Obtener facturas' {8e39069a-a74d-4216-9559-fbeda176efb7} Standard.SequenceDiagram
+org.modelio.app.diagram.editor.OpenedDiagrams1='Crear factura' {81911db5-f55b-4f05-8778-ca62cd91da2d} Standard.SequenceDiagram
+org.modelio.app.diagram.editor.OpenedDiagrams2='Actualizar factura' {98cec103-7871-48e5-ac9c-0cb9cffde21d} Standard.SequenceDiagram
 org.modelio.app.module.propertytab.GModule\ [id\='JavaDesigner',\ version\='5.4.00',\ type\='MODULE',\ definitionScope\='LOCAL',\ state\='MOUNTED']\ runtime\ module_.org.modelio.app.ui.model.perspective.parentId=org.modelio.app.bottom.parts
 org.modelio.app.module.propertytab.GModule\ [id\='JavaDesigner',\ version\='5.4.00',\ type\='MODULE',\ definitionScope\='LOCAL',\ state\='MOUNTED']\ runtime\ module_.org.modelio.diagram.perspective.parentId=app.ui.ext_com.partstack.right
