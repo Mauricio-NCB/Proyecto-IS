@@ -67,7 +67,7 @@ public class VentanaEmpleado extends JFrame {
         super("Panel de Control del empleado");
         controladorEm = ControladorEmpleado.getInstance();
         controladorCl = ControladorCliente.getInstance();
-        initComponents();
+        initComponentes();
         initLayout();
         initListeners();
         redirectSystemStreams();
@@ -78,7 +78,7 @@ public class VentanaEmpleado extends JFrame {
     }
 
     // --- InicializaciÃ³n de Componentes ---
-    private void initComponents() {
+    private void initComponentes() {
         // Paneles
         panelNorte = new JPanel();
         panelNorte.setLayout(new BoxLayout(panelNorte, BoxLayout.Y_AXIS)); // Layout vertical
