@@ -88,7 +88,7 @@ public class VentanaEmpleado extends JFrame {
         panelRegistroEmpleado= new JPanel(new GridBagLayout());
         panelRegistroEmpleado.setBorder(BorderFactory.createTitledBorder("Registrar Nuevo Director/Dependiente"));
         panelActualizarDatos = new JPanel(new GridBagLayout());
-        panelActualizarDatos.setBorder(BorderFactory.createTitledBorder("Actualizar Datos Director"));
+        panelActualizarDatos.setBorder(BorderFactory.createTitledBorder("Actualizar Datos Empleado"));
         panelEliminarEmpleado = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelEliminarEmpleado.setBorder(BorderFactory.createTitledBorder("Gestionar empleado"));
         panelAccionesGenerales = new JPanel(new FlowLayout(FlowLayout.LEFT));
