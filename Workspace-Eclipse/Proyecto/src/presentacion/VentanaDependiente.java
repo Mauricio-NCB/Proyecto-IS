@@ -39,7 +39,7 @@ public class VentanaDependiente extends JFrame {
 		panelBotones.setLayout(new BoxLayout(panelBotones, BoxLayout.X_AXIS));
 		panelBotones.setBorder(BorderFactory.createEmptyBorder(20, 100, 20, 100)); // Espaciado interno
 
-		JButton btnVenta = new JButton("Gestión ventas");
+		JButton btnVenta = new JButton("Gestiï¿½n ventas");
 		JButton btnListarFacturas = new JButton("Listar facturas");
 
 
@@ -52,7 +52,6 @@ public class VentanaDependiente extends JFrame {
 		btnVenta.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				
 				new VentanaVenta().setVisible(true);
 			}
 			

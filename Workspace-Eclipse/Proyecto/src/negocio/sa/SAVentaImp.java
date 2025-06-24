@@ -37,53 +37,51 @@ public class SAVentaImp implements SAVenta{
 	public void abrirVenta(int idCliente, String idDependiente, List<TLineaVenta> listaProductos) throws Exception {
 		
 
-		List<TCliente> clientes = saCliente.listarClientes(); 
-		boolean existeCliente = clientes.stream().anyMatch(c -> c.getNumSocio() == idCliente);
-		if (!existeCliente) throw new Exception("El cliente con ID " + idCliente + " no existe.");
-		
-		List<TEmpleado> empleados = saEmpleado.mostrarEmpleados();
-		boolean existeDep = empleados.stream().anyMatch(d -> d.getIdentificador().equals(idDependiente));
+		TCliente cliente = saCliente.obtenerCliente(idCliente);
+		if (cliente == null) throw new Exception("El cliente con ID " + idCliente + " no existe.");
 
-		if (!existeDep) throw new Exception("El dependiente con ID " + idDependiente + " no existe.");
-		
+		TEmpleado empleado = saEmpleado.obtenerEmpleado(idDependiente);
+		if (empleado == null) throw new Exception("El dependiente con ID " + idDependiente + " no existe.");
+
+        
+        if (!(empleado instanceof TDependiente)) {
+            throw new Exception("El empleado con ID " + idDependiente + " no es un dependiente.");
+        }
+
+        TDependiente dep = (TDependiente) empleado;
+
+        List<TProducto> productos = daoProducto.obtenerTodosLosProductos();
         for (TLineaVenta linea : listaProductos) {
-       	 	TProducto producto = null;
-            for (TProducto p: daoProducto.obtenerTodosLosProductos()) {
-            	if (p.getID() == linea.getProducto().getID()) {
-            		producto = p;
-            		
-            	}
-            }
+            TProducto producto = productos.stream()
+                .filter(p -> p.getID() == linea.getProducto().getID())
+                .findFirst()
+                .orElse(null);
+
             if (producto == null) {
                 throw new Exception("Producto no encontrado: " + linea.getProducto().getID());
             }
             if (producto.getStock() < linea.getCantidad()) {
                 throw new Exception("Stock insuficiente para producto: " + producto.getNombre());
             }
+            linea.setProducto(producto);
         }
-        
-        TCliente cliente = clientes.stream().filter(c -> c.getNumSocio() == idCliente)
-    		    .findFirst().orElseThrow(() -> new Exception("Cliente no encontrado"));
-    	
 
-		TEmpleado empleado = empleados.stream().filter(d -> d.getIdentificador().equals(idDependiente))
-    		    .findFirst().orElseThrow(() -> new Exception("Dependiente no encontrado"));
-    		
-		if (!(empleado instanceof TDependiente)) {
-		    throw new Exception("El empleado con ID " + idDependiente + " no es un dependiente.");
-		}
-		
-		TDependiente dep = (TDependiente) empleado;
-         
         String codigo = UUID.randomUUID().toString();
-        TVenta venta = new TVenta(codigo, LocalDate.now(), LocalTime.now(),cliente,dep);
-        
-        for (TLineaVenta linea: listaProductos) {
-        	venta.addLineaVenta(linea);
+        TVenta venta = new TVenta(codigo, LocalDate.now(), LocalTime.now(), cliente, dep);
+
+        // 2. Añadir todas las líneas de venta a la venta
+        for (TLineaVenta linea : listaProductos) {
+            venta.addLineaVenta(linea);
         }
-        
-        daoVenta.crearVenta(venta);
+
+        // 3. Persistir la venta (inserta venta y líneas: relación n:m)
+        daoVenta.crearVenta(venta); // Este método debe insertar en tabla 'Venta' y tabla 'LineaVenta'
+
+        // 4. Generar automáticamente la factura asociada a esta venta
+        TFactura factura = new TFactura(venta.getCodigo(), LocalDate.now(), LocalTime.now(), venta.getImporteTotal()); // ajusta los parámetros según el constructor de TFactura
+        saFactura.crearFactura(factura);
 	}
+
 
 	@Override
 	public void cerrarVenta(TVenta venta) throws Exception {
@@ -121,7 +119,7 @@ public class SAVentaImp implements SAVenta{
       
         TProducto producto = lineaVenta.getProducto();
         if (producto == null) {
-            throw new Exception("Producto no v�lido");
+            throw new Exception("Producto no v�lido");
         }
 
         TProducto productoBD = null;
@@ -138,7 +136,7 @@ public class SAVentaImp implements SAVenta{
             throw new Exception("Stock insuficiente para producto: " + productoBD.getNombre());
         }
 
-        // A�adir l�nea de venta
+        // A�adir l�nea de venta
         venta.addLineaVenta(lineaVenta);
         daoVenta.actualizarVenta(venta);
 		

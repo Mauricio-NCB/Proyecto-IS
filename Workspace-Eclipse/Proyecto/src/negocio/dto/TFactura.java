@@ -57,5 +57,4 @@ public class TFactura {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.importe = value;
     }
-
 }

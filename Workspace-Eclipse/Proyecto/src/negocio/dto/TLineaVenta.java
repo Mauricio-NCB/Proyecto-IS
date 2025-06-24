@@ -13,7 +13,7 @@ public class TLineaVenta {
 		return this.producto;
 	}
 	
-	public void setProcudto(TProducto producto) {
+	public void setProducto(TProducto producto) {
 		this.producto = producto;
 	}
 	

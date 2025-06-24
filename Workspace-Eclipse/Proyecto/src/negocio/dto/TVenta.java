@@ -83,8 +83,8 @@ public class TVenta {
 		this.lineasVenta.add(l);
 	}
 	
-	public double getImporteTotal() {
-		double aux = 0;
+	public float getImporteTotal() {
+		float aux = 0;
 		for (TLineaVenta l: lineasVenta) {
 			aux += l.getPrecioTotal();
 		}

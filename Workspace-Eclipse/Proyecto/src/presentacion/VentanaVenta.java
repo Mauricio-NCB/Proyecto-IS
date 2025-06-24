@@ -36,9 +36,10 @@ public class VentanaVenta extends JFrame {
     private JTable tablaVentas;
     private VentaTableModel ventaTableModel;
     private JButton btnActualizarListado;
+    List<TLineaVenta> lineasVenta; // Lista de lÃ­neas de venta para la venta actual
     
     public VentanaVenta() {
-        super("Gestión de Ventas");
+        super("GestiÃ³n de Ventas");
         this.controlador = ControladorVenta.getInstance();
         initComponents();
         initLayout();
@@ -86,7 +87,7 @@ public class VentanaVenta extends JFrame {
         panelBuscarVenta = new JPanel(new BorderLayout(10, 10));
         
         JPanel panelBusqueda = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        panelBusqueda.add(new JLabel("Código Venta:"));
+        panelBusqueda.add(new JLabel("Cï¿½digo Venta:"));
         txtCodigoVenta = new JTextField(15);
         panelBusqueda.add(txtCodigoVenta);
         btnBuscarVenta = new JButton("Buscar");
@@ -146,8 +147,17 @@ public class VentanaVenta extends JFrame {
         
         int cantidad = (Integer) spinnerCantidad.getValue();
         TProducto producto = tableModel.getProductoAt(filaSeleccionada);
-        
-       
+
+        // Suponiendo que tienes una lista de lÃ­neas de venta para la venta actual
+        // Si no existe, deberÃ­as declararla como atributo de la clase VentanaVenta
+        if (producto != null) {
+            TLineaVenta lineaVenta = new TLineaVenta(producto, cantidad);
+            if (lineasVenta == null) {
+                lineasVenta = new ArrayList<>();
+            }
+            lineasVenta.add(lineaVenta);
+            JOptionPane.showMessageDialog(this, "Producto agregado: " + producto.getNombre() + " x" + cantidad, "Producto Agregado", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
     
     private void crearVenta() {
@@ -156,21 +166,23 @@ public class VentanaVenta extends JFrame {
             String idDependiente = txtDependienteId.getText().trim();
             
            
-            List<TLineaVenta> lineasVenta = new ArrayList<>();
+            if (lineasVenta == null) {
+                JOptionPane.showMessageDialog(this, "No hay productos en la venta", "Error", JOptionPane.ERROR_MESSAGE);
+            }
             
             if (controlador.abrirVenta(idCliente, idDependiente, lineasVenta)) {
-                JOptionPane.showMessageDialog(this, "Venta creada con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Venta creada con Ã©xito", "Ã‰xito", JOptionPane.INFORMATION_MESSAGE);
                 limpiarCampos();
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "ID de cliente debe ser numérico", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "ID de cliente debe ser numÃ©rico", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
     private void buscarVenta() {
         String codigo = txtCodigoVenta.getText().trim();
         if (codigo.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese un código de venta", "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ingrese un cÃ³digo de venta", "Error", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -184,7 +196,7 @@ public class VentanaVenta extends JFrame {
     
     private void mostrarDetalleVenta(TVenta venta) {
         StringBuilder sb = new StringBuilder();
-        sb.append("Código: ").append(venta.getCodigo()).append("\n");
+        sb.append("Cï¿½digo: ").append(venta.getCodigo()).append("\n");
         sb.append("Fecha: ").append(venta.getFecha()).append(" ").append(venta.getHora()).append("\n");
         sb.append("Cliente: ").append(venta.getTiene().getNombre()).append("\n");
         sb.append("Dependiente: ").append(venta.getDependiente().getNombre()).append("\n\n");
@@ -193,10 +205,10 @@ public class VentanaVenta extends JFrame {
         for (TLineaVenta linea : venta.getLineasVenta()) {
             sb.append("- ").append(linea.getProducto().getNombre())
              .append(" x").append(linea.getCantidad())
-             .append(": ").append(linea.getProducto().getPrecio() * linea.getCantidad()).append("€\n");
+             .append(": ").append(linea.getProducto().getPrecio() * linea.getCantidad()).append("ï¿½\n");
         }
         
-        sb.append("\nTotal: ").append(venta.getImporteTotal()).append("€\n");
+        sb.append("\nTotal: ").append(venta.getImporteTotal()).append("ï¿½\n");
         
         if (venta.getFactura() != null) {
             sb.append("\nFactura: ").append(venta.getFactura().getCodigo());
@@ -268,7 +280,7 @@ public class VentanaVenta extends JFrame {
     
     private class VentaTableModel extends AbstractTableModel {
         private List<TVenta> ventas;
-        private String[] columnNames = {"Código", "Fecha", "Cliente", "Total", "Facturada"};
+        private String[] columnNames = {"Cï¿½digo", "Fecha", "Cliente", "Total", "Facturada"};
         
         public void setVentas(List<TVenta> ventas) {
             this.ventas = ventas;
@@ -291,7 +303,7 @@ public class VentanaVenta extends JFrame {
                 case 1: return venta.getFecha();
                 case 2: return venta.getTiene().getNombre();
                 case 3: return venta.getImporteTotal();
-                case 4: return venta.getFactura() != null ? "Sí" : "No";
+                case 4: return venta.getFactura() != null ? "Sï¿½" : "No";
                 default: return null;
             }
         }

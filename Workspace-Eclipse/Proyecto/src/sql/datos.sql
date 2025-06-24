@@ -87,31 +87,37 @@ CREATE TABLE Cliente (
     correo VARCHAR(255) NOT NULL UNIQUE
 );
 
-CREATE TABLE Factura(
-    codigo VARCHAR(50) NOT NULL PRIMARY KEY,
-    fecha DATE NOT NULL,
-    hora TIME NOT NULL,
-    importe FLOAT NOT NULL
-);
-
 CREATE TABLE Venta (
-    codigo VARCHAR(50) NOT NULL PRIMARY KEY,
-    fecha DATE NOT NULL,
-    hora TIME NOT NULL,
-    cliente INT NOT NULL,
-    dependiente VARCHAR(20) NOT NULL,
-    factura VARCHAR(50) NOT NULL,
-    FOREIGN KEY (cliente) REFERENCES Cliente(num_socio) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (dependiente) REFERENCES Dependiente(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (factura) REFERENCES Factura(codigo) ON DELETE CASCADE ON UPDATE CASCADE
+    codigo VARCHAR(36) PRIMARY KEY,
+    fecha DATE,
+    hora TIME,
+    cliente INT,
+    dependiente VARCHAR(10),
+    FOREIGN KEY (cliente) REFERENCES Cliente(num_socio),
+    FOREIGN KEY (dependiente) REFERENCES Empleado(identificador)
 );
 
-CREATE TABLE Linea_venta (
-    venta VARCHAR(50) NOT NULL,
-    producto INT NOT NULL,
-    cantidad INT NOT NULL,
-    precio_unitario FLOAT NOT NULL,
-    PRIMARY KEY (venta, producto),
-    FOREIGN KEY (venta) REFERENCES Venta(codigo) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (producto) REFERENCES Producto(id) ON DELETE CASCADE ON UPDATE CASCADE
+CREATE TABLE Factura (
+    codigo INT AUTO_INCREMENT PRIMARY KEY,
+    venta VARCHAR(36),
+    fecha DATE,
+    hora TIME NOT NULL,
+    importe DECIMAL(10,2),
+    FOREIGN KEY (venta) REFERENCES Venta(codigo)
 );
+
+CREATE TABLE Linea_Venta (
+    venta VARCHAR(36),
+    producto INT,
+    cantidad INT,
+    precio_unitario DECIMAL(10,2),
+    PRIMARY KEY (venta, producto),
+    FOREIGN KEY (venta) REFERENCES Venta(codigo),
+    FOREIGN KEY (producto) REFERENCES Producto(id)
+);
+
+
+
+
+
+

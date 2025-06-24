@@ -64,7 +64,7 @@ public class DAOVentaImp implements DAOVenta{
 
 	@Override
 	public void actualizarVenta(TVenta venta) throws Exception {
-		   String sql = "UPDATE Venta SET fecha = ?, hora = ?, cliente = ?, dependiente = ?, factura = ? WHERE codigo = ?";
+		   String sql = "UPDATE Venta SET fecha = ?, hora = ?, cliente = ?, dependiente = ? WHERE codigo = ?";
 
 	        try (Connection conn = BDConexion.getInstance().getConnection();
 	             PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -73,22 +73,20 @@ public class DAOVentaImp implements DAOVenta{
 	            pstmt.setTime(2, java.sql.Time.valueOf(venta.getHora()));
 	            pstmt.setInt(3, venta.getTiene().getNumSocio());
 	            pstmt.setString(4, venta.getDependiente().getIdentificador());
-	            pstmt.setString(5, venta.getFactura() != null ? venta.getFactura().getCodigo() : null);
-	            pstmt.setString(6, venta.getCodigo());
+	            pstmt.setString(5, venta.getCodigo());
 
 	            if (pstmt.executeUpdate() == 0) {
-	                throw new SQLException("No se actualizó ninguna venta");
+	                throw new SQLException("No se actualizï¿½ ninguna venta");
 	            }
 	        }
 	}
 
 	@Override
 	public TVenta obtenerVenta(String codigo) throws Exception {
-		String sql = "SELECT v.*, c.nombre as nombre_cliente, d.nombre as nombre_dependiente, f.codigo as codigo_factura " +
+		String sql = "SELECT v.*, c.nombre as nombre_cliente, d.nombre as nombre_dependiente" +
                 "FROM Venta v " +
                 "JOIN Cliente c ON v.cliente = c.num_socio " +
                 "JOIN Dependiente d ON v.dependiente = d.identificador " +
-                "LEFT JOIN Factura f ON v.factura = f.codigo " +
                 "WHERE v.codigo = ?";
 
    try (Connection conn = BDConexion.getInstance().getConnection();
@@ -120,14 +118,6 @@ public class DAOVentaImp implements DAOVenta{
                dependiente
            );
 
-
-           String codigoFactura = rs.getString("codigo_factura");
-           if (codigoFactura != null) {
-               TFactura factura = new TFactura(codigoFactura, rs.getDate("fecha").toLocalDate(), rs.getTime("hora").toLocalTime(), rs.getFloat("importe"));
-               venta.setFactura(factura);
-           }
-
-   
            venta.setLineasVenta(obtenerLineasVenta(codigo));
 
            return venta;

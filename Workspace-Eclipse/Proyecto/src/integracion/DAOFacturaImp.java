@@ -40,7 +40,7 @@ public class DAOFacturaImp implements DAOFactura {
 
 	@Override
 	public void createFactura(TFactura factura) throws Exception {
-	    String sql = "INSERT INTO Factura (codigo, fecha, hora, importe) VALUES (?, ?, ?, ?)";
+	    String sql = "INSERT INTO Factura (venta, fecha, hora, importe) VALUES (?, ?, ?, ?)";
 
 	    try (Connection conn = BDConexion.getInstance().getConnection();
 	         PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -107,7 +107,7 @@ public class DAOFacturaImp implements DAOFactura {
 			
 			if (!rs.next()) throw new SQLException("No se pudo obtener la factura en la tabla Factura");
 			
-			String codigo = rs.getString("codigo");
+			String codigo = rs.getString("venta");
 			LocalDate fecha = rs.getDate("fecha").toLocalDate();
 			LocalTime hora = rs.getTime("hora").toLocalTime();
 			float importe = rs.getFloat("importe");		
@@ -132,7 +132,7 @@ public class DAOFacturaImp implements DAOFactura {
 
 			while (rs.next()) {
 				
-				String codigo = rs.getString("codigo");
+				String codigo = rs.getString("venta");
 				LocalDate fecha = rs.getDate("fecha").toLocalDate();
 				LocalTime hora = rs.getTime("hora").toLocalTime();
 				float importe = rs.getFloat("importe");
